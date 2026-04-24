@@ -1,7 +1,7 @@
 library(data.table)
 library(readxl)
 library(stringr)
-
+#https://www2.census.gov/library/reference/naics/technical-documentation/concordance/
 sic87_naics02 <- read_excel("1987_SIC_to_2002_NAICS.xls") #data frame 2168 rows 4 columns includes header
 naics02_07 <- read_excel("2002_to_2007_NAICS.xls",skip = 2) #data frame 1200 rows 4 columns includes header
 naics07_12 <- read_excel("2007_to_2012_NAICS.xls",skip = 2) #data frame 1184 rows 4 columns includes header
