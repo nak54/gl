@@ -1,0 +1,17 @@
+# RAG Pipeline Requirements - Qdrant Vector Database Implementation
+
+# Data Processing
+pandas>=1.5.0
+numpy>=1.24.0
+pyarrow>=12.0.0
+
+# Embeddings
+sentence-transformers>=2.2.0
+torch>=2.0.0
+
+# Vector Database
+qdrant-client>=2.7.0
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.65.0
