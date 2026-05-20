@@ -1,0 +1,69 @@
+Mid-year Self-Assessment — N. Krishnamurthy (June 2026)
+
+SYNTAX
+1) Coordinated with the RAAS administrator to create /projects/syntax for analysts and managers, and added the newest team member.
+2) Built both pip-only and Conda-based containers on DGX and Venus with NLP processing capabilities. This included configuring user access, mounting NLTK datasets from users’ home directories, and mounting embedding models under /projects/nlp_model.
+3) Created distribution plots to compare numeric variables in sample datasets (from the DataMart). Also developed correlation-similarity metrics to validate correlation structure between real and synthetic data, and computed KS test statistics for numeric DataMart columns.
+
+METRICS
+4) Produced quality reports using an improved underlying SDV model. Documented that increasing SDV training rows from ~0.5K to 10K+ improved the correlation-similarity score from ~0.80 to >0.95, helping identify minimum sample-size requirements for SDV model training.
+5) Transitioned from SQL Server DataMart sourcing to CDW. Used the two-year pull query to generate individual tax-year Form 1120 datasets for identified columns. Work on categorical metrics, privacy metrics, and information-theory measures (e.g., Jensen-based measures) is ongoing.
+6) Created and saved real datasets for tax years 2015–2020 under /projects/syntax to support synthetic-data generation and related quality/privacy metrics (used to verify whether generated data meets both requirements).
+   a) Confirmed with the team lead why retaining ~1.6M real records is necessary until we receive confirmation that the underlying real data will remain stable. Metrics depend on both real and synthetic snapshots; if either changes, metrics change. Seeding and saving the model ensures synthetic data is reproducible.
+
+ARM
+1) Updated ARM tool data-processing and user-guide documentation (including the R and SQL code for tax year 2023). Code and documentation versions are maintained in LBI’s GitHub instance.
+2) Updated the discovery data underlying the tool to the October 2025 snapshot.
+3) Created executive project briefing documentation and slide deck
+4) Supported the independent review of the Tax Year 2023 ARM tool by providing clarifications, including process changes such as discontinuing R’s zipcode library (which has not been updated since 2017).
+5) Supporting the arcGIS product (created queries and data pull)
+6) attending tutorial series learning arcGIS features
+
+TOPIC MODELING on SEC data 
+1) Switched from TPP CV data to SEC MD&A data for submissions from 2024–2025 (~6K filings).
+2) Built datasets for industry-based topic analysis, including:
+   a) Pulling CIK, SIC, and other metadata from SEC bulk files available in RAAS /projects folders.
+   b) Verifying that CIK/SIC/EIN/entity name fields for a 2K-sample of 2025 submissions matched results from the SEC API.
+   c) Performing a SIC-to-NAICS 2017 crosswalk (per Census guidance) to map SIC87 4-digit industry codes to NAICS2017 6-digit codes.
+   d) Merging the ~6K “Management’s Discussion and Analysis” (Item 7) sections from 10-K submissions.
+   e) Planning to run LDA topic modeling first to identify themes in the merged MD&A datasets.
+   f) Testing a DGX container for BERTopic on sample (non-SEC) data; BERTopic is computationally expensive and requires GPU resources.
+3) Pivoting to use above mentioned data for RAG app
+	a)created python code for different steps
+	b)tested qdrant vector store, 364 dim embedding not great for complex queries switched to 768
+	c)reached IT contact for redis vector store
+	d)created vector embeddings for document chunks for ~4k SIC cross walked 2024-2025 filings
+	
+SYNTAX	
+Built both pip-only and Conda-based containers on DGX and Venus with NLP processing capabilities. This included configuring user access, mounting NLTK datasets from users’ home directories, and mounting embedding models under /projects/nlp_model
+
+Transitioned from using DataMart source  to CDW. Used the two-year pull query to generate individual tax-year Form 1120 datasets for tax years 2015–2020 
+
+metrics: created distance of records metrics to account for corelations. also tried gower distance between mixed data types (numeric and categorical). Presented the work internally as part of knowledge sharing,  Created reproducible code and report for all of the above including Hellinger Distance metric.
+
+Documented that increasing SDV training rows from ~0.5K to 10K+ improved the correlation-similarity score from ~0.80 to >0.95, helping establish minimum sample-size requirements for SDV model training. 
+
+ARM
+Updated ARM tool data-processing and user-guide documentation (including the R and SQL code for tax year 2023). Code and documentation versions are maintained in LBI’s GitHub instance.
+Updated the discovery data underlying the tool to the October 2025 snapshot.
+Created executive project briefing documentation and slide deck.
+Supported the independent review of the Tax Year 2023 ARM tool by providing clarifications, including process changes such as discontinuing R’s zipcode library (which has not been updated since 2017).
+Supported the ArcGIS product by creating queries and data pulls.
+Attendeding  tutorial series to learn ArcGIS features (on going).
+
+SEC Data
+Pivoted from TPP CV data to SEC MD&A data for submissions from 2024–2025 (~11K filings).
+Built datasets for industry-based topic analysis, including:
+a) Pulling CIK, SIC, and other metadata from SEC bulk files available in RAAS /projects folders.
+b) Verifying that CIK/SIC/EIN/entity name fields for a 2K sample of 2025 submissions matched results from the SEC API.
+c) Performing a SIC-to-NAICS 2017 crosswalk (per Census guidance) to map SIC87 4-digit industry codes to NAICS2017 6-digit codes.
+d) Extracting and merging the ~4K “Management’s Discussion and Analysis” (Item 7) sections from 10-K submissions.
+
+topic modeling would involve running LDA and using BertTOPIC on this dataset
+
+Did SEC RAG app creation processes that involved the following:
+a) Wrote Python code to support each pipeline step.
+b) Tested Qdrant as a vector store; 364-dimension embeddings performed poorly for complex queries, so switched to 768-dimension embeddings.
+c) Contacted IT regarding Redis Vector Store.
+d) Created vector embeddings for document chunks from ~4K SIC-crosswalked filings (2024–2025) on DGX after testing code on CPU on venus.
+	
