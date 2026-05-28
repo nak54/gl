@@ -1,0 +1,2 @@
+sudo apt-get install -y gpg
+curl -fsSL https://cloud.r-project.org/bin/linux/debian/marutter_pubkey.asc | sudo gpg --dearmor -o /usr/share/keyrings/r-project.gpg
