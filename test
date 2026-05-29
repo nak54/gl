@@ -4,3 +4,42 @@ pacman::p_load(parallel,pdftools,tesseract,openxlsx,writexl,readxl,dplyr,stringr
 
 sudo apt-get install -y gpg
 curl -fsSL https://cloud.r-project.org/bin/linux/debian/marutter_pubkey.asc | sudo gpg --dearmor -o /usr/share/keyrings/r-project.gpg
+
+#install from .deb
+# Example: downloading R 4.2.x and R 4.3.x
+wget https://cloud.r-project.org/bin/linux/debian/pool/main/r/r-base/r-base-core_4.2.3-1~bullseye0_amd64.deb
+wget https://cloud.r-project.org/bin/linux/debian/pool/main/r/r-base/r-base-core_4.3.1-1~bookworm0_amd64.deb
+2. Install dependencies first
+bash
+sudo apt update
+sudo apt install -y gfortran libreadline-dev libx11-dev libxt-dev
+3. Install both .deb files
+bash
+sudo dpkg -i r-base-core_4.2.3-1~bullseye0_amd64.deb
+sudo dpkg -i r-base-core_4.3.1-1~bookworm0_amd64.deb
+If there are dependency conflicts, resolve them:
+
+bash
+sudo apt --fix-broken install
+4. Verify both versions are installed
+bash
+dpkg -l | grep r-base
+5. Use alternative symlinks to switch between versions
+To manage multiple R installations, use update-alternatives:
+
+bash
+# Find the R executable paths
+which R
+ls -la /usr/bin/R*
+
+# Register both versions with alternatives
+sudo update-alternatives --install /usr/bin/R R /usr/bin/R-4.2 1
+sudo update-alternatives --install /usr/bin/R R /usr/bin/R-4.3 2
+6. Switch between versions
+bash
+# Interactive selection
+sudo update-alternatives --config R
+
+# Or directly call specific version
+/usr/bin/R-4.2 --version
+/usr/bin/R-4.3 --version
