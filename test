@@ -1,3 +1,5 @@
+#bootstrap themes https://www.bootstrapcdn.com/bootswatch
+
 #acr pkgs
 pacman::p_load(parallel,pdftools,tesseract,openxlsx,writexl,readxl,dplyr,stringr,tibble,tidyr,progress,stringi,readr,reshape2,gridExtra,ggplot2,tm,quanteda)
 
