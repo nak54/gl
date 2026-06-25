@@ -1,9 +1,27 @@
+<<<<<<< HEAD
 You find that requiring accounting integration during onboarding decreases 14-day activation but increases 90-day retention for SMB only. Support tickets increase in week 1. How would you approach this decision?
 Question 1: What are your initial hypotheses here on why SMB is affected and Mid-Market is not?
 
 Question 2: Do you recommend shipping the forced step? Yes/no & why?
 
 I would run a controlled A/B experiment comparing onboarding flows with and without accounting integration for SMB customers. The primary metric would be 90‑day retention, while secondary metrics would track 14‑day activation and week‑1 support ticket volume. By quantifying the trade‑off, I could determine if the retention gain outweighs the activation dip and support cost. If the net lifetime value improves, I would implement the integration but add targeted in‑app guidance, automated help‑center articles, and proactive outreach during the first week to reduce support tickets. Continuous monitoring would ensure the balance remains favorable.
+=======
+test
+I just want to put in a final reminder for Cohort 1 Section 1 final exam at https://forms.gle/YdJUKy1tuUvFqrqUA 
+You have One attempt to take it before midnight of 30JUN.
+
+If you want to revisit Section 1, please register for Cohort 2 Section 1 at https://www.gsa.gov/artificial-intelligence/ai-community-of-practice/events-and-training/mastering-agentic-ai-systems 
+I also attached the flyer for that section below.
+
+Cohort 1 Section 2 will be accelerated, requiring a significant workload of 5 chapters per week. Therefore, it will be invitation-based. If you want to join this section, you may either complete the Cohort 1 Section 1 final exam or wait for Cohort 2 Section 2 which will be opened to all.
+
+All Section 2 materials are available:
+- Chapters were uploaded to https://community.connect.gov/spaces/ITMI/pages/2812185006/PDFs (look for part 3 to 6 pdf files)
+- Slides are available at https://github.com/GSA/MasteringAgenticAISystems_supplementals/tree/master/slides
+- Quizzes are available at https://github.com/GSA/MasteringAgenticAISystems_supplementals/blob/master/quizzes_ver20JUN26.md
+
+
+>>>>>>> a719060d90d4382c5d956c65a58e01fc41a98f1e
 
 
 https://knightli.com/en/2026/04/23/compare-openai-bge-e5-gte-jina-embedding-models/
