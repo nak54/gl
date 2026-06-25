@@ -1,3 +1,11 @@
+You find that requiring accounting integration during onboarding decreases 14-day activation but increases 90-day retention for SMB only. Support tickets increase in week 1. How would you approach this decision?
+Question 1: What are your initial hypotheses here on why SMB is affected and Mid-Market is not?
+
+Question 2: Do you recommend shipping the forced step? Yes/no & why?
+
+I would run a controlled A/B experiment comparing onboarding flows with and without accounting integration for SMB customers. The primary metric would be 90‑day retention, while secondary metrics would track 14‑day activation and week‑1 support ticket volume. By quantifying the trade‑off, I could determine if the retention gain outweighs the activation dip and support cost. If the net lifetime value improves, I would implement the integration but add targeted in‑app guidance, automated help‑center articles, and proactive outreach during the first week to reduce support tickets. Continuous monitoring would ensure the balance remains favorable.
+
+
 https://knightli.com/en/2026/04/23/compare-openai-bge-e5-gte-jina-embedding-models/
 
 https://mediaspace.esri.com/createdby/eyJpdiI6InA5Qkg4dE9DT2VkRTBDRjR4OUEwclE9PSIsInZhbHVlIjoiRHB5Y2lLelwvWU9ZSk9OcW9Rclo2aGFDWDlEZEhCU2tubU82eGtjSUJDd009IiwibWFjIjoiMTcxODQwYjkxNjExNmRjODEwYzU4YWZjYmFkNzEwZDQzMzNhMWVhZmRkZjFlNzdmYzMxODUxNGQ4ZDc4ODhhMiJ9
