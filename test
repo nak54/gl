@@ -6,6 +6,27 @@ Question 2: Do you recommend shipping the forced step? Yes/no & why?
 
 I would run a controlled A/B experiment comparing onboarding flows with and without accounting integration for SMB customers. The primary metric would be 90‑day retention, while secondary metrics would track 14‑day activation and week‑1 support ticket volume. By quantifying the trade‑off, I could determine if the retention gain outweighs the activation dip and support cost. If the net lifetime value improves, I would implement the integration but add targeted in‑app guidance, automated help‑center articles, and proactive outreach during the first week to reduce support tickets. Continuous monitoring would ensure the balance remains favorable.
 =======
+Question 1: Initial hypotheses on why SMB is affected and Mid-Market is not
+
+My first hypothesis is that accounting integration is more valuable for SMBs because it may be a stronger indicator of long-term product fit. SMB customers who connect accounting early may get to the product’s core value faster, such as better reporting, automation, reconciliation, or financial visibility. So while the forced step creates onboarding friction, the customers who complete it may become more embedded and therefore retain better.
+
+Mid-Market may be less affected for a few reasons. They may already have more complex accounting systems, longer implementation cycles, or dedicated finance/ops teams, so forcing integration during onboarding may not meaningfully change their behavior or perceived value. It could also be that Mid-Market retention is driven more by sales-led implementation, contracts, stakeholder buy-in, or admin setup rather than a single onboarding step.
+
+I would also look for segmentation within SMB. For example, the effect may vary by company size, accounting software used, technical sophistication, industry, or whether the buyer is also the end user. The support-ticket spike suggests the step may be valuable but poorly supported or too complex during week one.
+
+Question 2: Do I recommend shipping the forced step?
+
+Not as a blanket forced step yet.
+
+The data shows a real trade-off: lower 14-day activation and higher week-one support tickets, but better 90-day retention for SMBs. Since retention is usually more important than short-term activation, I would not dismiss the change. However, I would be cautious about forcing it for all SMB customers without understanding whether the retention lift is causal and whether the activation loss is acceptable.
+
+My recommendation would be to ship a targeted version for SMB only, ideally as a guided or strongly recommended step rather than a hard requirement at first. I would run or validate this through an A/B test with SMB customers, using 90-day retention or LTV as the primary metric and activation, support volume, time-to-value, and conversion/drop-off as guardrail metrics.
+
+If the retention lift produces higher net LTV after accounting for lost activation and support cost, I would ship it for the SMB segments where the effect is strongest. But I would pair it with improvements: better in-app setup guidance, clearer explanation of why integration matters, accounting-provider-specific flows, help-center content, and proactive support during week one.
+
+So my answer is: yes for SMB if the net business impact is positive, but not as an unqualified forced step across all customers. I would not ship it for Mid-Market unless further data shows a clear benefit.
+
+_________
 test
 I just want to put in a final reminder for Cohort 1 Section 1 final exam at https://forms.gle/YdJUKy1tuUvFqrqUA 
 You have One attempt to take it before midnight of 30JUN.
