@@ -1,4 +1,6 @@
-<<<<<<< HEAD
+https://digital.gov/guides/plain-language
+
+
 You find that requiring accounting integration during onboarding decreases 14-day activation but increases 90-day retention for SMB only. Support tickets increase in week 1. How would you approach this decision?
 Question 1: What are your initial hypotheses here on why SMB is affected and Mid-Market is not?
 
@@ -40,9 +42,6 @@ All Section 2 materials are available:
 - Chapters were uploaded to https://community.connect.gov/spaces/ITMI/pages/2812185006/PDFs (look for part 3 to 6 pdf files)
 - Slides are available at https://github.com/GSA/MasteringAgenticAISystems_supplementals/tree/master/slides
 - Quizzes are available at https://github.com/GSA/MasteringAgenticAISystems_supplementals/blob/master/quizzes_ver20JUN26.md
-
-
->>>>>>> a719060d90d4382c5d956c65a58e01fc41a98f1e
 
 
 https://knightli.com/en/2026/04/23/compare-openai-bge-e5-gte-jina-embedding-models/
