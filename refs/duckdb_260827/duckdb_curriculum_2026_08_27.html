@@ -1,0 +1,2508 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DuckDB Curriculum: Hands-on Data Wrangling, Iceberg, and 2026
+Features</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --paper: #ffffff;
+      --paper-soft: #f1f5f9;
+      --ink: #111827;
+      --muted: #475569;
+      --line: #e2e8f0;
+      --accent: #0f766e;
+      --accent-dark: #164e63;
+      --accent-soft: #ccfbf1;
+      --code-bg: #0b1020;
+      --code-ink: #e5e7eb;
+      --inline-code-bg: #eef2ff;
+      --inline-code-ink: #312e81;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+      line-height: 1.62;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.08), transparent 36rem),
+        var(--bg);
+    }
+    a { color: var(--accent); text-decoration-thickness: 0.08em; text-underline-offset: 0.18em; }
+    a:hover { color: var(--accent-dark); }
+    .hero {
+      background: linear-gradient(135deg, #0f766e, #164e63 70%);
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.22);
+    }
+    .hero-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 46px 28px 38px;
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: rgba(255,255,255,0.86);
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+    .hero h1 {
+      margin: 0;
+      max-width: 1020px;
+      font-size: clamp(2rem, 4.5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+    }
+    .dek {
+      max-width: 900px;
+      margin: 18px 0 0;
+      color: rgba(255,255,255,0.92);
+      font-size: 1.08rem;
+    }
+    .page {
+      max-width: 1420px;
+      margin: 0 auto;
+      padding: 30px 28px 60px;
+      display: grid;
+      grid-template-columns: minmax(250px, 310px) minmax(0, 1fr);
+      gap: 26px;
+      align-items: start;
+    }
+    .toc-panel {
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px 20px 22px;
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+    }
+    .toc-panel h2 {
+      margin: 0 0 10px;
+      border: 0;
+      padding: 0;
+      color: var(--accent-dark);
+      font-size: 1.08rem;
+    }
+    .toc-panel ul { list-style: none; margin: 0; padding-left: 0; }
+    .toc-panel ul ul { padding-left: 1rem; margin-top: 0.2rem; }
+    .toc-panel li { margin: 0.34rem 0; font-size: 0.9rem; line-height: 1.35; }
+    .toc-panel a { text-decoration: none; color: #334155; }
+    .toc-panel a:hover { color: var(--accent); text-decoration: underline; }
+    .content {
+      min-width: 0;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 34px 46px 76px;
+      box-shadow: 0 20px 55px rgba(15, 23, 42, 0.08);
+    }
+    h1, h2, h3, h4, h5, h6 {
+      line-height: 1.24;
+      margin-top: 1.55em;
+      margin-bottom: 0.58em;
+      letter-spacing: -0.02em;
+    }
+    h1:first-child, h2:first-child, h3:first-child { margin-top: 0; }
+    h1 {
+      font-size: 2.2rem;
+      color: var(--accent-dark);
+      border-bottom: 3px solid var(--line);
+      padding-bottom: 0.35em;
+    }
+    h2 {
+      font-size: 1.68rem;
+      color: var(--accent-dark);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.24em;
+    }
+    h3 { font-size: 1.28rem; color: #0f172a; }
+    h4 { font-size: 1.08rem; color: #1f2937; }
+    p { margin: 0.78rem 0; }
+    strong { font-weight: 750; }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+    blockquote {
+      margin: 1rem 0;
+      padding: 0.85rem 1rem;
+      border-left: 4px solid var(--accent);
+      background: #f0fdfa;
+      color: #134e4a;
+      border-radius: 0 12px 12px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.55rem;
+      display: block;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #fff;
+    }
+    thead { background: #ecfeff; }
+    th, td {
+      padding: 0.72rem 0.82rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { font-weight: 780; color: #0f172a; }
+    tr:last-child td { border-bottom: 0; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.92em;
+    }
+    p code, li code, td code, th code {
+      background: var(--inline-code-bg);
+      color: var(--inline-code-ink);
+      padding: 0.12em 0.32em;
+      border-radius: 5px;
+      white-space: break-spaces;
+    }
+    pre {
+      margin: 1rem 0 1.45rem;
+      padding: 1rem 1.1rem;
+      overflow-x: auto;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      border-radius: 14px;
+      border: 1px solid #1f2937;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.035);
+    }
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      white-space: pre;
+    }
+    ul, ol { padding-left: 1.35rem; }
+    li { margin: 0.28rem 0; }
+    .sourceCode { background: transparent; }
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 12px;
+      background: #fff;
+      color: var(--accent-dark);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      z-index: 10;
+    }
+    .skip-link:focus { left: 12px; }
+    @media print {
+      body { background: white; }
+      .hero { color: #000; background: white; border-bottom: 1px solid #ddd; }
+      .toc-panel, .content { box-shadow: none; border: 0; }
+      .page { display: block; padding: 0; }
+      .toc-panel { position: static; max-height: none; }
+      pre { white-space: pre-wrap; }
+      a { color: inherit; text-decoration: none; }
+    }
+    @media (max-width: 1020px) {
+      .page { display: block; padding: 20px 16px 44px; }
+      .toc-panel { position: static; max-height: none; margin-bottom: 18px; }
+      .content { padding: 26px 22px 54px; }
+    }
+    @media (max-width: 650px) {
+      .hero-inner { padding: 32px 18px 28px; }
+      .content { border-radius: 14px; padding: 22px 16px 44px; }
+      .toc-panel { border-radius: 14px; }
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.42rem; }
+      h3 { font-size: 1.16rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Instructor-led DuckDB workshop</p>
+      <h1>DuckDB Curriculum: Hands-on Data Wrangling, Iceberg, and 2026
+Features</h1>
+      <p class="dek">Hands-on data wrangling, query craftsmanship, Iceberg implementation boundaries, and current DuckDB features in one standalone HTML document.</p>
+    </div>
+  </header>
+  <div class="page">
+        <aside class="toc-panel" aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ul>
+      <li><a href="#course-map" id="toc-course-map">1. Course
+      Map</a></li>
+      <li><a
+      href="#conceptual-boundary-apache-iceberg-vs-duckdbs-iceberg-extension"
+      id="toc-conceptual-boundary-apache-iceberg-vs-duckdbs-iceberg-extension">2.
+      Conceptual Boundary: Apache Iceberg vs DuckDB’s Iceberg
+      Extension</a></li>
+      <li><a href="#simplest-setup-path" id="toc-simplest-setup-path">3.
+      Simplest Setup Path</a>
+      <ul>
+      <li><a href="#local-project-setup"
+      id="toc-local-project-setup">3.1 Local project setup</a></li>
+      <li><a href="#generate-local-lab-data"
+      id="toc-generate-local-lab-data">3.2 Generate local lab
+      data</a></li>
+      </ul></li>
+      <li><a href="#learner-facing-lessons"
+      id="toc-learner-facing-lessons">4. Learner-facing Lessons</a>
+      <ul>
+      <li><a href="#module-1---build-a-reliable-local-duckdb-project"
+      id="toc-module-1---build-a-reliable-local-duckdb-project">Module 1
+      - Build a Reliable Local DuckDB Project</a>
+      <ul>
+      <li><a href="#objectives" id="toc-objectives">Objectives</a></li>
+      <li><a href="#prerequisitessetup"
+      id="toc-prerequisitessetup">Prerequisites/setup</a></li>
+      <li><a href="#concept-primer" id="toc-concept-primer">Concept
+      primer</a></li>
+      <li><a href="#worked-demo" id="toc-worked-demo">Worked
+      demo</a></li>
+      <li><a href="#guided-lab" id="toc-guided-lab">Guided lab</a></li>
+      <li><a href="#expected-checks" id="toc-expected-checks">Expected
+      checks</a></li>
+      <li><a href="#independent-challenge"
+      id="toc-independent-challenge">Independent challenge</a></li>
+      <li><a href="#troubleshooting"
+      id="toc-troubleshooting">Troubleshooting</a></li>
+      <li><a href="#debrief-questions"
+      id="toc-debrief-questions">Debrief questions</a></li>
+      <li><a href="#stretch-task" id="toc-stretch-task">Stretch
+      task</a></li>
+      <li><a href="#cleanupreset"
+      id="toc-cleanupreset">Cleanup/reset</a></li>
+      </ul></li>
+      <li><a href="#module-2---query-craftsmanship-for-messy-analytics"
+      id="toc-module-2---query-craftsmanship-for-messy-analytics">Module
+      2 - Query Craftsmanship for Messy Analytics</a>
+      <ul>
+      <li><a href="#objectives-1"
+      id="toc-objectives-1">Objectives</a></li>
+      <li><a href="#prerequisitessetup-1"
+      id="toc-prerequisitessetup-1">Prerequisites/setup</a></li>
+      <li><a href="#concept-primer-1" id="toc-concept-primer-1">Concept
+      primer</a></li>
+      <li><a href="#worked-demo-1" id="toc-worked-demo-1">Worked
+      demo</a></li>
+      <li><a href="#guided-lab-1" id="toc-guided-lab-1">Guided
+      lab</a></li>
+      <li><a href="#expected-checks-1"
+      id="toc-expected-checks-1">Expected checks</a></li>
+      <li><a href="#independent-challenge-1"
+      id="toc-independent-challenge-1">Independent challenge</a></li>
+      <li><a href="#troubleshooting-1"
+      id="toc-troubleshooting-1">Troubleshooting</a></li>
+      <li><a href="#debrief-questions-1"
+      id="toc-debrief-questions-1">Debrief questions</a></li>
+      <li><a href="#stretch-task-1" id="toc-stretch-task-1">Stretch
+      task</a></li>
+      <li><a href="#cleanupreset-1"
+      id="toc-cleanupreset-1">Cleanup/reset</a></li>
+      </ul></li>
+      <li><a
+      href="#module-3---semi-structured-data-and-time-series-analytics"
+      id="toc-module-3---semi-structured-data-and-time-series-analytics">Module
+      3 - Semi-structured Data and Time-series Analytics</a>
+      <ul>
+      <li><a href="#objectives-2"
+      id="toc-objectives-2">Objectives</a></li>
+      <li><a href="#prerequisitessetup-2"
+      id="toc-prerequisitessetup-2">Prerequisites/setup</a></li>
+      <li><a href="#concept-primer-2" id="toc-concept-primer-2">Concept
+      primer</a></li>
+      <li><a href="#worked-demo-2" id="toc-worked-demo-2">Worked
+      demo</a></li>
+      <li><a href="#guided-lab-2" id="toc-guided-lab-2">Guided
+      lab</a></li>
+      <li><a href="#expected-checks-2"
+      id="toc-expected-checks-2">Expected checks</a></li>
+      <li><a href="#independent-challenge-2"
+      id="toc-independent-challenge-2">Independent challenge</a></li>
+      <li><a href="#troubleshooting-2"
+      id="toc-troubleshooting-2">Troubleshooting</a></li>
+      <li><a href="#debrief-questions-2"
+      id="toc-debrief-questions-2">Debrief questions</a></li>
+      <li><a href="#stretch-task-2" id="toc-stretch-task-2">Stretch
+      task</a></li>
+      <li><a href="#cleanupreset-2"
+      id="toc-cleanupreset-2">Cleanup/reset</a></li>
+      </ul></li>
+      <li><a
+      href="#module-4---performance-and-internals-you-can-observe"
+      id="toc-module-4---performance-and-internals-you-can-observe">Module
+      4 - Performance and Internals You Can Observe</a>
+      <ul>
+      <li><a href="#objectives-3"
+      id="toc-objectives-3">Objectives</a></li>
+      <li><a href="#prerequisitessetup-3"
+      id="toc-prerequisitessetup-3">Prerequisites/setup</a></li>
+      <li><a href="#concept-primer-3" id="toc-concept-primer-3">Concept
+      primer</a></li>
+      <li><a href="#worked-demo-3" id="toc-worked-demo-3">Worked
+      demo</a></li>
+      <li><a href="#guided-lab-bad-query-vs-better-query"
+      id="toc-guided-lab-bad-query-vs-better-query">Guided lab: bad
+      query vs better query</a></li>
+      <li><a href="#expected-observations"
+      id="toc-expected-observations">Expected observations</a></li>
+      <li><a href="#objective-checks"
+      id="toc-objective-checks">Objective checks</a></li>
+      <li><a href="#independent-challenge-3"
+      id="toc-independent-challenge-3">Independent challenge</a></li>
+      <li><a href="#troubleshooting-3"
+      id="toc-troubleshooting-3">Troubleshooting</a></li>
+      <li><a href="#debrief-questions-3"
+      id="toc-debrief-questions-3">Debrief questions</a></li>
+      <li><a href="#stretch-task-3" id="toc-stretch-task-3">Stretch
+      task</a></li>
+      <li><a href="#cleanupreset-3"
+      id="toc-cleanupreset-3">Cleanup/reset</a></li>
+      </ul></li>
+      <li><a
+      href="#module-5---iceberg-read-path-and-metadata-boundaries"
+      id="toc-module-5---iceberg-read-path-and-metadata-boundaries">Module
+      5 - Iceberg Read Path and Metadata Boundaries</a>
+      <ul>
+      <li><a href="#objectives-4"
+      id="toc-objectives-4">Objectives</a></li>
+      <li><a href="#prerequisitessetup-4"
+      id="toc-prerequisitessetup-4">Prerequisites/setup</a></li>
+      <li><a href="#concept-primer-4" id="toc-concept-primer-4">Concept
+      primer</a></li>
+      <li><a href="#worked-demo-4" id="toc-worked-demo-4">Worked
+      demo</a></li>
+      <li><a href="#guided-lab-scan-a-specific-metadata-file"
+      id="toc-guided-lab-scan-a-specific-metadata-file">Guided lab: scan
+      a specific metadata file</a></li>
+      <li><a href="#expected-checks-3"
+      id="toc-expected-checks-3">Expected checks</a></li>
+      <li><a href="#implementation-boundary-exercise"
+      id="toc-implementation-boundary-exercise">Implementation-boundary
+      exercise</a></li>
+      <li><a href="#independent-challenge-4"
+      id="toc-independent-challenge-4">Independent challenge</a></li>
+      <li><a href="#troubleshooting-4"
+      id="toc-troubleshooting-4">Troubleshooting</a></li>
+      <li><a href="#debrief-questions-4"
+      id="toc-debrief-questions-4">Debrief questions</a></li>
+      <li><a href="#stretch-task-4" id="toc-stretch-task-4">Stretch
+      task</a></li>
+      <li><a href="#cleanupreset-4"
+      id="toc-cleanupreset-4">Cleanup/reset</a></li>
+      </ul></li>
+      <li><a
+      href="#module-6---rest-catalog-iceberg-writes-plus-2026-feature-synthesis"
+      id="toc-module-6---rest-catalog-iceberg-writes-plus-2026-feature-synthesis">Module
+      6 - REST-catalog Iceberg Writes Plus 2026 Feature Synthesis</a>
+      <ul>
+      <li><a href="#objectives-5"
+      id="toc-objectives-5">Objectives</a></li>
+      <li><a href="#prerequisitessetup-5"
+      id="toc-prerequisitessetup-5">Prerequisites/setup</a></li>
+      <li><a href="#concept-primer-5" id="toc-concept-primer-5">Concept
+      primer</a></li>
+      <li><a
+      href="#core-stable-feature-lab-variant-and-current-sql-behavior"
+      id="toc-core-stable-feature-lab-variant-and-current-sql-behavior">Core
+      stable-feature lab: VARIANT and current SQL behavior</a></li>
+      <li><a href="#optional-advanced-path-dockerized-rest-catalog"
+      id="toc-optional-advanced-path-dockerized-rest-catalog">Optional
+      advanced path: Dockerized REST catalog</a></li>
+      <li><a href="#advanced-guided-lab-catalog-managed-ddldml"
+      id="toc-advanced-guided-lab-catalog-managed-ddldml">Advanced
+      guided lab: catalog-managed DDL/DML</a></li>
+      <li><a href="#advanced-boundary-lab-delete-semantics"
+      id="toc-advanced-boundary-lab-delete-semantics">Advanced boundary
+      lab: delete semantics</a></li>
+      <li><a href="#independent-challenge-5"
+      id="toc-independent-challenge-5">Independent challenge</a></li>
+      <li><a href="#troubleshooting-5"
+      id="toc-troubleshooting-5">Troubleshooting</a></li>
+      <li><a href="#debrief-questions-5"
+      id="toc-debrief-questions-5">Debrief questions</a></li>
+      <li><a href="#stretch-task-5" id="toc-stretch-task-5">Stretch
+      task</a></li>
+      <li><a href="#cleanupreset-5"
+      id="toc-cleanupreset-5">Cleanup/reset</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#instructor-notes-and-solutions"
+      id="toc-instructor-notes-and-solutions">5. Instructor Notes and
+      Solutions</a>
+      <ul>
+      <li><a href="#module-1-solution-notes"
+      id="toc-module-1-solution-notes">Module 1 solution notes</a></li>
+      <li><a href="#module-2-solution-notes"
+      id="toc-module-2-solution-notes">Module 2 solution notes</a></li>
+      <li><a href="#module-3-solution-notes"
+      id="toc-module-3-solution-notes">Module 3 solution notes</a></li>
+      <li><a href="#module-4-solution-notes"
+      id="toc-module-4-solution-notes">Module 4 solution notes</a></li>
+      <li><a href="#module-5-solution-notes"
+      id="toc-module-5-solution-notes">Module 5 solution notes</a></li>
+      <li><a href="#module-6-solution-notes"
+      id="toc-module-6-solution-notes">Module 6 solution notes</a></li>
+      </ul></li>
+      <li><a
+      href="#duckdb-vs-apache-iceberg-implementationsupport-matrix"
+      id="toc-duckdb-vs-apache-iceberg-implementationsupport-matrix">6.
+      DuckDB vs Apache Iceberg Implementation/Support Matrix</a></li>
+      <li><a
+      href="#current-year-duckdb-feature-table-january-1-august-27-2026"
+      id="toc-current-year-duckdb-feature-table-january-1-august-27-2026">7.
+      Current-year DuckDB Feature Table: January 1-August 27, 2026</a>
+      <ul>
+      <li><a href="#preview-beta-experimental-or-upcoming-appendix"
+      id="toc-preview-beta-experimental-or-upcoming-appendix">Preview,
+      beta, experimental, or upcoming appendix</a></li>
+      </ul></li>
+      <li><a href="#assessment-package" id="toc-assessment-package">8.
+      Assessment Package</a>
+      <ul>
+      <li><a href="#module-1-checks" id="toc-module-1-checks">Module 1
+      checks</a></li>
+      <li><a href="#module-2-checks" id="toc-module-2-checks">Module 2
+      checks</a></li>
+      <li><a href="#module-3-checks" id="toc-module-3-checks">Module 3
+      checks</a></li>
+      <li><a href="#module-4-checks" id="toc-module-4-checks">Module 4
+      checks</a></li>
+      <li><a href="#module-5-checks" id="toc-module-5-checks">Module 5
+      checks</a></li>
+      <li><a href="#module-6-checks" id="toc-module-6-checks">Module 6
+      checks</a></li>
+      </ul></li>
+      <li><a href="#official-source-reference-section"
+      id="toc-official-source-reference-section">9. Official-source
+      Reference Section</a></li>
+      <li><a href="#quality-gate-result"
+      id="toc-quality-gate-result">10. Quality-gate Result</a></li>
+      </ul>
+    </aside>
+        <main id="main-content" class="content">
+      <p><strong>Verification date:</strong> August 27, 2026<br />
+      <strong>Stable curriculum baseline:</strong> DuckDB 1.5.5,
+      released July 22, 2026<br />
+      <strong>Current feature line:</strong> 1.5.x<br />
+      <strong>Current LTS line:</strong> 1.4.x, with 1.4.5 LTS released
+      June 17, 2026<br />
+      <strong>Upcoming, not stable baseline:</strong> DuckDB 1.5.6 and
+      2.0.0 are listed as future/upcoming releases and should not be
+      taught as current stable behavior.</p>
+      <p>Official baseline source: DuckDB release calendar: <a
+      href="https://duckdb.org/release_calendar"
+      class="uri">https://duckdb.org/release_calendar</a></p>
+      <p><strong>Execution note:</strong> These labs are written for
+      local DuckDB CLI plus Python notebooks. The curriculum does not
+      claim commands were executed in the ChatGPT runtime.</p>
+      <hr />
+      <h2 id="course-map">1. Course Map</h2>
+      <table>
+      <colgroup>
+      <col style="width: 18%" />
+      <col style="width: 25%" />
+      <col style="width: 18%" />
+      <col style="width: 18%" />
+      <col style="width: 18%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Module</th>
+      <th style="text-align: right;">Duration</th>
+      <th>Level</th>
+      <th>Main focus</th>
+      <th>Lab artifact</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>1. Build a reliable local DuckDB project</td>
+      <td style="text-align: right;">60 min</td>
+      <td>Intermediate</td>
+      <td>CSV, JSON, Parquet ingestion; staging as strings; schema
+      repair; NULL handling; validation checks</td>
+      <td><code>customers_curated</code>, <code>transactions_raw</code>,
+      first Parquet file</td>
+      </tr>
+      <tr class="even">
+      <td>2. Query craftsmanship for messy analytics</td>
+      <td style="text-align: right;">70 min</td>
+      <td>Intermediate</td>
+      <td>Deduplication, regex cleanup, joins, window functions, orphan
+      detection, revenue mart</td>
+      <td><code>mart_customer_revenue</code></td>
+      </tr>
+      <tr class="odd">
+      <td>3. Semi-structured data and time-series analytics</td>
+      <td style="text-align: right;">70 min</td>
+      <td>Advanced</td>
+      <td>JSON/STRUCT access, list aggregation, pivot/unpivot, daily
+      event aggregation</td>
+      <td><code>events_clean</code>, <code>mart_event_pivot</code>,
+      customer journeys</td>
+      </tr>
+      <tr class="even">
+      <td>4. Performance and internals you can observe</td>
+      <td style="text-align: right;">75 min</td>
+      <td>Advanced</td>
+      <td><code>EXPLAIN</code>, <code>EXPLAIN ANALYZE</code>,
+      projection/predicate pushdown, Parquet partitioned writes,
+      row-group and file pruning</td>
+      <td>partitioned Parquet event dataset and profiling worksheet</td>
+      </tr>
+      <tr class="odd">
+      <td>5. Iceberg read path and metadata boundaries</td>
+      <td style="text-align: right;">75 min</td>
+      <td>Advanced lakehouse</td>
+      <td>DuckDB Iceberg extension, path-based read-only scans,
+      snapshots, metadata functions, ACID/version-hint boundary</td>
+      <td>Iceberg metadata notebook and boundary notes</td>
+      </tr>
+      <tr class="even">
+      <td>6. REST-catalog Iceberg writes plus 2026 feature
+      synthesis</td>
+      <td style="text-align: right;">75 min</td>
+      <td>Advanced synthesis</td>
+      <td>Catalog-managed writes, DDL/DML, MERGE, schema evolution,
+      current-year DuckDB features</td>
+      <td>advanced REST-catalog demo plus final support matrix</td>
+      </tr>
+      </tbody>
+      </table>
+      <p>The course balance is designed around approximately 45% data
+      wrangling/query craftsmanship, 35% Iceberg/lakehouse
+      implementation, and 20% recent DuckDB features plus
+      performance/debugging.</p>
+      <hr />
+      <h2
+      id="conceptual-boundary-apache-iceberg-vs-duckdbs-iceberg-extension">2.
+      Conceptual Boundary: Apache Iceberg vs DuckDB’s Iceberg
+      Extension</h2>
+      <table>
+      <colgroup>
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Layer</th>
+      <th>What it is</th>
+      <th>What it is responsible for</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>Apache Iceberg</td>
+      <td>Open table format/specification</td>
+      <td>Table metadata, manifests, snapshots, schema/partition
+      evolution concepts, delete files, and format-version rules</td>
+      </tr>
+      <tr class="even">
+      <td>Apache Iceberg ecosystem/reference libraries</td>
+      <td>Java/Python/etc. implementations and catalogs used by
+      engines</td>
+      <td>Catalog APIs, commit behavior, metadata management, delete
+      semantics, engine integration</td>
+      </tr>
+      <tr class="odd">
+      <td>DuckDB Iceberg extension</td>
+      <td>DuckDB extension that reads and, when attached to a REST
+      catalog, writes Iceberg tables</td>
+      <td>DuckDB SQL integration, <code>iceberg_scan</code>, metadata
+      functions, REST-catalog DDL/DML, local query execution</td>
+      </tr>
+      </tbody>
+      </table>
+      <p>Teach this distinction repeatedly: DuckDB’s Iceberg extension
+      is not equivalent to the entire Apache Iceberg ecosystem. Compare
+      capability by capability.</p>
+      <p>Official sources:</p>
+      <ul>
+      <li>DuckDB Iceberg overview: <a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/overview.html"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/overview.html</a></li>
+      <li>Apache Iceberg specification: <a
+      href="https://iceberg.apache.org/spec/"
+      class="uri">https://iceberg.apache.org/spec/</a></li>
+      <li>Apache Iceberg REST catalog specification: <a
+      href="https://iceberg.apache.org/rest-catalog-spec/"
+      class="uri">https://iceberg.apache.org/rest-catalog-spec/</a></li>
+      </ul>
+      <hr />
+      <h2 id="simplest-setup-path">3. Simplest Setup Path</h2>
+      <h3 id="local-project-setup">3.1 Local project setup</h3>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> duckdb-workshop/<span class="dt">{data/raw</span><span class="op">,</span><span class="dt">data/curated</span><span class="op">,</span><span class="dt">data/marts</span><span class="op">,</span><span class="dt">out</span><span class="op">,</span><span class="dt">iceberg</span><span class="op">,</span><span class="dt">tmp}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> duckdb-workshop</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv .venv</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install duckdb duckdb-cli pandas pyarrow</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> <span class="at">--version</span></span></code></pre></div>
+      <p>Inside DuckDB:</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> version();</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>INSTALL iceberg;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>LOAD iceberg;</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Refresh installed extensions when internet access is available.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> EXTENSIONS;</span></code></pre></div>
+      <p>Official sources:</p>
+      <ul>
+      <li>DuckDB Iceberg overview: <a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/overview.html"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/overview.html</a></li>
+      <li>DuckDB 1.5.0 release announcement: <a
+      href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></li>
+      </ul>
+      <h3 id="generate-local-lab-data">3.2 Generate local lab data</h3>
+      <p>Create intentionally imperfect raw data:</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> generate_lab_data.py <span class="op">&lt;&lt;&#39;PY&#39;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">from pathlib import Path</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">import csv</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">import json</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">root = Path(&quot;data/raw&quot;)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">root.mkdir(parents=True, exist_ok=True)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">customers = [</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;customer_id&quot;: &quot;101&quot;, &quot;email&quot;: &quot;ALICE@example.COM &quot;, &quot;country&quot;: &quot;us&quot;, &quot;signup_ts&quot;: &quot;2026-01-03 10:00:00&quot;, &quot;plan&quot;: &quot;pro&quot;},</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;customer_id&quot;: &quot;102&quot;, &quot;email&quot;: &quot;bob@example.com&quot;, &quot;country&quot;: &quot;ca&quot;, &quot;signup_ts&quot;: &quot;2026-01-04 11:30:00&quot;, &quot;plan&quot;: &quot;free&quot;},</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;customer_id&quot;: &quot;103&quot;, &quot;email&quot;: &quot;carol_at_example.com&quot;, &quot;country&quot;: &quot;US&quot;, &quot;signup_ts&quot;: &quot;2026-01-05 09:00:00&quot;, &quot;plan&quot;: &quot;pro&quot;},</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;customer_id&quot;: &quot;104&quot;, &quot;email&quot;: &quot; dan@example.com &quot;, &quot;country&quot;: &quot;gb&quot;, &quot;signup_ts&quot;: &quot;&quot;, &quot;plan&quot;: &quot;team&quot;},</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;customer_id&quot;: &quot;105&quot;, &quot;email&quot;: &quot;eve@example.com&quot;, &quot;country&quot;: &quot;us&quot;, &quot;signup_ts&quot;: &quot;2026-01-07 08:15:00&quot;, &quot;plan&quot;: &quot;&quot;},</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;customer_id&quot;: &quot;102&quot;, &quot;email&quot;: &quot;bob.duplicate@example.com&quot;, &quot;country&quot;: &quot;CA&quot;, &quot;signup_ts&quot;: &quot;2026-01-06 07:00:00&quot;, &quot;plan&quot;: &quot;free&quot;},</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;customer_id&quot;: &quot;106&quot;, &quot;email&quot;: &quot;frank@example.com&quot;, &quot;country&quot;: &quot;de&quot;, &quot;signup_ts&quot;: &quot;2026-01-08 12:00:00&quot;, &quot;plan&quot;: &quot;team&quot;},</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="st">]</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="st">transactions = [</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;txn_id&quot;: &quot;t001&quot;, &quot;customer_id&quot;: &quot;101&quot;, &quot;txn_ts&quot;: &quot;2026-02-01 09:00:00&quot;, &quot;amount_text&quot;: &quot;$120.00&quot;, &quot;currency&quot;: &quot;usd&quot;, &quot;status&quot;: &quot;captured&quot;},</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;txn_id&quot;: &quot;t002&quot;, &quot;customer_id&quot;: &quot;101&quot;, &quot;txn_ts&quot;: &quot;2026-02-02 10:00:00&quot;, &quot;amount_text&quot;: &quot;15.50&quot;, &quot;currency&quot;: &quot;usd&quot;, &quot;status&quot;: &quot;captured&quot;},</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;txn_id&quot;: &quot;t003&quot;, &quot;customer_id&quot;: &quot;102&quot;, &quot;txn_ts&quot;: &quot;2026-02-02 10:05:00&quot;, &quot;amount_text&quot;: &quot;CAD 22.00&quot;, &quot;currency&quot;: &quot;cad&quot;, &quot;status&quot;: &quot;captured&quot;},</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;txn_id&quot;: &quot;t004&quot;, &quot;customer_id&quot;: &quot;103&quot;, &quot;txn_ts&quot;: &quot;2026-02-03 12:00:00&quot;, &quot;amount_text&quot;: &quot;not_available&quot;, &quot;currency&quot;: &quot;usd&quot;, &quot;status&quot;: &quot;failed&quot;},</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;txn_id&quot;: &quot;t005&quot;, &quot;customer_id&quot;: &quot;104&quot;, &quot;txn_ts&quot;: &quot;2026-02-04 12:00:00&quot;, &quot;amount_text&quot;: &quot;75&quot;, &quot;currency&quot;: &quot;gbp&quot;, &quot;status&quot;: &quot;captured&quot;},</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;txn_id&quot;: &quot;t006&quot;, &quot;customer_id&quot;: &quot;105&quot;, &quot;txn_ts&quot;: &quot;2026-02-05 13:00:00&quot;, &quot;amount_text&quot;: &quot;-9.99&quot;, &quot;currency&quot;: &quot;usd&quot;, &quot;status&quot;: &quot;refunded&quot;},</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;txn_id&quot;: &quot;t006&quot;, &quot;customer_id&quot;: &quot;105&quot;, &quot;txn_ts&quot;: &quot;2026-02-05 13:05:00&quot;, &quot;amount_text&quot;: &quot;-9.99&quot;, &quot;currency&quot;: &quot;usd&quot;, &quot;status&quot;: &quot;refunded&quot;},</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;txn_id&quot;: &quot;t007&quot;, &quot;customer_id&quot;: &quot;999&quot;, &quot;txn_ts&quot;: &quot;2026-02-06 14:00:00&quot;, &quot;amount_text&quot;: &quot;50&quot;, &quot;currency&quot;: &quot;usd&quot;, &quot;status&quot;: &quot;captured&quot;},</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;txn_id&quot;: &quot;t008&quot;, &quot;customer_id&quot;: &quot;106&quot;, &quot;txn_ts&quot;: &quot;2026-02-06 15:00:00&quot;, &quot;amount_text&quot;: &quot;225.25&quot;, &quot;currency&quot;: &quot;eur&quot;, &quot;status&quot;: &quot;captured&quot;},</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="st">]</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="st">events = [</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;event_id&quot;: &quot;e001&quot;, &quot;customer_id&quot;: 101, &quot;event_ts&quot;: &quot;2026-02-01T08:59:30&quot;, &quot;event_type&quot;: &quot;page_view&quot;, &quot;properties&quot;: {&quot;route&quot;: &quot;/pricing&quot;, &quot;campaign&quot;: &quot;winter&quot;}},</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;event_id&quot;: &quot;e002&quot;, &quot;customer_id&quot;: 101, &quot;event_ts&quot;: &quot;2026-02-01T09:01:15&quot;, &quot;event_type&quot;: &quot;purchase&quot;, &quot;properties&quot;: {&quot;order_id&quot;: &quot;t001&quot;, &quot;amount&quot;: 120.00}},</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;event_id&quot;: &quot;e003&quot;, &quot;customer_id&quot;: 102, &quot;event_ts&quot;: &quot;2026-02-02T10:00:00&quot;, &quot;event_type&quot;: &quot;page_view&quot;, &quot;properties&quot;: {&quot;route&quot;: &quot;/docs&quot;}},</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;event_id&quot;: &quot;e004&quot;, &quot;customer_id&quot;: 102, &quot;event_ts&quot;: &quot;2026-02-02T10:10:00&quot;, &quot;event_type&quot;: &quot;signup&quot;, &quot;properties&quot;: {}},</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;event_id&quot;: &quot;e005&quot;, &quot;customer_id&quot;: 103, &quot;event_ts&quot;: &quot;not-a-date&quot;, &quot;event_type&quot;: &quot;click&quot;, &quot;properties&quot;: {&quot;route&quot;: &quot;/bad&quot;}},</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;event_id&quot;: &quot;e006&quot;, &quot;customer_id&quot;: 104, &quot;event_ts&quot;: &quot;2026-02-04T12:03:00&quot;, &quot;event_type&quot;: &quot;purchase&quot;, &quot;properties&quot;: {&quot;order_id&quot;: &quot;t005&quot;, &quot;amount&quot;: 75}},</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;event_id&quot;: &quot;e007&quot;, &quot;customer_id&quot;: 105, &quot;event_ts&quot;: &quot;2026-02-05T13:00:00&quot;, &quot;event_type&quot;: &quot;refund&quot;, &quot;properties&quot;: {&quot;order_id&quot;: &quot;t006&quot;, &quot;amount&quot;: -9.99}},</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;event_id&quot;: &quot;e008&quot;, &quot;customer_id&quot;: 106, &quot;event_ts&quot;: &quot;2026-02-06T15:01:00&quot;, &quot;event_type&quot;: &quot;purchase&quot;, &quot;properties&quot;: {&quot;order_id&quot;: &quot;t008&quot;, &quot;amount&quot;: 225.25}},</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;event_id&quot;: &quot;e008&quot;, &quot;customer_id&quot;: 106, &quot;event_ts&quot;: &quot;2026-02-06T15:02:00&quot;, &quot;event_type&quot;: &quot;purchase&quot;, &quot;properties&quot;: {&quot;order_id&quot;: &quot;t008&quot;, &quot;amount&quot;: 225.25}},</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="st">    {&quot;event_id&quot;: &quot;e009&quot;, &quot;customer_id&quot;: 999, &quot;event_ts&quot;: &quot;2026-02-06T16:00:00&quot;, &quot;event_type&quot;: &quot;purchase&quot;, &quot;properties&quot;: {&quot;order_id&quot;: &quot;t007&quot;, &quot;amount&quot;: 50}},</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="st">]</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="st">with (root / &quot;customers.csv&quot;).open(&quot;w&quot;, newline=&quot;&quot;) as f:</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="st">    w = csv.DictWriter(f, fieldnames=customers[0].keys())</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="st">    w.writeheader()</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="st">    w.writerows(customers)</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="st">with (root / &quot;transactions.csv&quot;).open(&quot;w&quot;, newline=&quot;&quot;) as f:</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="st">    w = csv.DictWriter(f, fieldnames=transactions[0].keys())</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="st">    w.writeheader()</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="st">    w.writerows(transactions)</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="st">with (root / &quot;events.jsonl&quot;).open(&quot;w&quot;) as f:</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="st">    for row in events:</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="st">        f.write(json.dumps(row) + &quot;\n&quot;)</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="st">print(&quot;Wrote data/raw/customers.csv, data/raw/transactions.csv, data/raw/events.jsonl&quot;)</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="op">PY</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> generate_lab_data.py</span></code></pre></div>
+      <p>Create the raw Parquet asset:</p>
+      <div class="sourceCode" id="cb4"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="op">&lt;&lt;&#39;SQL&#39;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE raw_transactions_csv AS</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">FROM read_csv(&#39;data/raw/transactions.csv&#39;, header = true, all_varchar = true);</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">COPY raw_transactions_csv</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">TO &#39;data/raw/transactions.parquet&#39;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">(FORMAT parquet);</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="op">SQL</span></span></code></pre></div>
+      <p>Official DuckDB source for data ingestion: <a
+      href="https://duckdb.org/docs/current/clients/python/data_ingestion"
+      class="uri">https://duckdb.org/docs/current/clients/python/data_ingestion</a></p>
+      <hr />
+      <h1 id="learner-facing-lessons">4. Learner-facing Lessons</h1>
+      <h2 id="module-1---build-a-reliable-local-duckdb-project">Module 1
+      - Build a Reliable Local DuckDB Project</h2>
+      <h3 id="objectives">Objectives</h3>
+      <p>By the end of this module, learners can ingest messy CSV, JSON,
+      and Parquet files; stage questionable data as strings; repair
+      types safely; flag data-quality defects; and create a curated
+      table with objective row-count and schema checks.</p>
+      <h3 id="prerequisitessetup">Prerequisites/setup</h3>
+      <p>Run the project setup and data generator above. Confirm:</p>
+      <div class="sourceCode" id="cb5"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/raw</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="at">-c</span> <span class="st">&quot;SELECT version();&quot;</span></span></code></pre></div>
+      <h3 id="concept-primer">Concept primer</h3>
+      <p>DuckDB’s type inference is convenient, but production analytics
+      workflows often need a two-step pattern: first ingest into a
+      permissive staging table, then explicitly cast and validate. This
+      prevents one malformed row from silently shaping the whole
+      schema.</p>
+      <h3 id="worked-demo">Worked demo</h3>
+      <div class="sourceCode" id="cb6"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="op">&lt;&lt;&#39;SQL&#39;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE customers_raw AS</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">FROM read_csv(</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &#39;data/raw/customers.csv&#39;,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="st">    header = true,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st">    all_varchar = true</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">);</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE events_raw AS</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">FROM read_json(&#39;data/raw/events.jsonl&#39;);</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE transactions_raw AS</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">FROM read_parquet(&#39;data/raw/transactions.parquet&#39;);</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT &#39;customers_raw&#39; AS table_name, count(*) AS row_count FROM customers_raw</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="st">UNION ALL</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT &#39;events_raw&#39;, count(*) FROM events_raw</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">UNION ALL</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT &#39;transactions_raw&#39;, count(*) FROM transactions_raw;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="op">SQL</span></span></code></pre></div>
+      <h3 id="guided-lab">Guided lab</h3>
+      <div class="sourceCode" id="cb7"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="op">&lt;&lt;&#39;SQL&#39;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE customers_curated AS</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="st">WITH typed AS (</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">        row_number() OVER () AS source_row_number,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">        TRY_CAST(customer_id AS BIGINT) AS customer_id,</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">        lower(trim(email)) AS email,</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="st">        upper(trim(country)) AS country,</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="st">        TRY_CAST(NULLIF(signup_ts, &#39;&#39;) AS TIMESTAMP) AS signup_ts,</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="st">        COALESCE(NULLIF(lower(trim(plan)), &#39;&#39;), &#39;free&#39;) AS plan,</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="st">        regexp_matches(lower(trim(email)), &#39;^[^@]+@[^@]+\.[^@]+$&#39;) AS email_valid</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM customers_raw</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="st">),</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="st">deduped AS (</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT *,</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="st">           row_number() OVER (</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="st">               PARTITION BY customer_id</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="st">               ORDER BY signup_ts DESC NULLS LAST, source_row_number DESC</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="st">           ) AS customer_rank</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM typed</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="st">)</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="st">    customer_id,</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="st">    email,</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="st">    country,</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="st">    signup_ts,</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="st">    plan,</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="st">    email_valid,</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="st">    source_row_number</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="st">FROM deduped</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE customer_rank = 1;</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="st">DESCRIBE customers_curated;</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT count(*) AS curated_customers FROM customers_curated;</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT count(*) AS invalid_email_rows</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="st">FROM customers_curated</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE NOT email_valid;</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="st">FROM customers_curated</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY customer_id;</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="op">SQL</span></span></code></pre></div>
+      <h3 id="expected-checks">Expected checks</h3>
+      <div class="sourceCode" id="cb8"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> customers_raw;</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 7</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> customers_curated;</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 6</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> customers_curated <span class="kw">WHERE</span> <span class="kw">NOT</span> email_valid;</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 1</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>DESCRIBE customers_curated;</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected core columns:</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- customer_id BIGINT</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- email VARCHAR</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">-- country VARCHAR</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">-- signup_ts TIMESTAMP</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">-- plan VARCHAR</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">-- email_valid BOOLEAN</span></span></code></pre></div>
+      <h3 id="independent-challenge">Independent challenge</h3>
+      <p>Create a quarantine table:</p>
+      <div class="sourceCode" id="cb9"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> customers_quarantine <span class="kw">AS</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> customers_curated</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">NOT</span> email_valid <span class="kw">OR</span> signup_ts <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+      <p>Add a reason column such as <code>bad_email</code>,
+      <code>missing_signup_ts</code>, or <code>both</code>.</p>
+      <h3 id="troubleshooting">Troubleshooting</h3>
+      <table>
+      <colgroup>
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Symptom</th>
+      <th>Likely cause</th>
+      <th>Fix</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td><code>Conversion Error</code></td>
+      <td>Direct cast instead of <code>TRY_CAST</code></td>
+      <td>Use <code>TRY_CAST</code> during cleanup</td>
+      </tr>
+      <tr class="even">
+      <td>Email validation seems too strict</td>
+      <td>Regex is intentionally simple</td>
+      <td>Treat it as a teaching check, not full RFC email
+      validation</td>
+      </tr>
+      <tr class="odd">
+      <td>Duplicate customer appears</td>
+      <td>Missing deduplication window</td>
+      <td>Use
+      <code>row_number() OVER (PARTITION BY customer_id ...)</code></td>
+      </tr>
+      </tbody>
+      </table>
+      <h3 id="debrief-questions">Debrief questions</h3>
+      <ol type="1">
+      <li>Why is <code>all_varchar = true</code> useful for first-pass
+      ingestion?</li>
+      <li>Which defects did we fix, and which did we only flag?</li>
+      <li>Why did customer <code>102</code> resolve to the later
+      duplicate row?</li>
+      </ol>
+      <h3 id="stretch-task">Stretch task</h3>
+      <p>Add a <code>country_group</code> column: <code>NA</code>,
+      <code>EU</code>, or <code>OTHER</code>. Keep the original country
+      code.</p>
+      <h3 id="cleanupreset">Cleanup/reset</h3>
+      <div class="sourceCode" id="cb10"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> customers_curated;</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> customers_quarantine;</span></code></pre></div>
+      <hr />
+      <h2 id="module-2---query-craftsmanship-for-messy-analytics">Module
+      2 - Query Craftsmanship for Messy Analytics</h2>
+      <h3 id="objectives-1">Objectives</h3>
+      <p>Learners will clean monetary values, deduplicate transactions,
+      join dimensions to facts, detect orphan records, and build a
+      validated revenue mart.</p>
+      <h3 id="prerequisitessetup-1">Prerequisites/setup</h3>
+      <p>Module 1 completed.</p>
+      <h3 id="concept-primer-1">Concept primer</h3>
+      <p>Analytical facts are rarely clean. The safe workflow is: stage,
+      parse, deduplicate, detect orphan keys, then aggregate. Window
+      functions are the cleanest tool for deterministic
+      deduplication.</p>
+      <h3 id="worked-demo-1">Worked demo</h3>
+      <div class="sourceCode" id="cb11"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="op">&lt;&lt;&#39;SQL&#39;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE transactions_clean AS</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">WITH typed AS (</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">        txn_id,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">        TRY_CAST(customer_id AS BIGINT) AS customer_id,</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="st">        TRY_CAST(txn_ts AS TIMESTAMP) AS txn_ts,</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="st">        TRY_CAST(</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">            regexp_replace(amount_text, &#39;[^0-9.\-]&#39;, &#39;&#39;, &#39;g&#39;)</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="st">            AS DECIMAL(12, 2)</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="st">        ) AS amount,</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="st">        upper(trim(currency)) AS currency,</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="st">        lower(trim(status)) AS status</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM transactions_raw</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="st">),</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="st">deduped AS (</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT *,</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="st">           row_number() OVER (</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="st">               PARTITION BY txn_id</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="st">               ORDER BY txn_ts DESC NULLS LAST</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="st">           ) AS txn_rank</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM typed</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="st">)</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="st">    txn_id,</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="st">    customer_id,</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="st">    txn_ts,</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="st">    amount,</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="st">    currency,</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="st">    status</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="st">FROM deduped</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE txn_rank = 1;</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT count(*) AS raw_rows FROM transactions_raw;</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT count(*) AS clean_deduped_rows FROM transactions_clean;</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="st">FROM transactions_clean</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY txn_id;</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="op">SQL</span></span></code></pre></div>
+      <h3 id="guided-lab-1">Guided lab</h3>
+      <div class="sourceCode" id="cb12"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="op">&lt;&lt;&#39;SQL&#39;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE mart_customer_revenue AS</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="st">    c.customer_id,</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="st">    c.email,</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="st">    c.country,</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="st">    c.plan,</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">    count(*) FILTER (</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="st">        WHERE t.status = &#39;captured&#39; AND t.amount &gt; 0</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS captured_txns,</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="st">    COALESCE(</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="st">        sum(t.amount) FILTER (</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="st">            WHERE t.status = &#39;captured&#39; AND t.amount &gt; 0</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="st">        ),</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="st">        0</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS revenue_local,</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="st">    max(t.txn_ts) AS last_txn_ts</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="st">FROM customers_curated AS c</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN transactions_clean AS t</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="st">    ON c.customer_id = t.customer_id</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="st">    c.customer_id,</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="st">    c.email,</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="st">    c.country,</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="st">    c.plan</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY revenue_local DESC;</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="st">FROM mart_customer_revenue;</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="st">    t.*</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="st">FROM transactions_clean AS t</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN customers_curated AS c</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="st">    ON t.customer_id = c.customer_id</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE c.customer_id IS NULL</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY t.txn_id;</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT sum(revenue_local) AS total_known_customer_revenue</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="st">FROM mart_customer_revenue;</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="op">SQL</span></span></code></pre></div>
+      <h3 id="expected-checks-1">Expected checks</h3>
+      <div class="sourceCode" id="cb13"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> transactions_raw;</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 9</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> transactions_clean;</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 8</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> mart_customer_revenue;</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 6</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> transactions_clean <span class="kw">AS</span> t</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> customers_curated <span class="kw">AS</span> c</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ON</span> t.customer_id <span class="op">=</span> c.customer_id</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> c.customer_id <span class="kw">IS</span> <span class="kw">NULL</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> t.status <span class="op">=</span> <span class="st">&#39;captured&#39;</span>;</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 1</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">sum</span>(revenue_local) <span class="kw">FROM</span> mart_customer_revenue;</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 457.75</span></span></code></pre></div>
+      <h3 id="independent-challenge-1">Independent challenge</h3>
+      <p>Rank customers by revenue within country:</p>
+      <div class="sourceCode" id="cb14"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dense_rank</span>() <span class="kw">OVER</span> (</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> country</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> revenue_local <span class="kw">DESC</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="kw">AS</span> revenue_rank_in_country</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> mart_customer_revenue;</span></code></pre></div>
+      <h3 id="troubleshooting-1">Troubleshooting</h3>
+      <table>
+      <colgroup>
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Symptom</th>
+      <th>Likely cause</th>
+      <th>Fix</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td><code>not_available</code> causes cast failure</td>
+      <td>Used <code>CAST</code> instead of <code>TRY_CAST</code></td>
+      <td>Use <code>TRY_CAST</code> and audit NULL amounts</td>
+      </tr>
+      <tr class="even">
+      <td>Revenue includes refunded transaction</td>
+      <td>Missing status and amount filters</td>
+      <td>Filter <code>status = 'captured' AND amount &gt; 0</code></td>
+      </tr>
+      <tr class="odd">
+      <td>Orphan transaction disappears</td>
+      <td>Used inner join too early</td>
+      <td>Use left anti-join pattern for orphan detection</td>
+      </tr>
+      </tbody>
+      </table>
+      <h3 id="debrief-questions-1">Debrief questions</h3>
+      <ol type="1">
+      <li>Why should we detect orphan facts before final reporting?</li>
+      <li>Why deduplicate before aggregation?</li>
+      <li>What does <code>FILTER</code> on aggregates make clearer than
+      nested <code>CASE</code> expressions?</li>
+      </ol>
+      <h3 id="stretch-task-1">Stretch task</h3>
+      <p>Add a currency conversion dimension table with static rates and
+      produce approximate USD revenue.</p>
+      <h3 id="cleanupreset-1">Cleanup/reset</h3>
+      <div class="sourceCode" id="cb15"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> mart_customer_revenue;</span></code></pre></div>
+      <hr />
+      <h2
+      id="module-3---semi-structured-data-and-time-series-analytics">Module
+      3 - Semi-structured Data and Time-series Analytics</h2>
+      <h3 id="objectives-2">Objectives</h3>
+      <p>Learners will parse semi-structured event data, deduplicate
+      event IDs, extract nested fields, build customer journeys, and
+      pivot daily event counts.</p>
+      <h3 id="prerequisitessetup-2">Prerequisites/setup</h3>
+      <p>Modules 1-2 completed.</p>
+      <h3 id="concept-primer-2">Concept primer</h3>
+      <p>DuckDB can work with nested and semi-structured data. The key
+      implementation habit is to inspect the inferred type first, then
+      choose either dot notation for STRUCT-like values or JSON
+      extraction functions for JSON-typed values.</p>
+      <h3 id="worked-demo-2">Worked demo</h3>
+      <div class="sourceCode" id="cb16"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="op">&lt;&lt;&#39;SQL&#39;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">DESCRIBE events_raw;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">    typeof(properties) AS properties_type,</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="st">    count(*) AS rows</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="st">FROM events_raw</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY properties_type;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="st">FROM events_raw</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="st">LIMIT 5;</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="op">SQL</span></span></code></pre></div>
+      <h3 id="guided-lab-2">Guided lab</h3>
+      <div class="sourceCode" id="cb17"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="op">&lt;&lt;&#39;SQL&#39;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE events_clean AS</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="st">WITH typed AS (</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="st">        event_id::VARCHAR AS event_id,</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="st">        TRY_CAST(customer_id AS BIGINT) AS customer_id,</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="st">        TRY_CAST(event_ts AS TIMESTAMP) AS event_ts,</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="st">        lower(event_type::VARCHAR) AS event_type,</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="st">        properties,</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="st">        row_number() OVER (</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="st">            PARTITION BY event_id</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="st">            ORDER BY TRY_CAST(event_ts AS TIMESTAMP) DESC NULLS LAST</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="st">        ) AS event_rank</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM events_raw</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="st">)</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="st">    event_id,</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="st">    customer_id,</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="st">    event_ts,</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="st">    event_type,</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="st">    properties</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="st">FROM typed</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE event_rank = 1;</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE mart_daily_events AS</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="st">    CAST(date_trunc(&#39;day&#39;, event_ts) AS DATE) AS event_day,</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="st">    event_type,</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="st">    count(*) AS event_count</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="st">FROM events_clean</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE event_ts IS NOT NULL</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY event_day, event_type</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY event_day, event_type;</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE mart_event_pivot AS</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="st">PIVOT mart_daily_events</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="st">ON event_type</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="st">USING sum(event_count)</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY event_day;</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT * FROM events_clean ORDER BY event_id;</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT * FROM mart_daily_events ORDER BY event_day, event_type;</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT * FROM mart_event_pivot ORDER BY event_day;</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="st">    customer_id,</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="st">    list(event_type ORDER BY event_ts) AS customer_journey</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="st">FROM events_clean</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE event_ts IS NOT NULL</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY customer_id</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY customer_id;</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="op">SQL</span></span></code></pre></div>
+      <p>If your <code>properties</code> column is inferred as STRUCT,
+      try:</p>
+      <div class="sourceCode" id="cb18"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    event_id,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    properties.order_id <span class="kw">AS</span> order_id,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    properties.amount <span class="kw">AS</span> amount</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> events_clean</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> event_type <span class="kw">IN</span> (<span class="st">&#39;purchase&#39;</span>, <span class="st">&#39;refund&#39;</span>);</span></code></pre></div>
+      <p>If it is inferred as JSON in your environment, use JSON
+      extraction instead:</p>
+      <div class="sourceCode" id="cb19"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    event_id,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    json_extract_string(properties, <span class="st">&#39;$.order_id&#39;</span>) <span class="kw">AS</span> order_id,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    TRY_CAST(json_extract(properties, <span class="st">&#39;$.amount&#39;</span>) <span class="kw">AS</span> <span class="dt">DECIMAL</span>(<span class="dv">12</span>,<span class="dv">2</span>)) <span class="kw">AS</span> amount</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> events_clean</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> event_type <span class="kw">IN</span> (<span class="st">&#39;purchase&#39;</span>, <span class="st">&#39;refund&#39;</span>);</span></code></pre></div>
+      <h3 id="expected-checks-2">Expected checks</h3>
+      <div class="sourceCode" id="cb20"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> events_raw;</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 10</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> events_clean;</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 9</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> events_clean <span class="kw">WHERE</span> event_ts <span class="kw">IS</span> <span class="kw">NULL</span>;</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 1</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> events_clean</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> event_type <span class="op">=</span> <span class="st">&#39;purchase&#39;</span> <span class="kw">AND</span> event_ts <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span>;</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 4</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> mart_event_pivot;</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 5 event days</span></span></code></pre></div>
+      <h3 id="independent-challenge-2">Independent challenge</h3>
+      <p>Create a funnel table with one row per customer:</p>
+      <div class="sourceCode" id="cb21"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> mart_customer_funnel <span class="kw">AS</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    customer_id,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    bool_or(event_type <span class="op">=</span> <span class="st">&#39;page_view&#39;</span>) <span class="kw">AS</span> saw_page,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    bool_or(event_type <span class="op">=</span> <span class="st">&#39;signup&#39;</span>) <span class="kw">AS</span> signed_up,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    bool_or(event_type <span class="op">=</span> <span class="st">&#39;purchase&#39;</span>) <span class="kw">AS</span> purchased,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(event_ts) <span class="kw">AS</span> first_event_ts,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">max</span>(event_ts) <span class="kw">AS</span> last_event_ts</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> events_clean</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> event_ts <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> customer_id;</span></code></pre></div>
+      <h3 id="troubleshooting-2">Troubleshooting</h3>
+      <table>
+      <colgroup>
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Symptom</th>
+      <th>Likely cause</th>
+      <th>Fix</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>Dot notation fails on <code>properties</code></td>
+      <td>Column inferred as JSON, not STRUCT</td>
+      <td>Use <code>json_extract_string</code></td>
+      </tr>
+      <tr class="even">
+      <td>Pivot output has NULLs</td>
+      <td>Some event types absent on some days</td>
+      <td>Use <code>COALESCE</code> in final presentation query</td>
+      </tr>
+      <tr class="odd">
+      <td>Date aggregation changed type unexpectedly</td>
+      <td><code>date_trunc(DATE)</code> returns a <code>TIMESTAMP</code>
+      in DuckDB 1.5.x for DATE input</td>
+      <td>Cast to <code>DATE</code> where required</td>
+      </tr>
+      </tbody>
+      </table>
+      <p>DuckDB 1.5.x changed <code>date_trunc(DATE)</code> to return a
+      <code>TIMESTAMP</code>, with old behavior planned to return in
+      v2.0. Source: <a
+      href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></p>
+      <h3 id="debrief-questions-2">Debrief questions</h3>
+      <ol type="1">
+      <li>What did DuckDB infer for the nested <code>properties</code>
+      column?</li>
+      <li>Why should event deduplication happen before funnel
+      metrics?</li>
+      <li>What is the difference between an event-level table and a
+      customer-level journey table?</li>
+      </ol>
+      <h3 id="stretch-task-2">Stretch task</h3>
+      <p>Add a sessionization query: treat a gap of more than 30 minutes
+      as a new session.</p>
+      <h3 id="cleanupreset-2">Cleanup/reset</h3>
+      <div class="sourceCode" id="cb22"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> mart_customer_funnel;</span></code></pre></div>
+      <hr />
+      <h2
+      id="module-4---performance-and-internals-you-can-observe">Module 4
+      - Performance and Internals You Can Observe</h2>
+      <h3 id="objectives-3">Objectives</h3>
+      <p>Learners will use <code>EXPLAIN</code> and
+      <code>EXPLAIN ANALYZE</code>, reason about projection and
+      predicate pushdown, create partitioned Parquet output, and
+      diagnose an intentionally inefficient query.</p>
+      <h3 id="prerequisitessetup-3">Prerequisites/setup</h3>
+      <p>Modules 1-3 completed.</p>
+      <h3 id="concept-primer-3">Concept primer</h3>
+      <p>DuckDB’s execution model is vectorized. Practitioners do not
+      need to become engine developers, but they should learn to inspect
+      plans, reduce unnecessary columns, push selective filters early,
+      and avoid producing many tiny files or partitions.</p>
+      <p>Official sources:</p>
+      <ul>
+      <li>DuckDB profiling docs: <a
+      href="https://duckdb.org/docs/current/sql/statements/profiling"
+      class="uri">https://duckdb.org/docs/current/sql/statements/profiling</a></li>
+      <li>DuckDB partitioned writes docs: <a
+      href="https://duckdb.org/docs/current/data/partitioning/partitioned_writes"
+      class="uri">https://duckdb.org/docs/current/data/partitioning/partitioned_writes</a></li>
+      </ul>
+      <h3 id="worked-demo-3">Worked demo</h3>
+      <div class="sourceCode" id="cb23"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="op">&lt;&lt;&#39;SQL&#39;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE fact_events AS</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="st">    e.event_id,</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="st">    e.customer_id,</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="st">    e.event_ts,</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="st">    CAST(date_trunc(&#39;day&#39;, e.event_ts) AS DATE) AS event_day,</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="st">    e.event_type,</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="st">    c.country,</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="st">    c.plan</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="st">FROM events_clean AS e</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN customers_curated AS c</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="st">    ON e.customer_id = c.customer_id</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE e.event_ts IS NOT NULL;</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="st">COPY fact_events</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="st">TO &#39;data/curated/events_by_day&#39;</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="st">(FORMAT parquet, PARTITION_BY (event_day), OVERWRITE_OR_IGNORE);</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT count(*) FROM fact_events;</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="op">SQL</span></span></code></pre></div>
+      <h3 id="guided-lab-bad-query-vs-better-query">Guided lab: bad
+      query vs better query</h3>
+      <p>Bad query:</p>
+      <div class="sourceCode" id="cb24"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">EXPLAIN</span> <span class="kw">ANALYZE</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">&#39;data/curated/events_by_day/**/*.parquet&#39;</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="fu">lower</span>(event_type) <span class="op">=</span> <span class="st">&#39;purchase&#39;</span>;</span></code></pre></div>
+      <p>Better query:</p>
+      <div class="sourceCode" id="cb25"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">EXPLAIN</span> <span class="kw">ANALYZE</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    event_day,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    customer_id,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    event_type</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">&#39;data/curated/events_by_day/**/*.parquet&#39;</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> event_type <span class="op">=</span> <span class="st">&#39;purchase&#39;</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> event_day <span class="op">=</span> <span class="dt">DATE</span> <span class="st">&#39;2026-02-06&#39;</span>;</span></code></pre></div>
+      <p>Inspect:</p>
+      <div class="sourceCode" id="cb26"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">EXPLAIN</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    event_day,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    customer_id,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    event_type</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">&#39;data/curated/events_by_day/**/*.parquet&#39;</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> event_type <span class="op">=</span> <span class="st">&#39;purchase&#39;</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> event_day <span class="op">=</span> <span class="dt">DATE</span> <span class="st">&#39;2026-02-06&#39;</span>;</span></code></pre></div>
+      <h3 id="expected-observations">Expected observations</h3>
+      <p>Learners should document:</p>
+      <pre class="text"><code>1. The better query reads fewer columns.
+2. The partition predicate on event_day can restrict file/partition access.
+3. EXPLAIN ANALYZE reports actual cardinalities and runtime.
+4. Function-wrapped filters such as lower(event_type) can make filtering less direct than normalized stored values.</code></pre>
+      <h3 id="objective-checks">Objective checks</h3>
+      <div class="sourceCode" id="cb28"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">&#39;data/curated/events_by_day/**/*.parquet&#39;</span>);</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 8 valid timestamped event rows</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">&#39;data/curated/events_by_day/**/*.parquet&#39;</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> event_day <span class="op">=</span> <span class="dt">DATE</span> <span class="st">&#39;2026-02-06&#39;</span>;</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 2 rows after event deduplication: customer 106 and orphan customer 999</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">&#39;data/curated/events_by_day/**/*.parquet&#39;</span>)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> event_type <span class="op">=</span> <span class="st">&#39;purchase&#39;</span>;</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected: 4</span></span></code></pre></div>
+      <h3 id="independent-challenge-3">Independent challenge</h3>
+      <p>Rewrite this query to avoid unnecessary columns and add a
+      partition predicate:</p>
+      <div class="sourceCode" id="cb29"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">&#39;data/curated/events_by_day/**/*.parquet&#39;</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> event_type <span class="kw">IN</span> (<span class="st">&#39;purchase&#39;</span>, <span class="st">&#39;refund&#39;</span>);</span></code></pre></div>
+      <h3 id="troubleshooting-3">Troubleshooting</h3>
+      <table>
+      <colgroup>
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Symptom</th>
+      <th>Likely cause</th>
+      <th>Fix</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>Too many tiny files</td>
+      <td>Partitioned a small dataset too finely</td>
+      <td>Partition by low-cardinality, meaningful fields only</td>
+      </tr>
+      <tr class="even">
+      <td><code>EXPLAIN ANALYZE</code> takes time</td>
+      <td>It executes the query</td>
+      <td>Use plain <code>EXPLAIN</code> for plan-only inspection</td>
+      </tr>
+      <tr class="odd">
+      <td>Partition predicate not effective</td>
+      <td>Predicate not on partition column</td>
+      <td>Filter directly on <code>event_day</code></td>
+      </tr>
+      </tbody>
+      </table>
+      <h3 id="debrief-questions-3">Debrief questions</h3>
+      <ol type="1">
+      <li>What changed between <code>SELECT *</code> and selecting only
+      needed columns?</li>
+      <li>What is the cost of over-partitioning?</li>
+      <li>Which plan details would you show to a teammate to justify a
+      rewrite?</li>
+      </ol>
+      <h3 id="stretch-task-3">Stretch task</h3>
+      <p>Create a larger synthetic event table by repeating the small
+      event table 1,000 times, then compare plan/runtime changes.</p>
+      <h3 id="cleanupreset-3">Cleanup/reset</h3>
+      <div class="sourceCode" id="cb30"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> fact_events;</span></code></pre></div>
+      <hr />
+      <h2
+      id="module-5---iceberg-read-path-and-metadata-boundaries">Module 5
+      - Iceberg Read Path and Metadata Boundaries</h2>
+      <h3 id="objectives-4">Objectives</h3>
+      <p>Learners will install/load the Iceberg extension, read an
+      Iceberg table directly by path, inspect snapshots and metadata,
+      explain why path-based reads are read-only, and describe why
+      version guessing can violate Iceberg’s ACID assumptions.</p>
+      <h3 id="prerequisitessetup-4">Prerequisites/setup</h3>
+      <p>Internet access is needed to download DuckDB’s small Iceberg
+      sample dataset. This is still a no-paid-cloud core lab.</p>
+      <div class="sourceCode" id="cb31"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> https://duckdb.org/data/iceberg_data.zip <span class="at">-o</span> data/iceberg_data.zip</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> <span class="at">-q</span> data/iceberg_data.zip <span class="at">-d</span> data</span></code></pre></div>
+      <h3 id="concept-primer-4">Concept primer</h3>
+      <p>DuckDB’s path-based Iceberg reads read table metadata and data
+      files directly. This is simple and useful for local learning, but
+      it is not the same as catalog-managed Iceberg. DuckDB’s docs
+      explicitly state that individual Iceberg tables can be read
+      directly from storage using metadata, while the Iceberg REST
+      catalog path is the catalog-managed route that supports
+      writing.</p>
+      <p>Official source: <a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/overview.html"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/overview.html</a></p>
+      <h3 id="worked-demo-4">Worked demo</h3>
+      <div class="sourceCode" id="cb32"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="op">&lt;&lt;&#39;SQL&#39;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="st">INSTALL iceberg;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="st">LOAD iceberg;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT count(*) AS lineitem_count</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="st">FROM iceberg_scan(</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &#39;data/iceberg/lineitem_iceberg&#39;,</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="st">    allow_moved_paths = true</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="st">);</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="st">FROM iceberg_snapshots(&#39;data/iceberg/lineitem_iceberg&#39;)</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY committed_at;</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="st">FROM iceberg_metadata(&#39;data/iceberg/lineitem_iceberg&#39;)</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="st">LIMIT 10;</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="op">SQL</span></span></code></pre></div>
+      <h3 id="guided-lab-scan-a-specific-metadata-file">Guided lab: scan
+      a specific metadata file</h3>
+      <div class="sourceCode" id="cb33"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> v1_count</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_scan(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;data/iceberg/lineitem_iceberg/metadata/v1.metadata.json&#39;</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    allow_moved_paths <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> current_table_count</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_scan(</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;data/iceberg/lineitem_iceberg&#39;</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    allow_moved_paths <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+      <h3 id="expected-checks-3">Expected checks</h3>
+      <p>DuckDB’s example docs show two different counts when scanning a
+      specific metadata version versus the current table path:</p>
+      <div class="sourceCode" id="cb34"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_scan(</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;data/iceberg/lineitem_iceberg&#39;</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    allow_moved_paths <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected from DuckDB sample docs: 51793</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_scan(</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;data/iceberg/lineitem_iceberg/metadata/v1.metadata.json&#39;</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    allow_moved_paths <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- expected from DuckDB sample docs: 60175</span></span></code></pre></div>
+      <p>DuckDB’s docs also explain that DuckDB does not enable metadata
+      version guessing by default because it can violate Iceberg’s ACID
+      properties when the metadata JSON has changed but the version-hint
+      file has not.</p>
+      <h3 id="implementation-boundary-exercise">Implementation-boundary
+      exercise</h3>
+      <p>Answer these questions in pairs:</p>
+      <pre class="text"><code>1. Why can DuckDB read this Iceberg table without a catalog?
+2. Why is this path-based workflow read-only?
+3. What metadata did iceberg_snapshots expose?
+4. What would a catalog add that a raw path does not?
+5. Why can guessing the latest metadata file be unsafe?</code></pre>
+      <h3 id="independent-challenge-4">Independent challenge</h3>
+      <p>Create a local DuckDB table from the Iceberg sample and compare
+      the schema:</p>
+      <div class="sourceCode" id="cb36"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> local_lineitem_copy <span class="kw">AS</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_scan(</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;data/iceberg/lineitem_iceberg&#39;</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    allow_moved_paths <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>DESCRIBE local_lineitem_copy;</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> local_lineitem_copy;</span></code></pre></div>
+      <p>Then explain why <code>local_lineitem_copy</code> is now a
+      DuckDB table copy, not an Iceberg table.</p>
+      <h3 id="troubleshooting-4">Troubleshooting</h3>
+      <table>
+      <colgroup>
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Symptom</th>
+      <th>Likely cause</th>
+      <th>Fix</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td><code>iceberg_scan</code> not found</td>
+      <td>Extension not loaded</td>
+      <td><code>INSTALL iceberg; LOAD iceberg;</code></td>
+      </tr>
+      <tr class="even">
+      <td>Path moved errors</td>
+      <td>Sample metadata points to old file paths</td>
+      <td>Use <code>allow_moved_paths = true</code> for the sample</td>
+      </tr>
+      <tr class="odd">
+      <td>Different count than expected</td>
+      <td>Scanned a specific metadata version</td>
+      <td>Compare current path scan vs metadata-file scan</td>
+      </tr>
+      </tbody>
+      </table>
+      <h3 id="debrief-questions-4">Debrief questions</h3>
+      <ol type="1">
+      <li>Which parts of the Iceberg table did DuckDB inspect?</li>
+      <li>What does a snapshot represent?</li>
+      <li>What operation would require a catalog?</li>
+      </ol>
+      <h3 id="stretch-task-4">Stretch task</h3>
+      <p>Use <code>iceberg_column_stats</code> and
+      <code>iceberg_partition_stats</code> to inspect file-level
+      statistics and partition statistics:</p>
+      <div class="sourceCode" id="cb37"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_column_stats(<span class="st">&#39;data/iceberg/lineitem_iceberg&#39;</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_partition_stats(<span class="st">&#39;data/iceberg/lineitem_iceberg&#39;</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+      <p>Official source: <a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/reference"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/reference</a></p>
+      <h3 id="cleanupreset-4">Cleanup/reset</h3>
+      <div class="sourceCode" id="cb38"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> local_lineitem_copy;</span></code></pre></div>
+      <hr />
+      <h2
+      id="module-6---rest-catalog-iceberg-writes-plus-2026-feature-synthesis">Module
+      6 - REST-catalog Iceberg Writes Plus 2026 Feature Synthesis</h2>
+      <h3 id="objectives-5">Objectives</h3>
+      <p>Learners will distinguish core DuckDB stable features from
+      extension-specific features, run small current-feature exercises,
+      and optionally use a Dockerized Iceberg REST catalog for DDL/DML
+      labs.</p>
+      <h3 id="prerequisitessetup-5">Prerequisites/setup</h3>
+      <p>Core path needs only local DuckDB. Advanced path needs Docker
+      and a REST catalog.</p>
+      <h3 id="concept-primer-5">Concept primer</h3>
+      <p>DuckDB’s Iceberg write path is catalog-managed. Its writing
+      docs say that writing to Iceberg is supported for tables managed
+      by an Iceberg REST catalog, and that writes go through an attached
+      catalog and commit new snapshots. They also say
+      <code>iceberg_scan</code> is read-only.</p>
+      <p>Official source: <a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/writing"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/writing</a></p>
+      <h3
+      id="core-stable-feature-lab-variant-and-current-sql-behavior">Core
+      stable-feature lab: VARIANT and current SQL behavior</h3>
+      <p>DuckDB 1.5.0 introduced a native <code>VARIANT</code> type for
+      semi-structured data and highlighted it as one of the major 1.5.0
+      features.</p>
+      <p>Source: <a
+      href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></p>
+      <div class="sourceCode" id="cb39"><pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">duckdb</span> workshop.duckdb <span class="op">&lt;&lt;&#39;SQL&#39;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE OR REPLACE TABLE variant_lab AS</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="st">    1 AS id,</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &#39;{&quot;name&quot;:&quot;Alice&quot;,&quot;score&quot;:12,&quot;tags&quot;:[&quot;sql&quot;,&quot;duckdb&quot;]}&#39;::JSON::VARIANT AS payload</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="st">UNION ALL</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="st">    2 AS id,</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &#39;{&quot;name&quot;:&quot;Bob&quot;,&quot;score&quot;:18,&quot;tags&quot;:[&quot;iceberg&quot;]}&#39;::JSON::VARIANT AS payload;</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="st">    id,</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="st">    payload.name AS name,</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="st">    payload.score AS score</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="st">FROM variant_lab</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY id;</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT typeof(date_trunc(&#39;month&#39;, DATE &#39;2026-03-27&#39;)) AS date_trunc_type;</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a><span class="op">SQL</span></span></code></pre></div>
+      <p>Expected:</p>
+      <pre class="text"><code>payload.name values: Alice, Bob
+payload.score values: 12, 18
+date_trunc_type in DuckDB 1.5.x: TIMESTAMP</code></pre>
+      <h3 id="optional-advanced-path-dockerized-rest-catalog">Optional
+      advanced path: Dockerized REST catalog</h3>
+      <p>Use this only when Docker is available and the class can
+      tolerate infrastructure setup. Apache Polaris provides an official
+      quickstart that starts Polaris and object storage locally with
+      Docker Compose, creates a quickstart catalog and principal, and
+      exposes the REST API on port 8181. DuckDB’s Iceberg catalog docs
+      include Apache Polaris and Lakekeeper examples as REST-catalog
+      targets.</p>
+      <p>Sources:</p>
+      <ul>
+      <li>Polaris quickstart: <a
+      href="https://polaris.apache.org/guides/quickstart/"
+      class="uri">https://polaris.apache.org/guides/quickstart/</a></li>
+      <li>DuckDB Iceberg catalog docs: <a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/catalogs.html"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/catalogs.html</a></li>
+      </ul>
+      <p>Example attach shape for Polaris:</p>
+      <div class="sourceCode" id="cb41"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>INSTALL iceberg;</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>LOAD iceberg;</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>LOAD httpfs;</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> SECRET polaris_secret (</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">TYPE</span> ICEBERG,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    CLIENT_ID <span class="st">&#39;replace_with_quickstart_client_id&#39;</span>,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    CLIENT_SECRET <span class="st">&#39;replace_with_quickstart_client_secret&#39;</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>ATTACH <span class="st">&#39;quickstart_catalog&#39;</span> <span class="kw">AS</span> polaris_catalog (</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">TYPE</span> ICEBERG,</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    ENDPOINT <span class="st">&#39;http://localhost:8181&#39;</span>,</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>    SECRET polaris_secret</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+      <h3 id="advanced-guided-lab-catalog-managed-ddldml">Advanced
+      guided lab: catalog-managed DDL/DML</h3>
+      <div class="sourceCode" id="cb42"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">SCHEMA</span> polaris_catalog.duckdb_workshop;</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> polaris_catalog.duckdb_workshop.<span class="kw">events</span> (</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> <span class="dt">INTEGER</span>,</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    event_name <span class="dt">VARCHAR</span>,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    event_time <span class="dt">TIMESTAMP</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> (<span class="st">&#39;format-version&#39;</span> <span class="op">=</span> <span class="st">&#39;2&#39;</span>);</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> polaris_catalog.duckdb_workshop.<span class="kw">events</span> <span class="kw">VALUES</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span>, <span class="st">&#39;click&#39;</span>, <span class="dt">TIMESTAMP</span> <span class="st">&#39;2026-02-01 09:00:00&#39;</span>),</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">2</span>, <span class="st">&#39;view&#39;</span>,  <span class="dt">TIMESTAMP</span> <span class="st">&#39;2026-02-01 09:05:00&#39;</span>);</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> TEMP <span class="kw">TABLE</span> new_events <span class="kw">AS</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> (</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">VALUES</span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>        (<span class="dv">2</span>, <span class="st">&#39;signup&#39;</span>,   <span class="dt">TIMESTAMP</span> <span class="st">&#39;2026-02-01 09:06:00&#39;</span>),</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>        (<span class="dv">3</span>, <span class="st">&#39;purchase&#39;</span>, <span class="dt">TIMESTAMP</span> <span class="st">&#39;2026-02-01 09:10:00&#39;</span>)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>) <span class="kw">AS</span> t(<span class="kw">id</span>, event_name, event_time);</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="kw">MERGE</span> <span class="kw">INTO</span> polaris_catalog.duckdb_workshop.<span class="kw">events</span> <span class="kw">AS</span> target</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="kw">USING</span> new_events <span class="kw">AS</span> <span class="kw">source</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a><span class="kw">USING</span> (<span class="kw">id</span>)</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a><span class="cf">WHEN</span> MATCHED <span class="cf">THEN</span></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">UPDATE</span> <span class="kw">SET</span> event_name <span class="op">=</span> <span class="kw">source</span>.event_name,</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>               event_time <span class="op">=</span> <span class="kw">source</span>.event_time</span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a><span class="cf">WHEN</span> <span class="kw">NOT</span> MATCHED <span class="cf">THEN</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INSERT</span> <span class="kw">VALUES</span> (<span class="kw">source</span>.<span class="kw">id</span>, <span class="kw">source</span>.event_name, <span class="kw">source</span>.event_time);</span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> polaris_catalog.duckdb_workshop.<span class="kw">events</span></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="kw">id</span>;</span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_snapshots(polaris_catalog.duckdb_workshop.<span class="kw">events</span>);</span></code></pre></div>
+      <p>Expected if REST catalog is configured correctly:</p>
+      <pre class="text"><code>id | event_name | event_time
+1  | click      | 2026-02-01 09:00:00
+2  | signup     | 2026-02-01 09:06:00
+3  | purchase   | 2026-02-01 09:10:00</code></pre>
+      <h3 id="advanced-boundary-lab-delete-semantics">Advanced boundary
+      lab: delete semantics</h3>
+      <p>DuckDB’s docs state that Iceberg <code>UPDATE</code> and
+      <code>DELETE</code> are currently implemented with merge-on-read
+      positional delete files only and that copy-on-write mode is not
+      supported.</p>
+      <p>Discussion prompt:</p>
+      <pre class="text"><code>1. What delete files are created by UPDATE/DELETE?
+2. Why is merge-on-read not the same as copy-on-write?
+3. Which other engines in your organization would need to understand these delete files?</code></pre>
+      <h3 id="independent-challenge-5">Independent challenge</h3>
+      <p>Create a second Iceberg table partitioned by day:</p>
+      <div class="sourceCode" id="cb45"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> polaris_catalog.duckdb_workshop.partitioned_events (</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> <span class="dt">INTEGER</span>,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    event_name <span class="dt">VARCHAR</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    event_time <span class="dt">TIMESTAMP</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>PARTITIONED <span class="kw">BY</span> (<span class="dt">day</span>(event_time));</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> polaris_catalog.duckdb_workshop.partitioned_events</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> polaris_catalog.duckdb_workshop.<span class="kw">events</span>;</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> polaris_catalog.duckdb_workshop.partitioned_events;</span></code></pre></div>
+      <p>DuckDB currently documents identity, year, month, day, hour,
+      bucket, and truncate partition transforms for Iceberg writes.</p>
+      <h3 id="troubleshooting-5">Troubleshooting</h3>
+      <table>
+      <colgroup>
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      <col style="width: 33%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Symptom</th>
+      <th>Likely cause</th>
+      <th>Fix</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>Attach fails</td>
+      <td>Wrong endpoint, catalog name, or secret</td>
+      <td>Re-check REST endpoint and credentials</td>
+      </tr>
+      <tr class="even">
+      <td>Writes fail in core path</td>
+      <td>No REST catalog attached</td>
+      <td>Use the advanced path or keep Module 5 read-only</td>
+      </tr>
+      <tr class="odd">
+      <td><code>UPDATE</code>/<code>DELETE</code> behavior surprises
+      learners</td>
+      <td>Merge-on-read positional delete files</td>
+      <td>Discuss delete-file semantics explicitly</td>
+      </tr>
+      <tr class="even">
+      <td>Partitioned table file sizing differs from expectation</td>
+      <td>DuckDB limitation for partitioned Iceberg writes</td>
+      <td>Review table-property limitation</td>
+      </tr>
+      </tbody>
+      </table>
+      <h3 id="debrief-questions-5">Debrief questions</h3>
+      <ol type="1">
+      <li>Which operations were local DuckDB operations?</li>
+      <li>Which operations required a REST catalog?</li>
+      <li>Which behavior is DuckDB-specific rather than general Apache
+      Iceberg behavior?</li>
+      </ol>
+      <h3 id="stretch-task-5">Stretch task</h3>
+      <p>Use <code>ALTER TABLE</code> to add a column and then inspect
+      snapshots:</p>
+      <div class="sourceCode" id="cb46"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> polaris_catalog.duckdb_workshop.<span class="kw">events</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> <span class="kw">COLUMN</span> <span class="kw">source</span> <span class="dt">VARCHAR</span> <span class="kw">DEFAULT</span> <span class="st">&#39;workshop&#39;</span>;</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> polaris_catalog.duckdb_workshop.<span class="kw">events</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="kw">id</span>;</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_snapshots(polaris_catalog.duckdb_workshop.<span class="kw">events</span>);</span></code></pre></div>
+      <h3 id="cleanupreset-5">Cleanup/reset</h3>
+      <div class="sourceCode" id="cb47"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> polaris_catalog.duckdb_workshop.partitioned_events;</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> polaris_catalog.duckdb_workshop.<span class="kw">events</span>;</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">SCHEMA</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> polaris_catalog.duckdb_workshop;</span></code></pre></div>
+      <hr />
+      <h1 id="instructor-notes-and-solutions">5. Instructor Notes and
+      Solutions</h1>
+      <h2 id="module-1-solution-notes">Module 1 solution notes</h2>
+      <p>Expected defects:</p>
+      <pre class="text"><code>customers_raw rows: 7
+customers_curated rows after dedup: 6
+invalid email rows: 1
+missing signup timestamp rows: 1
+blank plan repaired to free: customer 105
+duplicate customer_id 102 resolved to bob.duplicate@example.com</code></pre>
+      <p>Teaching emphasis: do not let type inference become the
+      validation strategy.</p>
+      <h2 id="module-2-solution-notes">Module 2 solution notes</h2>
+      <p>Expected facts:</p>
+      <pre class="text"><code>transactions_raw rows: 9
+transactions_clean rows after txn_id dedup: 8
+orphan captured transaction: t007 / customer_id 999
+known-customer captured revenue: 457.75</code></pre>
+      <p>Revenue math:</p>
+      <pre class="text"><code>101: 120.00 + 15.50 = 135.50
+102: 22.00
+104: 75.00
+106: 225.25
+Total: 457.75</code></pre>
+      <h2 id="module-3-solution-notes">Module 3 solution notes</h2>
+      <p>Expected event metrics:</p>
+      <pre class="text"><code>events_raw rows: 10
+events_clean rows after event_id dedup: 9
+valid timestamp rows: 8
+invalid timestamp rows: 1
+valid purchase events: 4
+event days represented after filtering valid timestamps: 5</code></pre>
+      <p>Teaching emphasis: nested/semi-structured types are powerful,
+      but learners should always inspect inferred types before writing
+      extraction logic.</p>
+      <h2 id="module-4-solution-notes">Module 4 solution notes</h2>
+      <p>Expected observations:</p>
+      <pre class="text"><code>SELECT * reads unnecessary columns.
+A normalized event_type column avoids lower(event_type) during filtering.
+Partition predicate on event_day should narrow files.
+EXPLAIN ANALYZE runs the query; EXPLAIN only shows the plan.</code></pre>
+      <p>DuckDB source for <code>EXPLAIN ANALYZE</code>: <a
+      href="https://duckdb.org/docs/current/guides/meta/explain_analyze"
+      class="uri">https://duckdb.org/docs/current/guides/meta/explain_analyze</a></p>
+      <h2 id="module-5-solution-notes">Module 5 solution notes</h2>
+      <p>Expected Iceberg sample checks from DuckDB’s documentation:</p>
+      <pre class="text"><code>current Iceberg table path count: 51793
+specific v1 metadata file count: 60175</code></pre>
+      <p>Teaching emphasis: this count difference is useful because it
+      shows snapshots/metadata are central to Iceberg behavior.</p>
+      <h2 id="module-6-solution-notes">Module 6 solution notes</h2>
+      <p>Expected REST-catalog result after <code>MERGE</code>:</p>
+      <pre class="text"><code>id 1 remains click
+id 2 changes from view to signup
+id 3 is inserted as purchase
+final row count: 3</code></pre>
+      <p>Teaching emphasis: REST-catalog writes are advanced-path only;
+      do not teach them as a local-path capability.</p>
+      <hr />
+      <h1 id="duckdb-vs-apache-iceberg-implementationsupport-matrix">6.
+      DuckDB vs Apache Iceberg Implementation/Support Matrix</h1>
+      <p>Context: DuckDB 1.5.5 plus current Iceberg extension
+      documentation, verified August 27, 2026.</p>
+      <table>
+      <colgroup>
+      <col style="width: 25%" />
+      <col style="width: 25%" />
+      <col style="width: 25%" />
+      <col style="width: 25%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Capability</th>
+      <th>Current state</th>
+      <th>DuckDB 1.5.5 / Iceberg extension context</th>
+      <th>Official-source basis</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>Iceberg format/spec versions</td>
+      <td>Partial</td>
+      <td>DuckDB Iceberg writes can set <code>format-version</code> 2 or
+      3, and 1.5.1 added several v3 features, but Apache Iceberg v3/v4
+      includes more than DuckDB documents as supported.</td>
+      <td>DuckDB writing docs; DuckDB 1.5.1 release notes; Apache
+      Iceberg spec</td>
+      </tr>
+      <tr class="even">
+      <td>Direct/path-based table reads</td>
+      <td>Supported</td>
+      <td><code>iceberg_scan</code> can read an Iceberg table path or
+      metadata file without a catalog. This path is read-only.</td>
+      <td>DuckDB Iceberg overview and scan docs</td>
+      </tr>
+      <tr class="odd">
+      <td>Catalog-managed reads and writes</td>
+      <td>Supported</td>
+      <td>Supported through attached Iceberg REST catalogs. Writes go
+      through the catalog and commit new snapshots.</td>
+      <td>DuckDB Iceberg writing docs</td>
+      </tr>
+      <tr class="even">
+      <td>Iceberg REST Catalog requirements</td>
+      <td>Supported</td>
+      <td>Required for DuckDB Iceberg writes. Generic REST attach plus
+      specific REST-catalog examples are documented.</td>
+      <td>DuckDB Iceberg catalog docs</td>
+      </tr>
+      <tr class="odd">
+      <td><code>CREATE</code>/<code>DROP SCHEMA</code> and
+      <code>CREATE</code>/<code>DROP TABLE</code></td>
+      <td>Supported</td>
+      <td>Supported for attached Iceberg catalogs.</td>
+      <td>DuckDB writing docs</td>
+      </tr>
+      <tr class="even">
+      <td><code>INSERT</code></td>
+      <td>Supported</td>
+      <td>Supported into catalog-managed Iceberg tables.</td>
+      <td>DuckDB writing docs</td>
+      </tr>
+      <tr class="odd">
+      <td><code>UPDATE</code> and <code>DELETE</code></td>
+      <td>Partial</td>
+      <td>Supported for partitioned and unpartitioned Iceberg tables,
+      but only using merge-on-read positional deletes. Copy-on-write is
+      not supported.</td>
+      <td>DuckDB writing docs and limitations</td>
+      </tr>
+      <tr class="even">
+      <td><code>MERGE INTO</code></td>
+      <td>Supported</td>
+      <td>Supported for catalog-managed Iceberg tables; documented in
+      current writing docs and highlighted in 1.5.3 release notes.</td>
+      <td>DuckDB writing docs and 1.5.3 notes</td>
+      </tr>
+      <tr class="odd">
+      <td><code>ALTER TABLE</code> and schema evolution</td>
+      <td>Partial</td>
+      <td>Current docs support listed operations such as add/drop/rename
+      column and column type/default/nullability changes. Do not claim
+      complete Iceberg ecosystem parity.</td>
+      <td>DuckDB writing docs</td>
+      </tr>
+      <tr class="even">
+      <td>Partition transforms and partition evolution</td>
+      <td>Partial</td>
+      <td>Identity, year, month, day, hour, bucket, and truncate
+      transforms are documented. Partition evolution is supported
+      through documented
+      <code>ALTER TABLE ... SET PARTITIONED BY</code>, but do not assume
+      every upstream transform/evolution pattern.</td>
+      <td>DuckDB partition docs and 1.5.2/1.5.3 Iceberg notes</td>
+      </tr>
+      <tr class="odd">
+      <td>Delete-file semantics; merge-on-read/copy-on-write</td>
+      <td>Partial</td>
+      <td>Merge-on-read positional delete files are supported.
+      Copy-on-write mode is explicitly unsupported.</td>
+      <td>DuckDB writing limitations</td>
+      </tr>
+      <tr class="even">
+      <td>Time travel and snapshots</td>
+      <td>Partial</td>
+      <td>Metadata functions expose snapshots. Scan functions accept
+      snapshot ID/timestamp parameters. Catalog time-travel should be
+      treated as supported only where docs and environment confirm
+      it.</td>
+      <td>DuckDB metadata/function reference</td>
+      </tr>
+      <tr class="odd">
+      <td>Metadata inspection</td>
+      <td>Supported</td>
+      <td><code>iceberg_metadata</code>, <code>iceberg_snapshots</code>,
+      <code>iceberg_column_stats</code>,
+      <code>iceberg_partition_stats</code>, and
+      <code>iceberg_load_table_response</code> are documented.</td>
+      <td>DuckDB Iceberg function reference</td>
+      </tr>
+      <tr class="even">
+      <td>Table properties</td>
+      <td>Supported</td>
+      <td><code>WITH (...)</code> table properties and property
+      inspection/set functions are documented for attached
+      catalogs.</td>
+      <td>DuckDB writing and function docs</td>
+      </tr>
+      <tr class="odd">
+      <td>Nested/semi-structured types and relevant v3 features</td>
+      <td>Partial</td>
+      <td>DuckDB 1.5.0 introduced core <code>VARIANT</code>; Iceberg
+      1.5.1 release notes list Iceberg v3 support for
+      <code>VARIANT</code>, <code>TIMESTAMP_NS</code>, default values,
+      deletion vectors, partitioned insert/create, and Parquet copy
+      options. Apache Iceberg v3 includes additional features not all
+      documented as DuckDB-supported.</td>
+      <td>DuckDB 1.5.0/1.5.1 notes and Apache spec</td>
+      </tr>
+      <tr class="even">
+      <td>Supported REST catalogs/cloud integrations</td>
+      <td>Partial</td>
+      <td>DuckDB docs list generic REST plus Amazon S3 Tables, AWS
+      Glue/SageMaker Lakehouse, Cloudflare R2 Data Catalog, Apache
+      Polaris, Lakekeeper, SeaweedFS, and Google Cloud BigLake. Cloud
+      examples may require paid services or credentials, so they are not
+      core labs.</td>
+      <td>DuckDB catalog docs</td>
+      </tr>
+      <tr class="odd">
+      <td>Interoperability with other engines/tools</td>
+      <td>Partial</td>
+      <td>Iceberg REST is designed for engine/language compatibility,
+      and DuckDB can read/write supported Iceberg tables, but
+      interoperability depends on feature overlap, delete-file support,
+      catalog behavior, and table properties.</td>
+      <td>Apache REST catalog spec and DuckDB Iceberg docs</td>
+      </tr>
+      <tr class="even">
+      <td>Known limitations or unsupported behavior</td>
+      <td>Partial</td>
+      <td>Path-based writes are unsupported; copy-on-write
+      updates/deletes are unsupported; some target file/row group
+      properties are not honored for partitioned tables. Other
+      unverified behaviors must be marked Needs verification before
+      becoming lab requirements.</td>
+      <td>DuckDB writing limitations</td>
+      </tr>
+      </tbody>
+      </table>
+      <p>Official sources for matrix:</p>
+      <ul>
+      <li>DuckDB Iceberg overview: <a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/overview.html"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/overview.html</a></li>
+      <li>DuckDB Iceberg writing docs: <a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/writing"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/writing</a></li>
+      <li>DuckDB Iceberg function reference: <a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/reference"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/reference</a></li>
+      <li>DuckDB Iceberg catalogs: <a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/catalogs.html"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/catalogs.html</a></li>
+      <li>DuckDB 1.5.0 release notes: <a
+      href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></li>
+      <li>DuckDB 1.5.1 release notes: <a
+      href="https://duckdb.org/2026/03/23/announcing-duckdb-151"
+      class="uri">https://duckdb.org/2026/03/23/announcing-duckdb-151</a></li>
+      <li>DuckDB 1.5.2 release notes: <a
+      href="https://duckdb.org/2026/04/13/announcing-duckdb-152"
+      class="uri">https://duckdb.org/2026/04/13/announcing-duckdb-152</a></li>
+      <li>DuckDB 1.5.3 release notes: <a
+      href="https://duckdb.org/2026/05/20/announcing-duckdb-153"
+      class="uri">https://duckdb.org/2026/05/20/announcing-duckdb-153</a></li>
+      <li>Apache Iceberg spec: <a
+      href="https://iceberg.apache.org/spec/"
+      class="uri">https://iceberg.apache.org/spec/</a></li>
+      <li>Apache Iceberg REST catalog spec: <a
+      href="https://iceberg.apache.org/rest-catalog-spec/"
+      class="uri">https://iceberg.apache.org/rest-catalog-spec/</a></li>
+      </ul>
+      <hr />
+      <h1
+      id="current-year-duckdb-feature-table-january-1-august-27-2026">7.
+      Current-year DuckDB Feature Table: January 1-August 27, 2026</h1>
+      <p>Stable or usable current features first; preview/beta/upcoming
+      items are separated afterward.</p>
+      <table style="width:100%;">
+      <colgroup>
+      <col style="width: 14%" />
+      <col style="width: 14%" />
+      <col style="width: 14%" />
+      <col style="width: 14%" />
+      <col style="width: 14%" />
+      <col style="width: 14%" />
+      <col style="width: 14%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Feature</th>
+      <th>Release</th>
+      <th>Core or extension</th>
+      <th>Status</th>
+      <th>Why it matters</th>
+      <th>Lab tie-in</th>
+      <th>Official source</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>Friendly CLI refresh: dynamic prompts, pager,
+      <code>.tables</code>, <code>_</code> last-result table</td>
+      <td>1.5.0</td>
+      <td>CLI/core workflow</td>
+      <td>Stable</td>
+      <td>Makes teaching and exploratory SQL smoother</td>
+      <td>Used throughout setup and live demos</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="even">
+      <td>Native <code>VARIANT</code> type</td>
+      <td>1.5.0</td>
+      <td>Core type</td>
+      <td>Stable</td>
+      <td>Enables more natural semi-structured workflows inside
+      DuckDB</td>
+      <td>Module 6 <code>variant_lab</code></td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="odd">
+      <td>Built-in <code>GEOMETRY</code> type foundation</td>
+      <td>1.5.0</td>
+      <td>Core type plus spatial ecosystem</td>
+      <td>Stable for core type; CRS support still experimental</td>
+      <td>Makes geometry a native DuckDB type and improves extension
+      interoperability</td>
+      <td>Optional spatial mini-lab</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="even">
+      <td><code>read_duckdb</code> table function</td>
+      <td>1.5.0</td>
+      <td>Core table function</td>
+      <td>Stable</td>
+      <td>Lets learners query DuckDB database files without attaching
+      them</td>
+      <td>Optional cross-database read challenge</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="odd">
+      <td>Azure Blob / ADLSv2 writes through <code>COPY</code></td>
+      <td>1.5.0</td>
+      <td><code>httpfs</code>/cloud storage</td>
+      <td>Stable, environment-dependent</td>
+      <td>Important for lakehouse workflows, but not core because it may
+      require credentials</td>
+      <td>Optional connector discussion</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="even">
+      <td>Iceberg table properties and extra HTTP headers</td>
+      <td>1.5.0</td>
+      <td>Iceberg extension</td>
+      <td>Stable extension feature</td>
+      <td>Needed for catalog-managed table behavior and some catalog
+      integrations</td>
+      <td>Module 6 advanced REST-catalog lab</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="odd">
+      <td><code>httpfs</code> default backend changed to curl; HTTPS
+      extension installs</td>
+      <td>1.5.0</td>
+      <td>Extension/networking</td>
+      <td>Stable</td>
+      <td>Improves extension/download/network behavior and proxy
+      handling</td>
+      <td>Setup and troubleshooting</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="even">
+      <td>Non-blocking checkpointing</td>
+      <td>1.5.0</td>
+      <td>Storage/concurrency</td>
+      <td>Stable</td>
+      <td>Reduces write blocking during checkpoints in transactional
+      workflows</td>
+      <td>Module 4 internals discussion</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="odd">
+      <td>Lance support</td>
+      <td>1.5.1</td>
+      <td>Core extension</td>
+      <td>Stable extension feature</td>
+      <td>Adds another lakehouse/vector-adjacent format to compare with
+      Iceberg/Parquet</td>
+      <td>Optional current-feature discussion</td>
+      <td><a href="https://duckdb.org/2026/03/23/announcing-duckdb-151"
+      class="uri">https://duckdb.org/2026/03/23/announcing-duckdb-151</a></td>
+      </tr>
+      <tr class="even">
+      <td>Iceberg v3 feature expansion: <code>VARIANT</code>,
+      <code>TIMESTAMP_NS</code>, defaults, deletion vectors, partitioned
+      insert/create</td>
+      <td>1.5.1</td>
+      <td>Iceberg extension</td>
+      <td>Partial; supported subset</td>
+      <td>Important for modern Iceberg interop, but not full v3
+      parity</td>
+      <td>Module 5-6 support matrix</td>
+      <td><a href="https://duckdb.org/2026/03/23/announcing-duckdb-151"
+      class="uri">https://duckdb.org/2026/03/23/announcing-duckdb-151</a></td>
+      </tr>
+      <tr class="odd">
+      <td>DuckLake v1.0 support</td>
+      <td>1.5.2</td>
+      <td>DuckLake extension</td>
+      <td>Stable extension feature</td>
+      <td>Gives a DuckDB-native lakehouse contrast point to Iceberg</td>
+      <td>Optional capstone comparison</td>
+      <td><a href="https://duckdb.org/2026/04/13/announcing-duckdb-152"
+      class="uri">https://duckdb.org/2026/04/13/announcing-duckdb-152</a></td>
+      </tr>
+      <tr class="even">
+      <td>Iceberg <code>ALTER TABLE</code>, partitioned updates/deletes,
+      GEOMETRY, truncate/bucket transforms, MERGE</td>
+      <td>1.5.2-1.5.3</td>
+      <td>Iceberg extension</td>
+      <td>Partial; supported documented subset</td>
+      <td>Materially expands catalog-managed Iceberg DDL/DML</td>
+      <td>Module 6 advanced lab</td>
+      <td><a href="https://duckdb.org/2026/04/13/announcing-duckdb-152"
+      class="uri">https://duckdb.org/2026/04/13/announcing-duckdb-152</a>
+      and <a href="https://duckdb.org/2026/05/20/announcing-duckdb-153"
+      class="uri">https://duckdb.org/2026/05/20/announcing-duckdb-153</a></td>
+      </tr>
+      </tbody>
+      </table>
+      <h2 id="preview-beta-experimental-or-upcoming-appendix">Preview,
+      beta, experimental, or upcoming appendix</h2>
+      <table>
+      <colgroup>
+      <col style="width: 25%" />
+      <col style="width: 25%" />
+      <col style="width: 25%" />
+      <col style="width: 25%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Item</th>
+      <th>Status</th>
+      <th>Why it is not taught as stable baseline</th>
+      <th>Source</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>PEG parser</td>
+      <td>Experimental / disabled by default in 1.5.0</td>
+      <td>Must be explicitly enabled with
+      <code>CALL enable_peg_parser()</code>; not stable default
+      behavior</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="even">
+      <td>Quack client-server protocol</td>
+      <td>Beta in 1.5.3</td>
+      <td>Useful to mention, but release notes say production-ready
+      target is v2.0</td>
+      <td><a href="https://duckdb.org/2026/05/20/announcing-duckdb-153"
+      class="uri">https://duckdb.org/2026/05/20/announcing-duckdb-153</a></td>
+      </tr>
+      <tr class="odd">
+      <td>Windows installer script for DuckDB CLI</td>
+      <td>Beta in 1.5.0</td>
+      <td>Fine for optional install guidance, not a required lab
+      dependency</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="even">
+      <td>Geometry CRS support</td>
+      <td>Experimental caveat</td>
+      <td>Built-in geometry type is stable, but CRS support is described
+      cautiously</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="odd">
+      <td>DuckDB 1.5.6 and 2.0.0</td>
+      <td>Upcoming</td>
+      <td>Release calendar lists them after the verification date; not
+      current stable behavior</td>
+      <td><a href="https://duckdb.org/release_calendar"
+      class="uri">https://duckdb.org/release_calendar</a></td>
+      </tr>
+      </tbody>
+      </table>
+      <hr />
+      <h1 id="assessment-package">8. Assessment Package</h1>
+      <p>Use these as graded or self-check items.</p>
+      <h2 id="module-1-checks">Module 1 checks</h2>
+      <div class="sourceCode" id="cb55"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">7</span> <span class="kw">AS</span> pass <span class="kw">FROM</span> customers_raw;</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">6</span> <span class="kw">AS</span> pass <span class="kw">FROM</span> customers_curated;</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">1</span> <span class="kw">AS</span> pass <span class="kw">FROM</span> customers_curated <span class="kw">WHERE</span> <span class="kw">NOT</span> email_valid;</span></code></pre></div>
+      <p>Concept questions:</p>
+      <pre class="text"><code>1. Why stage CSV as VARCHAR first?
+2. What does TRY_CAST preserve that CAST would not?
+3. What data-quality issue remains unresolved after cleaning?</code></pre>
+      <h2 id="module-2-checks">Module 2 checks</h2>
+      <div class="sourceCode" id="cb57"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">8</span> <span class="kw">AS</span> pass <span class="kw">FROM</span> transactions_clean;</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">sum</span>(revenue_local) <span class="op">=</span> <span class="fl">457.75</span> <span class="kw">AS</span> pass</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> mart_customer_revenue;</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">1</span> <span class="kw">AS</span> pass</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> transactions_clean <span class="kw">AS</span> t</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> customers_curated <span class="kw">AS</span> c</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ON</span> t.customer_id <span class="op">=</span> c.customer_id</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> c.customer_id <span class="kw">IS</span> <span class="kw">NULL</span></span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> t.status <span class="op">=</span> <span class="st">&#39;captured&#39;</span>;</span></code></pre></div>
+      <p>Concept questions:</p>
+      <pre class="text"><code>1. Why does an orphan transaction matter?
+2. Why deduplicate before joining?
+3. When would you keep both duplicate rows instead?</code></pre>
+      <h2 id="module-3-checks">Module 3 checks</h2>
+      <div class="sourceCode" id="cb59"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">9</span> <span class="kw">AS</span> pass <span class="kw">FROM</span> events_clean;</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">1</span> <span class="kw">AS</span> pass <span class="kw">FROM</span> events_clean <span class="kw">WHERE</span> event_ts <span class="kw">IS</span> <span class="kw">NULL</span>;</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">4</span> <span class="kw">AS</span> pass <span class="kw">FROM</span> events_clean <span class="kw">WHERE</span> event_type <span class="op">=</span> <span class="st">&#39;purchase&#39;</span> <span class="kw">AND</span> event_ts <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span>;</span></code></pre></div>
+      <p>Concept questions:</p>
+      <pre class="text"><code>1. What type did DuckDB infer for nested properties?
+2. Why does deduplication change daily event counts?
+3. What does a list aggregation reveal that a pivot does not?</code></pre>
+      <h2 id="module-4-checks">Module 4 checks</h2>
+      <div class="sourceCode" id="cb61"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">8</span> <span class="kw">AS</span> pass</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">&#39;data/curated/events_by_day/**/*.parquet&#39;</span>);</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">4</span> <span class="kw">AS</span> pass</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">&#39;data/curated/events_by_day/**/*.parquet&#39;</span>)</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> event_type <span class="op">=</span> <span class="st">&#39;purchase&#39;</span>;</span></code></pre></div>
+      <p>Concept questions:</p>
+      <pre class="text"><code>1. What is projection pushdown?
+2. What is predicate pushdown?
+3. Why is over-partitioning dangerous?</code></pre>
+      <h2 id="module-5-checks">Module 5 checks</h2>
+      <div class="sourceCode" id="cb63"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">51793</span> <span class="kw">AS</span> pass</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_scan(</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;data/iceberg/lineitem_iceberg&#39;</span>,</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>    allow_moved_paths <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">60175</span> <span class="kw">AS</span> pass</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> iceberg_scan(</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;data/iceberg/lineitem_iceberg/metadata/v1.metadata.json&#39;</span>,</span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>    allow_moved_paths <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+      <p>Concept questions:</p>
+      <pre class="text"><code>1. Why can two metadata versions produce different counts?
+2. Why is path-based Iceberg access read-only in DuckDB?
+3. What does a REST catalog add?</code></pre>
+      <h2 id="module-6-checks">Module 6 checks</h2>
+      <p>For core path:</p>
+      <div class="sourceCode" id="cb65"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">2</span> <span class="kw">AS</span> pass <span class="kw">FROM</span> variant_lab;</span></code></pre></div>
+      <p>For advanced REST-catalog path:</p>
+      <div class="sourceCode" id="cb66"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">3</span> <span class="kw">AS</span> pass</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> polaris_catalog.duckdb_workshop.<span class="kw">events</span>;</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> event_name <span class="op">=</span> <span class="st">&#39;signup&#39;</span> <span class="kw">AS</span> pass</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> polaris_catalog.duckdb_workshop.<span class="kw">events</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">id</span> <span class="op">=</span> <span class="dv">2</span>;</span></code></pre></div>
+      <p>Concept questions:</p>
+      <pre class="text"><code>1. Which Iceberg operations required a catalog?
+2. What is merge-on-read?
+3. Why should preview features be separated from stable lab requirements?</code></pre>
+      <hr />
+      <h1 id="official-source-reference-section">9. Official-source
+      Reference Section</h1>
+      <table>
+      <colgroup>
+      <col style="width: 50%" />
+      <col style="width: 50%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Topic</th>
+      <th>Source</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>Current release baseline and upcoming releases</td>
+      <td><a href="https://duckdb.org/release_calendar"
+      class="uri">https://duckdb.org/release_calendar</a></td>
+      </tr>
+      <tr class="even">
+      <td>DuckDB 1.5.0 features</td>
+      <td><a href="https://duckdb.org/2026/03/09/announcing-duckdb-150"
+      class="uri">https://duckdb.org/2026/03/09/announcing-duckdb-150</a></td>
+      </tr>
+      <tr class="odd">
+      <td>DuckDB 1.5.1 features</td>
+      <td><a href="https://duckdb.org/2026/03/23/announcing-duckdb-151"
+      class="uri">https://duckdb.org/2026/03/23/announcing-duckdb-151</a></td>
+      </tr>
+      <tr class="even">
+      <td>DuckDB 1.5.2 features</td>
+      <td><a href="https://duckdb.org/2026/04/13/announcing-duckdb-152"
+      class="uri">https://duckdb.org/2026/04/13/announcing-duckdb-152</a></td>
+      </tr>
+      <tr class="odd">
+      <td>DuckDB 1.5.3 features</td>
+      <td><a href="https://duckdb.org/2026/05/20/announcing-duckdb-153"
+      class="uri">https://duckdb.org/2026/05/20/announcing-duckdb-153</a></td>
+      </tr>
+      <tr class="even">
+      <td>DuckDB 1.5.4 and 1.5.5</td>
+      <td><a href="https://duckdb.org/2026/06/17/announcing-duckdb-154"
+      class="uri">https://duckdb.org/2026/06/17/announcing-duckdb-154</a></td>
+      </tr>
+      <tr class="odd">
+      <td>DuckDB Iceberg overview</td>
+      <td><a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/overview.html"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/overview.html</a></td>
+      </tr>
+      <tr class="even">
+      <td>DuckDB Iceberg writing</td>
+      <td><a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/writing"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/writing</a></td>
+      </tr>
+      <tr class="odd">
+      <td>DuckDB Iceberg metadata/functions</td>
+      <td><a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/reference"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/reference</a></td>
+      </tr>
+      <tr class="even">
+      <td>DuckDB Iceberg catalogs</td>
+      <td><a
+      href="https://duckdb.org/docs/current/core_extensions/iceberg/catalogs.html"
+      class="uri">https://duckdb.org/docs/current/core_extensions/iceberg/catalogs.html</a></td>
+      </tr>
+      <tr class="odd">
+      <td>Apache Iceberg spec</td>
+      <td><a href="https://iceberg.apache.org/spec/"
+      class="uri">https://iceberg.apache.org/spec/</a></td>
+      </tr>
+      <tr class="even">
+      <td>Apache Iceberg REST catalog spec</td>
+      <td><a href="https://iceberg.apache.org/rest-catalog-spec/"
+      class="uri">https://iceberg.apache.org/rest-catalog-spec/</a></td>
+      </tr>
+      <tr class="odd">
+      <td>Polaris quickstart</td>
+      <td><a href="https://polaris.apache.org/guides/quickstart/"
+      class="uri">https://polaris.apache.org/guides/quickstart/</a></td>
+      </tr>
+      <tr class="even">
+      <td>DuckDB data ingestion docs</td>
+      <td><a
+      href="https://duckdb.org/docs/current/clients/python/data_ingestion"
+      class="uri">https://duckdb.org/docs/current/clients/python/data_ingestion</a></td>
+      </tr>
+      <tr class="odd">
+      <td>DuckDB profiling docs</td>
+      <td><a
+      href="https://duckdb.org/docs/current/sql/statements/profiling"
+      class="uri">https://duckdb.org/docs/current/sql/statements/profiling</a></td>
+      </tr>
+      <tr class="even">
+      <td>DuckDB EXPLAIN ANALYZE docs</td>
+      <td><a
+      href="https://duckdb.org/docs/current/guides/meta/explain_analyze"
+      class="uri">https://duckdb.org/docs/current/guides/meta/explain_analyze</a></td>
+      </tr>
+      <tr class="odd">
+      <td>DuckDB partitioned writes docs</td>
+      <td><a
+      href="https://duckdb.org/docs/current/data/partitioning/partitioned_writes"
+      class="uri">https://duckdb.org/docs/current/data/partitioning/partitioned_writes</a></td>
+      </tr>
+      </tbody>
+      </table>
+      <hr />
+      <h1 id="quality-gate-result">10. Quality-gate Result</h1>
+      <pre class="text"><code>PASS - Uses DuckDB 1.5.5 as verified stable baseline on August 27, 2026.
+PASS - Separates 1.5.6 and 2.0.0 as upcoming, not stable.
+PASS - Keeps core labs local and free of paid-cloud dependencies.
+PASS - Uses REST-catalog writes only in the optional advanced path.
+PASS - Separates Apache Iceberg spec behavior from DuckDB extension behavior.
+PASS - Marks partial Iceberg support where DuckDB documents limitations.
+PASS - Includes data wrangling, performance, JSON/semi-structured work, Parquet, and validation checks.
+PASS - Avoids claiming the labs were executed in this environment.
+PASS - Avoids claiming full Apache Iceberg ecosystem parity.</code></pre>
+    </main>
+  </div>
+</body>
+</html>
