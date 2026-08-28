@@ -1,3 +1,41 @@
+--
+Reference: Mojo quickstart | Mojo https://mojolang.org/docs/manual/quickstart/
+
+On RAAS Linux env. Use Conda for now until AutoIMR has been setup with Modular's repo. (Windows requires WSL2 which is not available.)
+
+
+# Activate a Conda env. for pip.
+conda activate …
+
+## pip 
+conda install "libstdcxx-ng>=12" libgcc-ng
+
+## Linux Sys Admin needs to run the sudo command for the target env. if the lib is not available. 
+sudo dnf install libbsd
+
+python -m pip install modular 
+export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+mojo
+
+## Persist Lib setting to Conda environment.
+mkdir -p "$CONDA_PREFIX/etc/conda/activate.d"
+
+cat > "$CONDA_PREFIX/etc/conda/activate.d/env_vars.sh" <<'EOF'
+export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+EOF
+
+
+
+# uv (recommended. But skip for now until AutoIMR is setup)
+uv pip install --upgrade mojo --extra-index-url http://YOUR-UID:YOUR-PWD@vp2txappndimr0
+1.ds.irsnet.gov:8081/nexus/repository/Public-py/simple
+
+
+# pixi (recommended / best) -- pending AutoIMR to include the Modular's repo. https://conda.modular.com/max/, https://conda.modular.com/max-nightly/
+pixi add modular
+pixi add "libstdcxx-ng>=12" libgcc-ng libbsd
+
+--
 RL
 https://docs.ray.io/en/master/rllib/index.html
 
