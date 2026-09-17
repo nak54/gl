@@ -1,3 +1,7 @@
+
+--3small model comparison
+https://www.google.com/search?q=how+are+thompson+reuter+models+compare+with+qwen+and+nemotron+3
+
 --csirc
 I wanted to loop you in on the explanation I gave for the SEC data transfer for CSIRC, since you weren't included in that conversation originally. It is concerning, as FLM mentioned It would be mentioned on my performance appraisal regardless of whether it ends up being closed out, I thought it was worth sharing both the explanation I provided and the work it made possible.
 The in-house RAG POC (report enclosed) wouldn't have been feasible without the ability to experiment with different vector databases and other components that are hard to test properly in-house. Our Python development setup, on both laptops and servers, has been improving, but Domino and its GPU access still have some teething issues — the persistent storage update just went live, for instance.
