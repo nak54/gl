@@ -1,0 +1,1818 @@
+https://www.youtube.com/watch?v=KhjhRRz3VJw
+Search in video
+Intro
+I'll find another way to come around HR and make your life miserable. This is Ethan Evans, former Amazon VP, and I
+brought him on for a third time to [music] ask him questions about corporate politics, but the questions get increasingly darker. I see you want
+to push me. You were there ever cases where you had to burn someone to get ahead? It is still a mind game and a
+competition. I'm allowed to win. You had so much success as a VP. Did you
+do empire building? We had our annual meeting with Bezos. Well, Jeff tore into it. Is lying optimal in high stakes
+situations? This hole has no bottom. Let's go. Here's the full episode.
+How to receive credit for your work
+I don't know what's going to happen in the future, but with all the latest advancements, it seems like these models
+are able to do the technical work of tech workers. And in that case, it feels
+like the non-technical work may become more important in the future. And at the
+same time, this is a theory that a lot of people have, which I hope isn't true, but it's reasonable, which is if these
+models can do the work of tech workers, maybe there will be fewer roles in tech.
+And in that case, I could also see politics becoming more important because there's the same number of people
+competing for uh fewer roles. And so what I want to do in conversation today
+is ask you everything uh in terms of soft skills, corporate politics to try
+and help people in this these potential future scenarios. And to start us off, I
+put together a set of questions about corporate politics which uh are dark and
+get darker as they go on, but they're also common scenarios that people experience. And I'm hoping you can
+answer transparently about how people should handle these and your experiences
+uh in these scenarios. Yeah, absolutely. I don't know what you have in mind, but I'm always game for
+hard questions. I like questions that push my thinking and if they're dark, well, sometimes life is dark, so let's
+go for it. First question, you know, how do you make sure that you get credit for your
+work when there's a collaboration and people are competing for visibility?
+Yeah. So, I think recognition, particularly in a collaborative sense, is tricky. One of the good things is
+it's easier to claim more recognition a little later. At the moment, people are very sensitive to it. Like I say, I
+helped start Prime Video or I was the first engineer on Prime Video. Well, now that's like long ago. There are some
+other people who would be like, "Well, I was part of that team too on that day, but they're not here right now." So, and
+they probably even if they see this, what are they going to do? They're going to be like, "Hey, I was there, too."
+Maybe there's a comment. If you scroll down in this video years later, maybe there's a comment says, "Hey, I was
+there, too." It's not really a problem. So, to get your credit, number one, realize credit is easier to take a
+little bit after. You want to get credit in the moment, but there's also later and it's easier. Second, that the way to
+get credit is to be the first to speak if you can. It doesn't mean you have to say things that aren't true, but those
+who speak first or those who speak up first, if you say, "Hey, we shipped this. I want to I want I'm excited to
+share. We just released this feature." whether you're sending that internally or externally to a boss to a product
+manager you can include the Wii and say oh I did it with Ryan and Fred and Sarah and Rajie
+but if you're the one saying it you're the one who gets the lion share of the credit even if it looks like and you are
+sharing that credit because the speaker gets it. Now, if someone else speaks first, what you need to do at that point
+is figure out a way to add on about what you did. So, if you speak first and Ryan sends
+out this message that says, "Well, we did this project, whatever." I can at least chime in and say, "Yeah, this was
+a great project. I really had fun solving blah blah blah or, you know, and
+claiming your piece. I really had fun coming up with the algorithm that
+doubled our sales and you find a way at least to say your part. What doesn't
+work is be silent and hope your part will be noticed. That's that's what
+never works. Yeah. And I think a a very common pattern of this and this is just
+the way the teams are laid out is your group of engineers and then there's a product manager and the product manager
+is often doing the upward reporting or maybe it's an engineering manager that's doing the upward reporting and so the
+people who actually do the work may not be as visible.
+What would you say in that case? Yeah. So one thing you can do is you can talk to your manager, product manager
+about remember to share the credit with the team. Remember to highlight some people. I'll give you an example. Um
+when my team finally launched that first v version of Prime Video, I was a senior
+manager. I had a vice president and I went to that vice president and I said, "Today the day now you write the
+congratulations message to everyone." So I prompted him like he wasn't the sort
+to give out a lot of praise. So I prompted him like today's the day you should write the message saying good job
+team. And once I sent that to him he's like I don't think he'd have done it but like 10 minutes later out comes this
+like great job team blah blah blah message. So you can actually somewhat direct people because a lot of people
+intend to give credit but they're not thinking about it. So like that product manager, they're thinking about I need
+to report the news. They're not thinking it's important to note what Ryan did. So
+just giving them that prompt of hey this is a big accomplishment for the team. It's a big moment for me. Can you make
+sure when you report this up to like mention what we did or mention us, not
+just what happened? And usually they're willing to do it. If they don't or they won't uh and you've tried that,
+find a way to share the news yourself. I it may not be in the announcement to leadership, but
+share a like technical note and say follow on to the product manager's note and say, I don't know if all of you in
+leadership are curious, but I thought you might want to know some of the technical underpinnings of how we did
+this. And then you can talk about whatever you want. No one is going to come back to you and say like we don't care about how any of it works because
+that makes them look bad. So you're you're finding a way to talk about
+things in a way that's hard for people to not like uh or to at least shut down.
+And so let the product manager share the fact it happened, but then you share the
+color. Think of it uh if you watch any sports of any type, they always have two
+people in the booth. They have the play-by-play announcer who's like, "So and so hit the ball or kicked the ball
+or caught the ball." But then they have the color guy and the color guy is there
+saying like, "Yeah, and he's the great receiver out of this university in his
+fourth year and like that's a really tough play. When I was a player, it was
+really tough to run that pattern or whatever." You can be your own color guy. If the PM is the announcer,
+you give the color. And those are two jobs and everyone welcomes the color guy. Do that.
+There's often these forums for leadership reviews where you put yourself down and you say, "I'm trying
+to get uh steering on this or I'm trying to get some headcount or something." And
+I noticed that actually the real outcome they wanted was to put the project in
+front of leadership. So when that person's promo is coming along, then it's visible and that person's aware of
+their work. And so if everyone takes this advice, everyone's competing to to
+speak but not have impact. you know, it feels like that's uh not healthy for an
+org if everyone's clamoring for visibility with no value. What would you say to that?
+So, first I'd say you're right. If everyone's clamoring for visibility with no value, you've got a very political
+organization. Uh but here's some truths that will set you free. Number one, most
+people uh never say anything. If uh like most people take no action, including by
+the way, half the people I'm speaking to right now who are watching me, they're like, I'm going to do something
+different. And the fact is tomorrow they're going to do nothing different. So, I'm challenging you like be in the half that does something. Um second, uh
+you can choose to add value. I was describing how to share news or share detail. But when I said like share some
+of the technical detail, you can do that with a purpose. You can be like what should I tell leadership about what
+happened or about how this built this is built so that they know I can tell them
+it either is built for scaling and it's ready to go and you can trust it or I
+can tell them you know it's important for you to know this is launch ready but if we have a lot of success we're going
+to need to invest in scaling you can make it somewhat useful
+I understand the worry and there are some orgs where like too many people are
+talking just to get visibility. You don't want that. But I would say if
+you have to have a problem, first be one of the people who's talking, then figure
+out how to add value. Because so many people listening to this are like, I'm I don't care what Ethan says. I don't I
+can't stand the idea of I'm talking for no reason, so I'm not going to do that. And that's the person who's sitting in
+their cube contemplating either quiet quitting or rage quitting because they can't get ahead because they've decided
+to opt out of the system. And I get it. I get what you're feeling. But you're
+you you're telling yourself you're this bold martyr for honesty and all you are is a martyr. And so, you know, don't do
+that. In instead, take it as a challenge and say, "Okay, I'm going to talk, but
+what I say is going to be worth hearing. I'm just going to raise the bar on myself as opposed to I'm going to get
+mad at all these other people I see just flapping their faces and I'm not going
+to say anything because to talk puts me in the same bucket as them." Don't do that. Don't get in a bucket with them.
+Make yourself a new bucket that's better. And if you're as good as you think, if you're sitting there about how
+hot you are, then you got to be able to find something useful to say. And if you can't construct something
+worth hearing, then go back and revisit that. But I'm so hot Right? That's
+the challenge I have to you. Is the best thing to do generally be as
+loud and outspoken as you can. First, I don't think there's ever like a perfect best thing. And second, I would
+answer that no because the way you phrased it, you're going to be seen as a blowhard, right? You're going to be seen
+as claiming falsely. If you rephrase what you said slightly to make sure you
+claim everything you legitimately can and stretch legitimate a little bit against the limits, then yes. Example, I
+always say I was the first engineer on Prime Video. Now, the truth is, and I've
+had one guy come back and challenge me on this, when I worked on that product,
+it was Amazon's first video product, but we hadn't named it Prime yet. So, when I
+worked on it, it was never called Prime. It became that. So, I could explain I was the first engineer to work on what
+became Prime Video. That's just a lot of extra confusing words.
+So, I'm ballooning up my claim. It's not false, but it is how you look at it. And
+I'm simplifying my messaging and I'm the first person who worked on that. The guy who's the first guy who worked on it
+when it was called Prime, he thinks I'm claiming too much. Well, fine. You push
+those boundaries a little bit because people's brains can't hold that much. You've got to make your message simple.
+So, claim as much as you reasonably can. Don't get caught out. Like, luckily that
+guy isn't like, "You never worked on Prime Video." He knows what I did. He just doesn't like how I label it. I can
+live with that. If he was like, "Hey, that's You were never on the team." Like, you know, "Show me the proof you're ever on the team or you
+ever did anything." Then I'd be in trouble. So, you want to push those limits, but not
+to being false, more to just being really simple because it's a lot easier to believe like remember Ethan started
+Prime Video than this more complex story and it's close enough to write. Now,
+some people are like, "Well, that's not really close enough to write. You're embellishing." Well, I don't know what to tell you. It's
+simpler and simple works. Simple messages work. It's like, you know, it's
+all marketing messages are very short. And I I hear what you're saying, but it
+seems like there's a gray area there. How do you find the right place in the
+gray area? Yeah. Well, okay. So, you want to talk about soft skills today. One thing you're going to have to accept on all
+soft skills is they're gray, right? Like there, you've asked me a couple times
+stated like the best is this, the best at that. That's a good challenge for me. But best is almost always context
+dependent. Who are you talking to? What do they care about? So you have to move
+in that gray area. And what I would say is get comfortable in the gray as
+opposed to we as engineers were trained in binary. It's zero or it's one. We
+love black and white. Soft skills and these kinds of things are gray. Never
+verge into the black where you're lying. But also don't feel like you have to limit yourself to the pure white of
+facts not a single person would argue with because on a team project who had the contribution and who had the idea.
+Let's take another example. I hold many patents. A lot of those patents have
+other inventors on them. Sometimes I feel that I'm the inventor and some
+other people's names got added because of social circumstances and sometimes to be honest someone else was the inventor
+and my name kind of got added. Those situations I just say I have 70
+patents. I could try and divide it into like I have 70 patents 25 of which I feel like I was the inventor or I could
+just say 75 patents. So, answering your question about gray areas,
+my advice is read the room. And what does read the room mean? It means understand your
+audience and figure out how to explain what you did in a way that the audience
+is like, "Okay, you did that and it was good." You have to adjust. I can tell most of my
+resume accomplishment stories many different ways, right? I say I was the
+first person working on Prime Video. I can also say I was the first person working on Amazon video. I can also say
+I was the first manager and I hired a team and they built it. It's all they're all true. And that's the gray area is
+every one of those is true, but they're a different way of looking at it. Push me. I see you want to push me [laughter]
+because I'm thinking so there's a spectrum here of complete no one will
+will push back on it 100% truth and then there's outright lie
+if you had to say where on the spectrum you should place yourself on average for
+for the fastest career growth where would you More is better more is better until you
+be until it starts to damage your reputation. You can't back it up. More.
+Why I say more is better? Because most people say too little and claim too little and they have this faith which is
+misplaced. The key is what I'm fighting against is not on the table in your equation. What I'm fighting against is
+all the people who are hoping to be noticed. They're waiting for someone to
+go look at the check-ins and count checkins or go look at all the code and
+decide who had the real and that's never going to happen. They're looking for this deep evaluation that will create
+this cosmic fairness. That's natural because we we came through
+university where you took a test and it got graded and every question got a score. And we're trained to think that's
+going to happen in life and it's not. So what I'm pushing back is imagine you took an exam and you were back in
+college. But the score that was going to be written down was what you could convince the professor your effort was
+worth because that's how your work is actually scored at a job. You fill out
+the same exam. Theoretically, it could be graded and give you a point score, but it's really going to be
+six months later, the manager, the professor is going to sit down in a room with all these exams and think, "What do
+I think about Ryan? I feel like he probably got about a 75 on this exam." They're not going to reread it or grade
+the questions. They're gonna be like, "I know Ryan. He's about a 75." You want to have told a story where it's like, "I
+know Ryan. He's definitely a 97." I get why some people's skin is literally
+crawling right now. They're like, "It's so wrong. This guy, I hate him because he's telling me these things that just
+shouldn't be." And I'm with you. But I'm telling you
+the real world. And it's how well you manage that relationship and describe
+your work and surface it. They're like, "Man, Ryan is my 97."
+And that does mean, by the way, the dark side is that means someone else who was
+a 75 is like, "Oh yeah, Alfred, I don't remember much about him." That's an F.
+Alfred's the guy who's sitting and hoping for the fair grading. And now he's in his cube contemplating rage
+quitting because he got an F. This is the world. The world is a social world
+with short memory. And you've got to claim what you really did. And why I
+tell people to claim more is so many people are Alfred sitting quietly expecting a fair grade.
+Ways for quiet people to get visibility
+These behaviors come more naturally to some people who are louder. Um but what about some people who are, you know,
+more quiet by nature? Do you have any ideas on how they can get this visibility?
+Yeah, absolutely. There's a few ways. Um, look, the world favors extroverts.
+It's done that for at least a hundred years. There's some evidence it was different in the past. But getting your
+point, um, what someone who's quieter should do is number one, can you write
+about it? If you're not the sort of person who wants to talk about it or speak in a meeting, can you write about
+what you're doing somewhere? Can you email it? Can you put it in Slack? Can you publicize it somehow?
+Second, if you can't do that, can you get someone else to publicize it? So, can you put it somewhere where it's
+going to get reviews? Can you let your work speak, but not in a vacuum? Can you
+share it out if you only want to like if you only want to talk to other engineers? Can you turn something you
+did into a sharable component? Can you turn it into a a talk for whatever, a
+white paper, a brown bag? What are the ways you can let your work truly speak
+for itself but not in isolation? The way to succeed totally quietly is build
+something everyone else uses. If that happens, they will eventually they will
+truly come looking for you like who built this? A story here that's fun is
+there's a longgone Amazon engineer. His name was Matt Round. I never met him,
+but he built something called the Matt Round Tool or MRT, which was our
+interview tracking system for over a decade. Everyone used MRT. Well, it was
+the Matt Round tool. So, I never met this guy, but I can tell you a little bit about him because his tool became
+used by everybody and it was named after him. That's a way to be famous without
+ever saying a word or I guess you had to say three letters, right? You had to call it MRT.
+So that's the silent engineers publicity method.
+How to be trusted for top projects
+One situation that I've I've heard people talk about or my friends have I've encountered this is um competitions
+over scope. So, let's say you find a incredible opportunity and you know it's
+going to be impactful. It's going to be great for your career. This is before you tell anyone about it. How do you
+make sure that you get that scope? There's a few things. Uh number one, for
+me to give you a project as a manager, I have to believe a couple of things about you. First, I have to believe your
+work's good enough. Like if you have a good idea, I have to believe, okay, you've had a good idea, but are you the
+one who can carry it out? And you don't have to be the best person, but I at least have to believe you're not the worst person or someone who's a risk.
+So, it's a trust in your ability. You have to establish that. The second thing
+is I have to believe you can make the free time or you have the time or I can
+free your time. I'm going to be able to let you do it. And that means if you have other work, being able to hand it
+off, having it well documented, automating it, whatever it is you need to do in order to get that work to a
+point where you have the time to do this project. So, what you want to do is think through how am I going to make the
+case to my manager that this is or to whoever that this is a valuable addition
+and that I'm the right person both ability and time to take it on. The key
+is you do start with an advantage. If it was your idea, then you're the one who understands it best. You're the one
+who's thought about it most. So, you should be in a leading position
+for that role as long as you don't screw it up, as long as you don't have a bad
+track record or have a bad relationship or have something else going on that's super critical. The other thing is be
+clear to ask for it. Say, "I have this great new idea." You don't have to say, "And I want to make sure you put me on
+it." You phrase it as, "I have this I have this really valuable idea. I think it's going to change our business or
+change our team. and I am excited to bring it, you know, to to build it. I'm excited to make it
+happen. Uh that messaging sets in people's minds that you're the person
+and that they have to choose to disappoint you if they're going to give it to somebody else, which most people
+will shy away. If you don't say anything, it's like, "Oh, it's a good idea. I'll give it to Fred." But if
+you've said and I want to do it, um, then they have to decide, oh, well, if I
+give it to Fred, I'm gonna have to tell Ryan that and get him just to think like, is that worth it? This is another
+rule I tell people. You do need to be a little thorny. Um,
+one of the traits I think great leaders have, and this includes great engineers, is disappointing them comes with pain.
+Not that they're jerks, but they're not just going to be, "Oh, that's fine. Oh, yeah. No, don't worry about it." You got
+to be like, "What? What did you do?" No, my idea. If this is how it's going to
+be, I just won't bring any more ideas. Like, what the hell? And then, you know, you got to put that little push back in
+there of like this is not okay. And uh again, if you're good, the threat is I
+will take my good ideas somewhere else. And this is important
+again. Remember poor Alfred? He's sitting there with his F and he's mad. He has a good idea. If I can take away
+his idea and he's just going to sit there in his cube and be mad again. Like Alfred gets abused. Why? He gets abused
+because it's free to me as a manager. I have to make a trade-off between Ryan who's pushing me for stuff and Alfred
+who's always like just willing to suck it up. Well, maybe I actually think you're a little bit too pushy and I'd
+like to help Alfred out, but I do have an ugly triage to do, which is, well, if
+I don't cater to Ryan, he's out of here. Whereas, if I don't cater to Alfred,
+that guy is solid as a rock. He'll be here two years from now. I'll give him like some free lunch coupons and movie
+passes and he'll be so grateful. Don't be Alfred. You've got to be
+a little thorny. And again, those same people are like, "Why do I have to do that? Why should I Why?" They love the
+word should. Why should I have to do that? Well, okay. In cosmic justice land
+where the god of your choice is making everything just. You shouldn't. But we don't live in that land. We live in
+reality land where managers have a choice. They have some pushy people that are still good and they want to keep on
+their team. and they have some pretty like easygoing people that are kind of
+gonna go with the flow. The fact is the right decision for me as a manager, not
+the just decision, but the practical one is take a little from the people who are
+going to be all right about it and give it to the ones that aren't because
+that's how I keep my whole team. And yes, for all of you who don't like it, I have just said a little bit screw the
+nice people for the bad people, but I have a job to do. And so, of
+course, I also never tell myself how I just said it to you. Like, as a manager, I never say like, "Oh, I'm going to screw all my nice people to help these
+two jerks." But subconsciously, I'm making this tradeoff. And what I'm
+telling myself is, I will get back to them and take care of them. The problem is you're back around asking me for more
+stuff and I never quite get back to them and I meant to and I had a good heart about it and it just didn't happen
+and nonetheless you got everything you wanted and they lived with what was left over. And if you're in this leftover
+bucket, it's not that I meant bad things for you. It's I had, you know, there was
+this person always talking to me and I needed to get them out of my office. So, I gave them what they wanted cuz I'm
+human. When I was a manager, I used to think about, you know, what's the
+optimal team composition in terms of like the personalities of the people? And I'm curious to hear your thoughts.
+Would you rather have a team that's full of these super ambitious, pushy, you
+know, superstars or would you rather have pure role players? Yeah. So, I'd love to tell you I'd like
+all like pushy superstars, but you can't keep that many people happy unless
+unless your business circumstance is just dropping
+choice projects in your lap. That can happen in a high growth scenario where
+like everyone is against their growth limits. But absent that and particularly now when there's a lot more like flat
+headcount scenarios, those people just eat each other. They turn cannibal and they turn
+cannibal towards you and each other and it's very ugly. So a few of them though the reason you don't want all role
+players or all people who are very easygoing is you need those spark of change of
+ambition of you need people who are agitating for changes and ideas
+I think because in this world of uh
+very easygoing people the team may be calm, but
+no one is pushing. And so it's peaceful, but it's not high impact. There's a
+quote I love or a saying I love, which is um reasonable people conform to their
+environment. Therefore, all progress is due to unreasonable people. People are
+like, "But why? But why? Why does it have to be that way? Why does it take three clicks? Why why can't why won't
+the customer pay a million dollars? Why can't we all have hovercraft? Like those
+are the people who push things. You need some of them. Too many though
+and uh you just have chaos because everybody's pushing different directions. In the situation where you
+How to defend from others taking your project
+have a project and you haven't unveiled it yet and you really want to work on it, I actually think a lot of engineers,
+they don't worry about the manager giving it away. They worry about other engineers getting excited about their,
+you know, thing that they're excited about. So in that case, how would you
+defend against other engineers coming in saying, "Oh, I want a piece of that. Oh, that looks fun. Oh, that looks
+impactful." Well, number one, that might be a good thing. Like the first question I would ask myself is if my fellow
+engineers are excited about what I'm doing, how do I make like great, how do I make it big enough or tricky enough or
+hand pieces out so I'm kind of the kingmaker, right? So I'm like I'm like the person holding the cookie jar
+handing out cookies. That's a great role to be in or could be. Now if you're really worried about defending, one
+thing, of course, is don't tell them until it's too late, right? Work on it. Keep it to yourself. uh or until it's
+assigned to you. The other uh thing is if you had one good idea, you're
+probably smart enough to come up with multiple good ideas. So, can you like go to your manager and be like, I have this
+great idea. I'm going to work on this thing, but by the way, there's these two other ideas, and I think people on the
+team would be excited about it. Whether they are or not, you've you've given some like um I don't know uh other bait
+trail, right? And it doesn't mean that's illegitimate, just you've given people
+other interesting things to work on. But from a pure defensiveness, I guess if
+you're thinking about how do I keep my good work to myself, I would say outrun the competition.
+uh be a little ahead of them, be further down the prototype avenue or further
+down talking about it or uh to where
+they're not um up to speed. They can't keep up. The
+other thing that's a little bit darker, you like dark, you probably have work to get off your plate. Think about what you
+have on your plate. You could get stuck on their plate so they have something to do like I want to get rid of this. You
+talk to your boss and you're like, "I have this great new idea. It's going to make us a bunch of money or get us a bunch of customers, but I have to get
+rid of Product Fu, but you know what? Both Ethan and Sarah would be great to
+take over Project Fu. They're up to speed on it." Um, now they may hate you.
+You got to be careful. You'll make enemies. You got to figure out a way to like um say, "We'd have to figure out
+how to manage product project fu. There's a couple other people working on it. Maybe we can move it around and then
+get the boss to say, "Oh yeah, Fred and Sarah, I got it." Or Ethan and Sarah. Right. That's
+um that, you know, I like to do things above board. I think one of the things I
+want to challenge about some of your mentality in these questions, there's scarcity mentality. There's only so much
+good work. It is true. There's only so much promotion, so much visibility. But when it comes to good work, there's a
+lot of it. Even with promotions and visibility, if a company wants to bad
+enough, they can promote whoever they want. So, I try first to solve these not
+as a zero someum game or a prisoner's dilemma. I try to figure out how can I actually make them winwin. It isn't
+always possible, but at least start there of how can I find a way to make this project bigger? How can I find a
+way to if somebody else wants in on it, say to them, great. how can we make it better and do it in half the time,
+right? Or, you know, I even give them a hard time. I'll say something like, "Well, okay, but you know, this is a
+cool project and it's better than what you're working on. So, like, show me your serious. What are you going to build this weekend to move it forward?"
+And they're like, "Oh, this weekend I have plans." Well, then sorry. Like, this is a weekend's project, right? I
+mean, you know, you can do you you can say it with a smile like, "I thought you were committed. You can get away with a
+lot if you can play it off as hey like step up. Come on, I'm doing it, you
+know, and there there's just a game to that because humans humans push each other, right? Like how do all those
+stories that end with like watch this, hold my beer, and then some guy doing something crazy. It's usually he got
+pushed into it. Like, oh, you should jump off the bridge. Maybe you should jump off the bridge. Well, I if I did it, I'd do a backflip. Oh, you and they
+it's this that's how humans are. Another tough message about soft skills. Human
+skills are about dealing with humans weird broken minds that
+are not rational. They are emotional and that can be good. Emotions give us
+energy. They give us excitement. But you have to understand human psychology. And I would say to anyone
+listening, you're either uh many of you like a lot of engineers understand poker
+and that story about if you can't tell who the mark is at the poker table, it's you. Well, in the game of understanding
+each other's minds and understanding each other's motivations and soft skills, if you're not in charge, then
+you're the mark, right? Because that game is happening in every meeting consciously and unconsciously. And if
+you're not thinking about people's motivations and their satisfaction and
+their fears, not to manipulate them, but just to understand and be able to play your cards, right? You're not in the
+game. And remember, poker isn't a game where you manipulate each other. I can't make
+you play cards a certain way, but it is still a mind game and a competition. I'm
+allowed to win. And so that's where I feel like you can be ethical and be a card shark and be really good at playing
+your hand. I'm not putting you down by beating you. I'm just beating you. You had a fair chance. You held your cards.
+I was better and I won and I get the money. That's what I'm telling people to do. Like the other way to do it is like,
+"Oh, I have someone standing over your shoulder or a planted camera." That's cheating. That's manipulation.
+Just be really good at understanding people's minds. when you want to take on that project,
+How to reject bad projects
+maybe you offboard some of the stuff that you don't want to do to other people. And I think a lot of people have
+experienced receiving that. So, someone's trying to give them scope that they don't want. What's the typical ways
+to, you know, protect against that and say, "Oh, I don't want to take on this work. Thank you." Though,
+if you're in the situation where it's been pointed to you and you have to refuse it, you're already you've already lost round one. like there may be
+recovery but the the way to avoid that is to be the one proposing something uh
+to the to the team the boss the company whatever be playing offense once you're
+playing defense you're already losing so I will answer how to defend but the first defense right the the you know in
+this case the best defense a good offense is be the one putting forward
+ideas and talking about what could happen so that everyone's Like Ryan's
+full of ideas and he's doing all this stuff. We couldn't possibly give him anything. And then if I come to you,
+you're like, "Man, I'd love to, but I'm on projects A, B, and C or I have these
+new initiatives to do this stuff and I can't possibly do that." Now, if you
+screwed up and you looked idle and you didn't have some ideas cooking and
+somebody's trying to shove stuff on you, um there are a couple defenses. Uh,
+number one is, hey, if this is so e, you know, I can't take this on. It's too big. It's too much. They're like, oh,
+it's easier. It's just this. It's that great, you automate it. Go ahead. Uh, so push back like, why aren't you solving
+your own problem? Remember I said be a little thorny. The next defense is
+you're not the only person on the team. So I guarantee you there's somebody on
+the team who's not going to resist. And so just be thorny enough that they
+go to that other person instead of you. Be the person when they come like I'm not taking on your work. Who do you
+think you are? And then they'll go to the person who's like, "Oh yeah, I can help with that." That person is out
+there. So it's the way you defend yourself is to be not worth it, right? It's like a hedgehog defense or
+porcupine. Like, yes, can the can the tiger or the dog eat the porcupine? They
+can, but it's not worth it. I'll go find a nice mushy squirrel. And so, when they
+come to you, you get those porcupine thorns out. And they're like, "Ouch, I'll go find the squirrel." And then,
+you know, there's bunny guts all over the lawn somewhere else. And that's your peer, but it's not you. to say no, to
+give porcupine, you know, quills to your manager.
+They control if you get fired or not. They control your performance and all that. So, if you're constantly saying
+no. Yeah. If you're constantly saying no, then you're just not helpful.
+Goodbye. But that's my point about play offense, right? is you've got to be
+doing something that brings enough value so the manager isn't always bringing you things. The other thing I would say is
+if that doesn't work, try making a deal. Just look the manager in the eye and say, "Look, we both know this is not
+very appetizing work. Can we just agree that's true?" The manager will either be like, "Yeah, but it needs to be done."
+Or they'll be like, "No, it's great." And you can just roll your eyes in a way that's like, "Come on." So then you just
+move on either way and you're like, I'm going to do this, but I want to do this other thing. So I'm going to crank
+through this, but the deal is I get this next thing. And again, most managers,
+they don't want to fight. They got other things to do. They need their team pulling with them and they know they're
+asking you to do some unappetizing work and so they will make a deal. So there
+is a role to be a team player and to take on some of the stuff that needs to be done. There's also a way actually to
+get credit. Let's say your peer wants to hand stuff off or your manager wants to hand stuff
+off. Go to them and say, "Hey, you know, it's been I've I've really enjoyed
+getting to work on X, Y, and Z. You've given me some good projects. I know our
+team has some maintenance work and I know you're always hunting for people to do it. I'm gonna spend the next two
+weeks doing whatever maintenance you want because I want you to know I'm on your side and give me anything you want.
+I'm going to crank through it and then I want to do this or then I want to do that. But you you just if you're going
+to have to take the hit anyway, turn it into a virtue. If you think the hit is coming or you've seen a pattern, go
+volunteer for it and bargain up front like, "Hey, I know we're buried in backlog or buried in bugs. I want to get
+us through that. I'm going to do my own bug bash this weekend, tomorrow night, next week, fill in whatever my next on
+call. Tell me what is most important to you because I want to get to where then
+I'm free to we're both free for me to work on this thing that you need, this better thing." And so it's about all of
+these are strategies though to play offense. What doesn't work is to sit in your cube
+or sit in your home office or wherever it is you're sitting and hope you like this is the one case where hope you
+don't get noticed doesn't work. Normally it's normally you won't get noticed if you do nothing. But when I'm handing out
+work, I go look around my team like who haven't I seen in a while. Oh, it's Alfred the grumpy guy. Here we go. He's
+already grumpy. Why not give him this? Well, why is he grumpy? Because he got an F on the test. Because his work
+didn't get noticed. I actually made him grumpy. But I don't know that. I just know he's kind of grumpy, but he still goes along with stuff. So, I'll give it
+to him. As a manager, I go looking for who can I give this to. Human skills are
+an art. They're not a pure science. There's an art to being the thorny person without being seen as a jerk. You
+can be the porcupine without being a jerk. It's like, "Hey, man. I didn't
+stab you. These are just my quills. Like, so how do you do that? What does that mean? It means
+the little signs that you're not quite happy without actually opposing stuff. Let's
+say the boss brings you some extra crap work. You can be like,
+"All right, this is I will get this done, but we got to do better." Like, I'm looking for better next time. And
+just that little challenge, you're just setting that little hook of I'm looking for a better challenge tomorrow or soon
+as this is done, I want something juicier. And you're just setting that little hook because if they come back and like here's another thing you need
+to do. And I'm like, I told you juicy, we both know this isn't that. I'm going to give you one more pass.
+Most managers can't take that because most humans can't. Even though they
+never agreed, they can't take going up against that expectation over and over of like, I'm gonna take him something
+else and he's going to give me again. It just it's not worth it because
+there again, there's somebody else who's going to turn into bunny guts when I eat him. And
+I also know there's people listening who are like, "This is so unfair and I'm so sick of being bunny guts spread on the
+lawn when the wolf got me." Yeah. Change. become the porcupine, then
+become the bear, and it's okay. It's It's like a learning process. Everybody was bunny guts at
+some point in their career because they didn't know better. I want to [laughter] He's losing it.
+He's got this vision of a slaughtered field of rabbits. Oh my god. Okay, [laughter]
+we're going to come back. I'll get a new analogy. I'll save you for my analogy. Okay, the next situation um a little bit
+How to be first for promo
+darker as as I mentioned but also realistic is imagine you know you you
+want to get promoted but there's only one available slot. Maybe there's a promo quota or maybe it's one of those
+roles where you know there's there's only one manager role and you kind of want it. How do you make sure that
+you're the the first in line to get that? So first honesty sometimes is not possible. sometimes like I'm not going
+to promise people things that are impossible. If you have several more senior people in your team who are qualified and have done a good job
+expressing their interest, the right thing to do is get out of line. Go somewhere else. Go somewhere where
+there's more opportunity. Uh and I I mention that only because some people I
+always make fun of the post office because I can't imagine how you move up in the post office. Like either you deliver the mail or you don't and then
+there's postmaster and there's one of those and they stay there until they retire. I don't know what the hell you do at the post office. So, if you're at
+the post office, metaphorically, get out. Go somewhere that's growing. Now,
+if it is growing and there's going to be spots, you have to be sure.
+Managers aren't mind readers. They don't know what you want. So, you've got to make
+sure they know you want the role. The second thing is you can ask them like, "How can I be your first choice for this
+role?" Or, "What would it take?" A great way to phrase that is under what circumstances, like what would lead you
+to choose me, even if you have to be kind of absurd, like, "Hey, Ryan, against all odds, what would cause you
+to bump me to the front of line and put me first?" Like, what would that have to look like? Why do you ask it that way?
+Everyone can answer that. Everyone can say, "Well, this is what it would take." And then at least, you know, and you can
+negotiate those criteria and say, "What about this? What about that?" The second thing though is
+who gets promoted is who's indispensable, who I can count on, who I know is going to ride to my rescue when
+there's a problem. So, what I would do is I'd say if I want to jump the line, if I want to make sure I get there, I
+have to jump on crisis. When there's a fire, I have to jump on it. Why?
+um doing your regular job well. There's a lot of people doing that in a crisis
+when a system is down, when a customer is angry because they have an outage.
+Who steps up to handle that and who is technically brilliant and maybe a
+leader, they get noticed. And the question I'm asking myself at promo
+time is this person I'm about to put on my team, are they going to be the person
+I can count on no matter what? Are they going to keep me out of trouble? So you have to show that trait.
+Now what that usually means crises unfortunately rarely happen conveniently between 9 and five. They're always on a
+weekend or a holiday. So you're going to have to make some sacrifices to do that. But to show you want to have a
+discussion with your leader. What's keeping you up at night? What do you need most? I'm gonna work on those.
+Um I just spoke to someone. They had a great rule. They went to their manager
+and they would have a chat with their manager and say, "What are your three biggest problems?" And their manager would always can all managers always
+have problems. They can always say, "You know, I have these three problems." They would say, "Great. Which one's worst?" And they say, "Oh, this one." Say,
+"Great. I want to work on your worst problem. How do I like I want to go solve your worst problem. How do we make
+that happen? Well, of course, somebody who's shown me repeatedly they
+want to solve my worst problem. Who else do I want on my team? That's how you get
+there. It is hard. Okay, you've asked a question. I want to be clear.
+I've answered how do you get the spot? What a bunch of people actually wanted to know is how do I get that spot
+without putting myself out too much that I can't answer for you. There isn't, you
+know, I don't know, bribery. Like there isn't an answer for that one. In that last bit there, you mentioned
+someone he asked what are your worst problems. I wonder if there might be some unexpected opposite effect or what
+I mean is if I was a leader and someone was coming up to me and overly obviously
+eager to try to get promoted almost, you know, kissing up to me and saying, "Hey, what's your worst problem? Okay, I'm
+going to go solve that." It might make that leader feel weird. It could I mean
+again this is about all personalities are different and you have to figure out how to approach each personality. The
+the question is the same which is what are they going to value enough to invest
+in me and enough to really get out on a limb to try and help me. How do I How do
+I set up a win-win deal where I'm helping them and they want to help me
+and we can keep pushing that to be more and more extreme that uh just like
+you're pushing me with darker and darker questions, you don't normally jump straight to the end. You build up. So,
+you start by doing good work, just being solid, really solid. Then you get really good.
+Then you start asking your manager, "What can I help you with? What is it you need done? I had this idea, so I
+just did it and I thought it would help you." You just build and then you start asking like, "Hey, I want to grow and it
+seems like we have a great working relationship. Could you give me some tips on how to grow? Could you give me some things that
+you think are challenges I need to work on? Is there something special you need done?" And then after you do that, you
+deepen it again and you're like, "Hey, I would really for both of us could is
+there a role where like you need a right-hand person who's your go-to in a
+crisis?" Because I love hard problems. I love being challenged with crisis,
+and I'm sure you have some. Is there a win-win where I jump on those? It's good
+for me to like have that chance. And it's good for you. you know, there's somebody who's always going to step up when you need it and you you've built
+your way into it. So, this is a little bit you're kind of asking the classic frog in a pan thing. If you take your
+manager and throw them in the hot water of like, hey, I want to be promoted. How can I do anything you need so that you
+want to promote me? A lot of people are going to be like creepy. Okay, you got
+to boil that water a little slowly. And this is not manipulation,
+it's relationship, right? If you're dating, you like send someone a note or express
+interest, you ask them out, you go to dinner, you know, there's a process of getting to know someone.
+There are a lot of analogies between different types of relationships and
+there are some there's a process and you're dating your manager in a way to
+build a relationship. It's not because you're going to get married but you are it is a work marriage in a way for a
+while anyway and that's okay. You build that relationship and then you hold a
+privileged position. This is something you haven't asked. You can't ask this question. People would
+come to me and say like why do you treat so and so so well or why do they get all the benefits? Or they would also say why
+don't why didn't you promote me? And I always when I say why didn't you promote me I say why didn't you earn it? Why
+didn't you promote yourself? Like I want to move you up.
+show me something. And if you're asking about this person, oh, I'm happy to list all the ways they are contributing. And
+if you want to do the same for the same period of time, I'll put you where they are, right? Like, because they'll be
+gone, by the way. They're a climber. They're going to either move up in our company or move out. There will be a hole. Get moving. So, I was a different
+boss, I guess. But I was always tell people like, you want a promotion? Here's a piece of logic for you. Some
+bosses aren't smart enough to figure this out. I want the most senior, most promoted team I can have. Why? Why on
+earth would I not want the best people on my team? So, if you can rise to be at a new level, I want to pay you that and
+have that because I'd rather have a senior person than a junior person. Now, I have a budget and whatever and I have
+to fight uphill, but I have no problem fighting up to my management saying, "Look, yes, I have an expensive team."
+Why are they expensive? Because my team is damn good and you know it. and I've
+moved people out of my team to other teams and now they're leaders on those other teams and you know there's stars there. We have a star organization. We
+build stars that costs money but it's good for you and I can tell that with a completely straight face and look the
+financial officer whoever in the eye story I'm coaching a company right now
+on this method and I wrote the leader there uh he's the chief product and technical officer. I wrote him and I
+said,"I can make your team higher performing, but it's gonna cost you salary when they step up. They're gonna
+want to be rewarded. Are you ready to pay for performance?" So, this is just somebody I'm coaching and I'm telling
+him like, I can raise your team's performance, but it is going to like you're going to have to hand out more
+stock options. Are you ready? I did that internally all the time. That's how you
+make it work. When someone would say, "Why didn't you promote me?" You would you would say
+directly back to them, why didn't you promote yourself? Absolutely. Those [laughter] words, right? Why didn't you promote me? Why
+didn't you promote yourself? Like, where where is where's the work? Where's you
+know, you didn't come to me. You didn't get a special project from me. We didn't make a deal and look each other in the
+eyes. You do this, this, and this, and deliver, and that's the bar.
+There is one engineer, I've written about this. I made a mistake early in my career.
+I still regret this. 20 years ago, an engineer came to me, he made a deal and
+I I failed to deliver. It was not intentional. I was new to Amazon. I
+didn't understand the system. And by the time I went to get him promoted, I was too late and had missed the window. And
+I didn't even know there was a window. And he rage quit. And he should have unfortunately cuz I blew it. But that
+was like user error, not intent. And I never made that mistake again. Anyone I
+promised I would help them move up. Sometimes it was when I said sometimes, unfortunately, it took longer. I always
+got it done. But the people who just wh they're uninteresting to me. And I
+always tried to be clear to people the door was open. The other thing about promotion for everyone, no one ever in
+life said, uh, you might be one of the few exceptions. I know you had a remarkable career. Very few people,
+maybe even not you, ever said, "Oh yeah, I got I got promoted way too early. They gave me a bunch of stuff I wasn't even
+expecting." Almost everyone in life is like, "This took too long." That's going to be true. Everyone hates the timeline
+because who imagines oursel to be best? It's always us. So you mentioned that
+How to handle managers that dislike career growth talk
+relationship building with the manager. There's this game. We're talking about this game, you know, how how you get
+promoted and the system. Some people don't like the game to the point where
+you wouldn't want to talk about it directly and others are fine with being very transparent. Sounds like you're,
+you know, the type of manager I could go to you and say, "Hey, I'm this level. I want to be this level.
+What does it take?" And you would just answer. I would. I could imagine there's some
+managers though that kind of push it off or maybe it's an uncomfortable conversation. What would you say to
+someone that's under a manager that doesn't want to talk explicitly about
+promos? Part of me wants to say find a better manager. Find someone who's
+motivated because sometimes those managers aren't ambitious themselves and so
+they're going to have trouble relating to someone who wants to move up. But if that's your situation and you have to
+work with someone like that, I think then what you have to do is look at who they're rewarding. Uh look at who have
+they promoted uh and why. And you might think, oh well, how do I know why? Well,
+one one example may not show you, but if you see several people who got moved up under them, you can find a pattern. Who
+are they moving up? And then what I would say is if they can't talk about it, number one, you might be able to
+talk to some of those people and say like, I see that Ethan promoted you. How did that work out? How did that come to
+be? Or I see you got to senior manager or senior engineer. What happened? Figure out what they're rewarding and go
+be that. And that's a slower process. It may not be as comforting, but figure out
+their language. Everyone has a language to express this.
+You have to figure out how how do they have that conversation? Again, I would go talk to the people that did get
+promoted and say, "Did you have any kind of conversation? Did they ask something? Did you write it
+down in your annual review that it was a goal?" Like, how I try and find out how
+did the manager make that decision? And then I would go conform to that pattern
+as best I could because that's what's going to work without being as direct as I am. That said, if you go do all this
+investigation and find out they basically didn't promote anyone or there is no pattern, then you're back to my
+like there is no system to work in there. You're you have to get to a place where
+there is a workable system that if the manager hasn't promoted anyone or
+they've promoted very few people and very late then either you accept that that it's
+going to be a little bit random and it's going to be when they get around to it or you get out. Here's a trick. AI has
+made this super possible. It used to be harder. That manager communicates with people.
+They write, they speak, they whatever. grab a bunch of their communication, throw it all into an AI and say,
+"Analyze this person's communication pattern. I have this goal, which is I want to ask for a promotion. I'm very
+direct. They don't seem to be. How do I approach this person?" AI is amazing at
+personality typing them and telling you the words and methods to work with their
+ability. Um, this, by the way, is like a hack for anything at this point. Anyone
+that you have some email chains with or some of their public writing, grab it. Tell AI, "This is a bunch of
+communication from Ryan or from Ethan. I want this thing, whatever it is. How do
+I approach them in order to get it?" And it will answer it for you. And that's like, now if you're on the far side of
+that, right? Like, uh, I've just told a bunch of people how to approach me.
+If there's a clever person listening, they're like, "Ethan has lots of blog posts and I want this from him. So, I'm
+gonna get these emails now in the future where people won't say, "Oh, I saw you
+on Ryan. Here's my like secret scripted email, but I'm going to get that. How do I defend myself against it?" Well, one,
+you have to know who you are and still what your boundaries are. Two, though, I think there will come a point where we
+will have to have like our own AI counter measures. So that's a little f futuristic, but the ability of AI to
+help me manipulate you is going to get really strong. So right now, I'm not saying manipulate.
+I'm just saying use it to be educated how to approach that person who has a different personality than yours. But
+the manipulation is coming. This is a common situation I've heard
+and seen people experience, which is they talk to their manager about that
+promo they want and the manager doesn't say no, you're so far and here's what
+you need to do and they don't necessarily say yes either. There's this gray area in the middle where they it's
+they dangle this carrot but they don't exactly give you the full story. So, they might say, "Oh,
+yes, you want to get promoted. That sounds like a good thing. Um, you're going to need to do more more work and
+you know, I want that for you and we're going to do it." And then if you ask a hard question, when will it happen or
+how do what are the concrete steps? They go, "Okay, let me, you know, get back to you or what do you do in that case where
+it's this gray area, carrot dangling, but it's very unclear if the promo is
+concrete or not?" Yeah. So managers don't like to be pinned down. There's both good and bad
+reasons for that. What do I mean good and bad? Uh good reason is managers
+don't have final control over promotions. So part of what they're thinking is I don't want to promise Ryan
+something that I have to get through a committee. I have to get through a panel. Let's say Google for example. uh
+Google at least in the process they add at one point like there's a promotion packet and it goes to all these other people and the manager isn't really
+there and it's this panel that decides so I may truly want to help you get
+promoted but I don't want to I can't answer for you like when is the panel going to say yes so that can be one
+reason managers are legitimately fuzzy. The other reasons they're fuzzy are
+they're not sure when you're going to be ready. They don't want to be cornered.
+They don't want you to think they made a promise and and uh one of the things that's a problem is I if I say there are
+these four things, I don't want you coming back to me like I did exactly those four. I want this today because
+what if I came up with a fifth or what if I think one of the four sucks and wasn't very good. So I want to preserve
+some room. The bad reason of course everybody fears is I just don't ever really intend to do it. I just want to
+keep moving that carrot and keep you working and working and working. So how do you disentangle these? Well, first if
+it's a system problem, the way to disentangle it is to say, look, I know
+you face a panel. I know that you know you need our skip's approval. You need
+this panel's approval. I'm not asking for you to guarantee me that we're going to get through the
+panel. I want to know what it's going to take for you to be ready to be enthusiastic
+to go make my case. So you try and back the question off to something they can
+say yes to because if I face some panel I can't guarantee you a result. What I can do is guarantee you that I will try.
+So for example when I was ready when I was hoping to become a vice president and I had had these discussions with my
+vice president he came to me and said Ethan on this cycle I'm going to do everything I can. I'm going to put you
+up and I'm going to put my reputation out there and we're going to see if we can make it happen. He was real clear
+though, like Jeff Bezos approved at that point all the VP promotions. He could go
+fight for it. He could line it all up, but he couldn't guarantee me that Jeff would say yes. So, that's how that got
+handled. That's one way. Then for these cases of trying to pin them
+down where they want wiggle room, you have to say, "Look, I understand
+that answering me or telling me what you're willing to do is still dependent
+on me delivering and that new things could come up. But understand,
+I need help with the fact I have no clarity. I don't have any date expectations from you. I feel like it's
+a moving target. Can you help me with that as long like what can you do for
+me? What you try and draw them into your emotions?
+Imagine what it's like to sit here to hear that I'm a good performer
+to want to work hard to achieve a goal and to kind of have an amorphous target
+I can't see where you're saying, "Well, it's the right direction. can you help me out? And you can even
+say,"I know that you're probably not trying to leave me in the dark, but what can you do to shed some light on that?"
+These are all uh variations. Um I would recommend people read the
+book uh Never Split the Difference by Chris Voss on negotiation because it's
+all about the psychology of how to get other people into your framing. Um, and
+so you get them talking about you you find ways to draw them out. You
+ask them questions like, "So, tell me who else has succeeded or or tell me what success would look like or tell me
+uh how I can measure myself." You can also ask them, this is totally for the people who've read Chris Foss,
+they'll recognize this. You can say when they say, "Well, you should just keep working towards it or whatever." You
+say, "How can I do that?" like I I and that makes it their problem to
+explain to you how you can feel you know how can I feel good about working towards such an unknown goal an unknown
+destination that makes them puts them on the defensive to solve your problem so last
+thing it's a manager who just keeps stringing people along well you're going to have to get out from under that
+manager or find a way to get a lot of leverage over them but the way you figure that out is you
+look at what they've done for other people? Are they actually promoting people or are they leading everyone down
+a path? And if you ever wonder like, am I just suspicious or whatever, again,
+it's look around, talk around. What are they doing with others?
+You alone may feel misused. But if the evidence is
+no, people in this or are getting moved up and they are getting raises and opportunities, then you have to figure out how to earn it. And if nobody's
+getting anything except strung along, you have to get out. So, we were talking about, you know,
+What if your manager is in the way
+limited number of spots, quota, or, you know, promo. And the assumption is there's these other peers that you're
+competing with. Sure. But there's also a form of that where you're not necessarily competing with
+your manager, but there's a limited spot because your manager needs to move up so
+they can bring others along with them. And so maybe the leaders in your org,
+they're not moving up. Maybe they're not ambitious or some other reason. What would you do in that case where you you
+want to be in line for a promo and your manager is actually the one that's in the way?
+You know, there's always cases. One case is the manager once is ambitious but can't get there for whatever reason.
+First question there is, can you help them? One of the deals that definitely worked for me that I made with some of
+my stars is like, hey, I want to move up. you want to move up. If if we can do this thing together, we'll both move up.
+And I enlisted multiple people in helping me get promoted so that I could
+promote them or vice versa. They got promoted and then I could. Either way,
+it was a two-sided equation. So, one question I would ask is, is there
+something you can help your ma manager with? You can just talk to them about, hey, I've shared my career goals. I've
+been wondering. It seems like maybe you're looking, you'd love to move up, too. Is that true? And is there any way
+I can help you? And that will make you a super ally. Unless they're those ones who are uncomfortable not talking about
+it. Again, that's tricky. then you could just go to like weird language of well
+what's rewarded in this company and how can I help our group be more rewarded or something a little more oblique. Uh now
+the second problem is your manager doesn't really there are some people who don't want to move up or they're just
+not willing to push for it or they don't think it'll happen. they've either given up or they're ambivalent or they they're
+one of those people who figures it'll come when it comes and you're more impatient than that. That may be a case
+where you have to get out from under them to to a different situation or you
+ask them you have a different discussion with them and say, "Hey, I'd like to move up.
+If we can't create that opportunity in this team, will you help me find it in
+another org? I could be a great ambassador for your leadership and our
+team elsewhere. Are you willing to help me rise or to find a spot? And one of
+the things that can work to your advantage is a lot of the managers who are a little less aggressive
+are more into taking care of their teams. they're more into, well, the reason I'm
+not so aggressive is I'm at peace helping others or I really believe and so they're more downward focused. So,
+some of them are willing to actually help you elsewhere. Now, there are ones who are like, "No, I need you here and
+if I lose you, my chance of moving up is even worse than it already is." That's tough. That however is your leverage
+where you can say like look if that seems to be the case you can say hey here's the honest truth my career my
+favorite words are my career is very important to me no one can argue with that right my career is very important
+to me and so I'm going to move up I
+would love to do it with you here but I'm gonna have to do it and that's just
+like a way there's there's like you've expressed your first preference,
+but you've also expressed a willingness to make changes. And that's just a way that that's essentially the polite way
+of saying either you get it done or I'm going to someone who can, but you say it
+in a way that they can't like don't threaten me. You just say, look, my career is really important to me and I
+have to I have I'm going to grow my career somewhere. I'm in a season I'm going to tell this story like a younger
+employee. I'm in a season of my life where I have this window. My wife and I,
+my husband and I, my partner and I are gonna start a family and I only have a few years to really focus on work. So,
+I've got to move up now. I've got to do everything I can to have a fast career while I have this moment. And I really
+want to do that here in this org. If we can make a path for that, that's where I want to do it. But I wanted to talk to
+you about it honestly because I do have to do it. And so if it can't be here, I'm gonna have to figure something out.
+And you put on your puppy dog eyes like that's a terrible outcome. And then you shut up and you let him speak. And the
+way I told that, no one can be mad at you. Like you just told me you're willing to work really hard for a few
+years. You've got this nebulous we're going to have a family thing. I don't know, maybe you are, maybe you aren't. No lying. But if you haven't totally
+ruled out you're ever going to have kids, that's like the easiest excuse in the world. Or whatever. I have these few
+years before I have to move home to country X to take care of my aging parents. There's a million variations of it. This story about why you feel
+urgency now and you really want to do it. We've got a great relationship. I really I enjoy this work. I'd so love to
+contribute more in this organization, [sighs] but I I do have to advance my career.
+And then you just wait and see what they say. Yeah, this seems like another one of
+those gray areas because in the other case the gray area was selling yourself. In this case, it's I guess in a
+negotiation because I could see someone who looks at that and goes, "Oh, that's
+not fully accurate or you don't know if you're going to have kids or what. You're using that as a tool to Yeah. I
+don't think most people are like sitting here in a podcast chair, you're thinking about what people might be thinking
+about in the moment." they're mostly like taking in like, okay, what am I being told? And I've got all these other
+worries. But even if they're thinking that, like the message is still clear. If if you were to come back to me and
+say like, well, you don't really know your future, you know, like the future
+is unclear, I can always go back to
+this is how I feel. You can't argue with what I feel or what I believe, right? You can't tell me like nobody's going to
+get in like well you don't know if you're going to have kids. No one's going to tell you that. So
+that's what makes this you can call it a trap but that's what makes this trap. There are certain things you can't say to people and and
+you can't tell me not to care for my aging parents. You can't tell me to not to plan to take care of my family. These
+are like totally off, you know. And by the way, if they do say that, you know you've got someone you got to get away
+from. like, "Wow, your family's really your problem." Okay, noted. Thank you so
+much. Door, please. Check, please. Good managers, clever managers will be like,
+"All right, I see what's going on. I see the negotiation we're having. I I see like I'm on to your game, but I also see
+like that puts them back in my camp." We're like, "Okay, I see your game. You know, what do I want from you?" I'm
+thinking now like, "Okay, he's listened to Ethan and Ryan's podcast. He's he
+like knows the game. Well, as a manager, I know the game, too. Like, what do I want from you? And what's it going to
+take? What what do I what what do I want you to deliver? So, yeah,
+what you keep asking is effectively, what do I do with people that don't like
+ambition? Remember, there's proper ambition and there is pushing too hard. I have had
+people come to me, they're like brand new out of college, and they're like, I'd like to be a VP in two years. How do I do that? Okay, that's a reality check
+problem. Like, um, I don't know, you know, is your last name Bezos and I
+didn't notice. Otherwise, unfortunately, that's probably not going to happen. Let's talk about what could happen. And
+then if they're like, no, no, no, VP. I'm like, okay, I see. Like, door, you
+know, you're alone. I don't need it. But for normal ambition, there are people
+who like find ambition a dirty word. Like why should you worry about this and the work is pure and you know just work
+and it'll be yours eventually. And I I guess those people, I'm going to be really blunt, they're probably not
+listening to this podcast because the people you and I attract want more. And
+if you have a boss or a manager who is busy being very zen about like, "Oh,
+it'll all come in due time." You're in the wrong place. Go start your own thing. Go come work for me or one of my
+friends. Like find find a place because there's so many hard charging people.
+Go find them. Now, some of those people will try and work you to death and that's a different set of guard rails.
+But go find someone who's shares your basic desire to get somewhere in life.
+Did he ever have overly political reports
+So when you were a VP at Amazon and I mean you're very cognizant of this this
+game did you ever have reports coming to you employing these tactics something where
+you thought okay this is uh polite messaging on top of a hidden message
+which is I want something from you. I had one or two people who were really good at it, but honestly most people
+maybe because I was very transparent, people weren't they were just honest with me like this is what I want and how
+can I get it and I'd be like here's the bill. But I did have some people who were very smooth. I also had a couple
+people I mean I definitely caught some people lying right like just trying to run a
+game on me and I fired them. When I say running a game, they were dishonest.
+They were they were actually claiming things that weren't true. Those people
+got gone. The last class of people I want to talk about, honestly, I had some very ambitious people in one
+team I can think of that I couldn't give opportunity to fast enough for their desires. We can argue about whether or
+not they were quite qualified, but they went to other companies that saw more
+value in them and they had they have had or they had wildly successful careers.
+So sometimes even a boss like me runs out of opportunity because I attract these hard charging people and I
+encourage them. It's okay if they leave. Meaning sometimes those people would
+come to me and ask for something and I'd be like, "It's going to take six months." And I'm thinking like one guy
+is like, "Samsung will make me a VP tomorrow." And I'd be like, "You should do that." And it was okay. Like this one
+guy went and he went to to Samsung. He got a huge role. It was a better job for
+him. That's okay. But your question, did I see people using these tactics? Not as
+much as I'd like. I'd rather more people were trying to figure out how to grow their careers because I want to grow
+people's careers. The ones I hate are the ones who I feel are asleep. They don't want to work that hard or they've
+got some issue that they're angry about, but they're passive aggressive and they
+won't put it out there so that I can address it or not. So, I can tell them
+like, "Okay, I hear your issue. That's not going to change. So now it's accept it or leave and that's okay. Either
+accept it or leave. They're both fine. Or yeah, I can fix that. Here's how we'll fix it.
+I feel like even in a lot of high performing workplaces, a lot of people are kind of stumbling around blind with
+no real plan. Some of those people are happy that way. So what I try and remember is like some people are in a
+season of their life where they just kind of want to do their job and be left alone. Those are the people that the top
+performers get to pass all their mediocre work to. Yeah. I remember there was this this
+tweet that went really viral. It was just an open-ended statement saying something like, "Why is it that you
+never hear the highest performers complaining about their manager and
+implicit in that is that they leave that high performers have optionality and they just go and find a better
+situation." You mentioned that if someone lied to you, you'd fire them. But when you fire
+people, you have to collect all this evidence of underperformance and kind of chase them down for, you know, some time
+and then [laughter] like how do you fire someone for lying? Um, well, number one, if you could
+really prove the lie, you probably could terminate for dishonesty. You know, if you had like ironclad proof of that was
+a lie. But sometimes you know something is a lie and you don't have it. I've I've written before that a manager in
+good standing at any level can get rid of any one employee and there's like 50 ways to do it. So you like dark. First
+thing I can do is just start giving you crappy assignments. The second thing I can do is just say you know uh Ryan I
+know we've talked about promotion. I got to be honest with you. I don't really see that coming. Uh you know it would
+take a lot of change and I think you better reset your timeline to three to seven years. So you're probably going to
+quit. Um, the third thing I can do is rate you crappy. Uh, you know,
+communicate like I'm seeing this is pick your system, but like this is right now I'm seeing you tracking below average
+for the year and I just wanted to tell you upfront I I see a low performance review coming and you're like, wait, I
+delivered this, this, and this. I'm like, yeah, but here's my list of seven other things you didn't do. Um,
+I can always drive somebody out. And if you go to HR and you're like, he's turned on me. He's got all these unrealistic things.
+The fact is I'm known as a good manager and you're somebody below me. Like their HR's job
+is to side with me unless I've done something illegal. So they're going to say, "Uh-huh. Uh-huh." It's going to be
+very tough. Um, and again, people hate this idea. This
+is a flaw of our human society, which is that a manager in good standing, if they do get it in for one particular person,
+they're going to win that. And like theoretically at least an innocent person can be totally screwed over.
+What normally prevents that is good managers don't want to screw over good
+people. Like that's pathological. Why would I want to get rid of a good person? But if someone's really
+cancerous in my organization or dishonest, I have so many tools. Now I can also start gathering all this
+evidence if I want to and that's not a bad idea just in case I need it. But there's so
+many ways to communicate to you that your life here is over and it's only going to be crappy work from here on.
+And I can also ride you like, hey, our workday starts at 10. You know, it's
+10:05 this morning. And just like I can be on you for everything and like the
+worst on calls and the, you know, the most tickets. And it's very easy to make
+your life miserable and it's very hard to prove like, oh, Ethan, what are you going to do? who go to HR who doesn't
+know from in this context and be like Ethan's giving me the worst
+tickets what you know like but how hard like let
+me just ask you how hard this would be okay we've got a 500 bug backlog and I
+go through it and find 20 really crappy things to work on and say I think for your next on call these should be your
+priorities by the way I'll be measuring you to them hint hint if you don't do it it's goes in my evidence file to fire
+you and they're just nasty. And let's assume I'm technically incompetent and I
+can't do that. It's still a way to do it. I go to Fred and I say, "Fred, I was
+wondering in our bug database like what are 100 tickets you think are pretty useless and we should just close them."
+Innocent request. Now, I take this hundred and I come to you and say, "You know, I've been thinking about some of these tickets and I need some data on
+these 20. I want you to prioritize working on these 20 picked from that
+hundred and get them all done this week and tell me what was the total value of
+them. And if you ever come back like those were terrible tickets. How could you do that to me here? I even know you
+asked Fred what were a bunch of useless tickets. Like yeah I was double-checking Fred's judgment. You still had to close
+all the tickets. I have a defensible thing. What I'm going to do now, thank you so much Ryan for plowing through those. I'm going to close the other 80
+with no resolution because you've shown that Fred was right, you know, but I've
+still jammed 20 lousy tickets picked by Fred down your throat without knowing anything about what's going on. I can do
+this all day. You throw me scenarios, I'll find another way to come around HR
+and make your life miserable. So, what I do to summarize, if I really want rid of somebody, I let them know it's over,
+right? with words like, you know, I just want to level with you. I see after
+recent events, an illusion to me catching you lying, even though you don't admit it. After recent events, I
+gotta be honest. I'm seeing this as a challenging year. And I know you've asked me about, you know, promotion. I
+think you might want to reset your timeline. It's all I have to say on that. And then I start like making clear
+that the punishment's going to keep coming. You will evaporate. I just have to wait a little bit. And
+you'll either evaporate by quitting or getting another job or you'll evaporate by getting pissed at me and doing
+something else outrageous that I have instant cause. Luck again though, I want to emphasize like sane bosses don't do
+this to good people, but it's a tool. And
+that's the way our world of fallen evil humans works. Yeah. And this is another one of those
+gray areas though because uh in the case where you're pursuing someone that obviously lied. You are kind of just and
+you're outing someone that's bad. I guess it would it would be very unfortunate if you just didn't like
+someone or there was something that didn't quite click with you with someone. Well, there's a there's another way to
+handle that. Okay. So, let's assume you and I don't click. It is again everything is a gray area in human
+relationships. Let's assume you and I don't click and let's even assume I'm a good person and I've tried to figure out
+how to work around it. I may have even talked to you and say like you know your style is
+you tend to whatever some personality trait like you tend to look at the downside for the upside and I really
+want to run a positive upside team and I need you to be more upbeat. You think you can do that and you're like yes I'll
+try but the truth is you can't. Um, I can just come back to you. The nice
+way to do it is say, "Ryan, look. We've talked before about compatibility.
+You and I just we're like, you know, not that compatible.
+I would like to help you find a place where you're going to thrive. Would you
+be open to that?" And and like the invit, it can be external. I will make
+introductions. I will help you. If you take me up on that, I just help you find a new place
+with a new fit. If you don't take me up on that, you're like, "No, I really want to be here and I think you're unjust.
+You need to be my way." Blah blah blah. Then I'm like, "Well, I tried. Now I just go back to my million strategies to
+get you to decide you want to take the offer to move along." Why is that potentially justified?
+Uh, I'm not going to claim it's totally justified, but the fact is we all have to work together. And in the if you're
+too much of a pain in the ass to work with, too much of a disturbance to my zen,
+frankly, the corporate hierarchy has determined that I'm the important one. That's why I'm the boss. And like again,
+there's people screaming like, "How can you possibly say that?" Well, that's why it's an org chart and it goes up at the
+top. Okay? And I deal with the same thing above me. Either I make Bezos or whoever happy or I'm expendable.
+That's our system of life. And we don't live in perfect world. I wish
+we did. We lived, you know, some perfect world where that wasn't true.
+But I have a whole team to run and if you're sucking up too much of my energy, I I have to get rid of that. Now, I can
+think of some people who annoyed me enough I encouraged them like maybe we need to find you. you know, maybe let's
+work together to find another place that's like a more natural fit. And I think that's fair because probably if
+we're that different, you're not loving it. Like, it's not great for you either.
+And so, you know, this is a little bit the breakup line of like, oh, it's not you, it's me, but you still need to go.
+Like, still pack your and move out. That's the gentle way though that somebody doesn't end up fired. And I can
+totally find, look, I probably have an opinion of some manager I think who's just like you. I probably don't care for
+them that much. I probably think like, wow, they operate in this weird way I can't stand. But those two are going to
+be perfect together. You know, maybe they will. Open [snorts]
+How to fire a bad manager
+AAI, Enthropic, Cursor, and Versel all use this product to make their lives
+better. And the problem it solves is when you're building SAS or an AI product and you want to sell to other
+companies, there's all these requirements you need to meet. There's SSO, there's skim, there's arbback,
+there's audit logs. These are all things that take time to integrate but aren't the main focus of your app. Work OS is
+an API layer that lets you meet all of these requirements in just a few lines of code. So let's say you have a new SAS
+product and you want to sell to other companies. WorkOS will solve all of these critical feature gaps for you. You
+can check them out at workos.com to learn more and get started. And I appreciate them for supporting my work
+and sponsoring this podcast. As you said, a manager can fire any one
+employee that they wanted. Yeah. And you know, HR is going to side with the manager. Is there any edge case or
+any weird situation where the opposite could be true which is the indeed the
+engineer is in the right and they're trying to get rid of an unjust manager and they're working with HR. Yeah. So
+over 50% of this is gonna be who goes to HR first because you get to set the
+framing. You get to make the complaint. So, one of the things I would totally do if I'm the manager is before I started
+saying stuff to you, I would send a little note to HR that says, "Hey, I just want to let you know I'm I've
+noticed some challenges in Ryan's performance. I'm going to start working on them." You know, ABC, whatever. I
+just set the framing. And that way, when you come to them to complain, you're running into this wall that I've already framed you as a non-performer. Going the
+other way, if you're the employee, you want to be the first one to HR about the situation
+and you want to frame it as not I have a terrible manager,
+but you want to frame it as I'm really trying to do great work for this company
+and I'm really struggling because of fact citing behaviors of mine. So, you never
+actually at least open the conversation by saying like, "Ethan's terrible and you need to fire him." Instead, it's how
+these factual situations, again, facts can be viewed many ways. You view them your way and get them out
+there. These factual situations are limiting your ability to produce and that of your
+peers. The second thing is, if you want to win one of these uphill battles, you're probably going to need at least
+one other person to verify what you're doing. like verify the problem. The third thing is it sure helps if you're a
+superstar, right? Because if you're Joe average or below average, no one's gonna
+go out on a limb. You really need to be standing out enough that that maybe HR already knows
+you or you're top rated and they're like, "Oh, a top rated employee or one of the people, you know, or maybe your
+skip already knows you or your name is on this tool, right? Those kinds of things can influence HR. The last thing
+of course that you hope for is bad manager is a huge category. Is there a
+smoking gun where I've done something illegal, patently unethical, somehow
+unacceptable to you or someone else that can be documented um or not? If the manager
+is generally viewed as well performing or has a good relationship with their
+boss, it's going to be very, very hard to get rid of them. So, I've had stuff
+come to me from employees that have led me as a skip level to terminate a manager, but it's because
+it was several people over time and the facts added up to show my manager was
+actually doing things they shouldn't. And when I say shouldn't, not just low performing,
+but like unethical or just really not like super
+untalented, but that was usually my observation as well. Then everyone has
+this fantasy of justice is going to be served. And you've asked like, does it
+ever happen? Sure, it happens in the movies and it happens one in a million.
+But in real life, it's just so much easier to leave. And
+what will actually happen is you'll leave and three other people will leave and then finally the management will be like, "Oh, I'll tell you a story. I'll
+exemplify this for you. One of the people I coach, can't say where, he was telling me, I have this real problem. I
+have this manager I like, but I've been they keep losing
+employees. people keep quitting their team and saying it's about the manager and I've been trying to coach them to
+change and they haven't been changing. What should I do? And I asked this manager said, "Well, how long you been
+coaching this person?" And he said, "18 months."
+And I said, "Hold on. You've had employees in your organization quitting
+and pointing to this manager for 18 months and you've been trying to coach
+them to change and they haven't changed and you haven't done anything. They're
+like, "Yeah, I like them. I I I I want to see them succeed. I I I have this hope for them and they're nice." Okay.
+What about your employees who quit? And by the way, if this person didn't work
+for you, but you were like, if I had told you the story, what would you tell me to do? Like, oh, I'd tell you, fire
+that manager. I'm like, right. Well, why aren't you doing that? Well, like I
+said, I like them and I don't have a problem with them. This is why it doesn't work. This is a real case of a
+real client of mine who's got employee after employee quitting out from under a manager that they see as like I'm going
+to make them better. I like them and I'm going to bring them through this. And what they're not seeing is like one
+person after another like you is like, "Oh my god, I got to get out of here." It's not even the message isn't reaching
+the manager. He knows what's happening, but he's like, "Oh, I'm gonna work with him."
+This is what I'm trying to tell you. Like it just, you know, and if that person, if that client of mine is listening, like, "Yes,
+I am telling your story without your names because you need to fire that person for your own sake and for them." And
+he's like, "Oh, but we're not hiring. What if I can't get a back fill?" And I'm like, "It doesn't matter." Okay? You
+have a you have a cancer who's killing your team. Live without him. Right? But
+or or do something about that. But like, but I'm just showing you how the inertia works because that manager that you
+think is bad, I think is great because they do whatever I want. It sounds like there's there's two
+What gives you leverage
+things here that give you leverage in these conversations. There's your how high performing you are and how liked
+you are. If you're high on both of those, it gives you power. Absolutely. So, I often say the hardest
+person to fire is kind of like this manager I was just talking about. If you're looking as a boss, it's very easy
+to fire people who are disliked and low performers. Like they're not that good and nobody really cares. Everybody can
+see like easy. It's also actually if someone is disliked
+but either a high performer or not. If most people don't like them, nobody's going to care and they're thorny, like
+too thorny in a bad way. Uh that's also easy. And thorny there means they've
+made themselves disliked with others, not just with me. Like they're generally disliked. The hardest one to get rid of
+is the person who's mediocre. They're not obviously terrible, but they're not
+very good. They're like below average, but everybody likes them. And why is that hard? Well, number one, there's no
+smoking gun. They've never screwed anything up bad enough that you can just be like, "That's terrible. You're out."
+And if you go after them, everybody's going to look at you and say, "But everybody loves Bob. Why are you down on
+Bob? Like Bob brings donuts. He's friendly. He throws a barbecue at his house every year. Like he's always
+picking up work. Yeah, the work he does kind of sucks and is often late, but
+he's always volunteering really hard." So yeah, be likable. Now
+I've said be thorny. How can I be saying be thorny and be likable? You can do both. Okay? You're likable all the time.
+Meaning like you're friendly, you're outgoing, you're pleasant, you're talk, you're talkative,
+except when people are trying to do something you don't like. And then
+it's just that little push back and that little push of come on, just that much.
+Come on, really? This is our priority. like, "Is this what you're telling me you want me to do?" Just that little
+face. It doesn't take much. The other thing is if that's too much, you can push back. As I said, with humor be
+like, "All right, but you're using up one of your crap work tokens. You know,
+I only give so many of those a month. So, is this where you want to spend one? We'll do it. It's only three a month."
+Nobody can really get mad at you for being like, "Hey, boss, I only give out three work tokens a month. If this
+is one you need to spend, I got it for you. But like we are burning a token. Is this it? And you know people will accept
+this framing. This is the weird thing about humans. I can push on you the fact that you get three shitwork tokens a
+month. You never agreed to that. You're like, I'm the boss. If I want to give you 73 shitwork tokens, you're going to
+spend them all and say, "May I have another?" But that isn't what we do. We're like, oh, three shitwork tokens.
+Okay. because you set the frame. So that's a
+way to be thorny and still be liked because if other people see you do that, they're like, "Hey, that's pretty clever." Like Ryan's pretty smooth.
+They're not mad at you, but you just like brushed the boss back in front of everybody. Even the boss is like, "All right, I see."
+Because what are they thinking? They're thinking like, "Well, you said yes today. That's good. You gave me two more. That's fine. I'll deal with it if
+I get to token three." But subconsciously, you set the anchor. They're like, "Three's the lie." And
+they're going to know that. And even worse, if you did it with witnesses,
+then they're like, "I kind of agreed to it in public." Like, even though I never agreed, I let it stand.
+And you've got them cornered because they can't be like, "No, Ryan, I I'm the
+one who tells you how much work and it's unlimited tokens." That makes them look horrible, right? And so, nobody's
+going to do that. And this is this is how you be still very likable and funny
+but like lines for job security. It sounds like likability is more important than
+performance. I mean it depends on the context. Being liked
+never hurt anybody. And look, I've seen like another decision I saw made technically totally illegal. We were
+deciding on a layoff in a company I was in and we had to cut some people and one of the other leaders said, "Well, that
+guy's married and has a family to sport and this other guy doesn't." There's no legality in that. You can't bring
+people's family situation, but that was what happened. So, decisions get made on
+criteria that aren't performance and that's a very real thing. So, likability
+is one of them. and like, hey, a question. If I, let's say I wanted to
+save you and you were likable but lower performing, hypothetically, uh, and there were a bunch of people
+making the decision, what I would say is like, yeah, Ryan isn't always our top
+performer, but this new room has to pull together. Who do we want in that room?
+Who's going to light up the room and keep everybody's morale up after we go
+through this grim event? I think we need Ryan at that table. And I've just turned
+your likability into a performance asset. And that kind of thing also happens because who do I want to work
+with? I want to work with I do want to work with really smart people,
+but I also want to work with people I enjoy who can pull together. And that's the likability piece. High performance.
+There are cases where you will say like, "Yeah, you know, Robert is the only one who
+knows that old arcane system, and even though he's really tough to deal with,
+we're going to need him." That also happens. That's the Cal Newport so good they can't ignore you path.
+But like, what's going on in my mind is how can we crossrain someone on what Robert knows so that we're not in this
+situation? Because the truth is, I'd rather unload him. Nobody ever wants to
+get rid of the likable guy if he's at all good. But the high performance guy
+who nobody likes, we're looking for how do we get out of this situation? How do we get out of our dependence? Because no
+one likes to feel trapped and depending on someone who's unpleasant. And that's
+why that's dangerous. I also want to make clear, you don't
+have to be like this super lovable teddy bear. Just be a decent person. Don't be
+rude or judgmental. Don't be that person who's like always talking down.
+Super like engineers hate this. Again, this is my list of like stuff. Engineers
+hate managers have fragile egos. They have uh impostor syndrome. They're always wondering even if they're
+technical managers. Part of their mind is like, "Am I technical enough to keep up with the team?" Well, there's that
+one engineer who wants to show the manager like, "Ah, you're really out of touch, old man."
+I don't like that. And so, if you keep showing me up in front of the team,
+you become marked for death for two reasons. Okay? One, I don't like you.
+And two, I can't have you doing that. So, if I can't win you over, then I have to shut you up because I got to keep the
+rest of the team with me, and you're undermining my authority. And
+humans are incredible rationalization machines. I will always my mind will at
+night come up with some reason why that's justified. It always does. Like that's what human minds do. That's why
+there's so much nasty behavior in the world. People don't tell themselves. Nobody wakes up in the morning and like
+I'm a super villain. This doesn't happen. The super villains wake up and they're misunderstood. Nobody
+understands the greater good I'm doing. Nobody understands that I'm just getting by taking care of my family. Nobody
+understands this is just the way the world is and some people got to die. They always have some nobody understands
+and it's okay because just and we all like were built to do that. Literally
+built to last question on this dark topic and we'll go to the the darker
+How to defend against peers undermining you
+one. Darker. All right. [laughter] This hole has no bottom. Let's go.
+Um, so we've been talking about promos and how there's uh maybe limited spots
+in some cases and not that you would recommend anyone do this, but let's say
+your peers are going for that spot as well and they know that you're one of the people that wants it too and so they
+undermine you. So they're attacking you. How do you defend against being undermined by your peers where they're
+saying, "Oh, he's not, you know, the best candidate for that position."
+Yeah. So, speed matters. Uh, again, going first really matters. If you have
+seen this once, you can predict it will happen again. So, if you get bitten once or see someone bite someone else once,
+you can predict that person did it once, they're going to do it again, they're going to do it to me. So then what you
+have to do is get in front of it with your management and say, "Hey, I don't know if you've noticed,
+but there is some undermining in this team." Like, we have a competitive team.
+Some people will take shots at each other. I'm never going to do that, but that means I'm counting on you to
+recognize it because I'm not going to play that game, but I'm counting on you to see it. and just please judge my
+performance by what I actually do, not by what anyone else says. And then you've planted the seed in their mind
+without accusing anybody of when someone comes and chirps, they're like, "Oh, that's what Ryan was talking about." And
+now you're up too because like I'm going to disregard what they said and not knock you down a peg. Meanwhile, I'm
+going to look at the other person and say, "That's interesting." and knock them down for undermining. You really
+want to set that like the if if this is a problem you've seen, you want to talk to your management and just be like,
+"Hey, I've seen some people in the team maybe while you're not there talking about each other." And it really disturbs me. I'm worried that if they're
+talking about each other or other people around me, they're also talking about me to you. And I'm not going
+to play that. And I'm I'm not accusing anybody, but just please
+judge me by what I actually do. And if you ever have any question about what I've actually done, grant me 10 minutes
+to show you. Cuz if I can't back it up, that's great. Like that's fair. But if I
+can judge me by what I've done and that humble pie act of like judge me by what
+I've done and give me a chance to show it. Again, who can object to that,
+right? But you've set that anchor so that then if somebody comes and like well Ryan blah blah blah or
+then they look they're playing into it. Now let's assume I know you're going to ask me well what have they beaten you to
+it and you find out they've been doing this and your boss is like wow really how much did you have to do with that
+project? First, you may have to just be like, "Okay, once bitten, twice shy. Now I've learned." But you can without being
+defensive, you can just say, "Haven't done that much, huh?" And that's the Chris Voss trick of like
+mirror back to them where they're like, "Well, you didn't contribute that much." And you say, "Contribute that much." And let them like keep talking. Well, so and
+so said, "Oh, interesting. So and so said." And you just, this is a trick from the the book, but it's very
+powerful called mirroring. you just say, repeat the last few words they ended with and they will keep talking and
+they'll talk themselves into trouble. But eventually you just say, "Well, I'm really disappointed by what you're
+sharing. I think if you're willing to examine it, my work speaks strongly for
+itself, but I certainly want to make sure I'm judged rightly in the future."
+Uh, so that we're both on the same page about what I contribute. What's the best way for me to just showcase what I've
+contributed to you so that you're fully informed? Because that's another little dig, very subtle. Maybe you're not fully
+informed right now, but how can I make you fully informed in the future? But I I haven't said, "Oh, you're not fully
+informed." Just said, "So you can be." So I've set this anchor that like you're not fully informed,
+but I'll make sure you are in the future. These are just all little techniques.
+Lastly, I know I say this a lot. If you're in a team with a bunch of snakes,
+not all teams are like that, you know, find your way out.
+Another thing, if there is a chance, rather than counterattacking the person
+uh who's undermining you, that puts you down in their gutter.
+instead figure out a way to catch them out or set a trap or otherwise expose
+them as a talker. Um maybe you know your team probably has a bunch of neutral people who just don't care.
+Um wait until that person who's got that behavior probably shoots at other people
+too. Go find those people and say, "Hey, I heard Ethan say that you didn't
+contribute that much. I just want to let you know I thought I thought you contribute a lot. I'm not sure where
+that came from. You do that with a few people and that's just forms the like
+right and you're not you never said like I see he's running you down. Say I'm not sure why he said that. I thought you did
+a lot. It's that subtle just like hey I see you. And you do that with a few
+people and suddenly they're all like oh you know that other person's always with a little bit of help. People are very
+good at seeing through others. Once your eyes are open to like this person's
+behavior has double meaning, it's much easier to see. So, you just have to like help people open their eyes a little.
+You can even just be really curious and say like, you know, I noticed today Ethan was
+saying bad things about Fred's work. You're talking to a third person. Why? Why do you think that was? Like,
+what what caused him bring that up? It's so strange. You're not even saying like I disagree with it. Just that was a
+little weird. You just leave it. Their mind will go like what was weird about that? Huh?
+Maybe like seeds of doubt. Seeds. Planting seeds and being patient. Great
+relationship tool both in terms of planting seeds of I'll help you and planting seeds of doubt where you need
+to. That's that doubt like where I've said my career is very important to me and I need to move it forward. I'm just planting that little seed of doubt of
+like either you take care of me or I take care of myself. I just let that grow, plant those seeds. When I think of
+What if everyone is good at politics
+politics, it feels like this adversarial game. If everyone was playing this game
+optimally or using all these tactics that you were saying, does that change what is the best thing to do?
+So, I will answer your direct question in a second of like does that change what's optimal?
+Politics, the way you're describing it in all these sort of dark scenarios, they're never ideal. this dark scenario
+in a real like where do we start about getting credit? In the best world, managers have a pretty good idea of
+credit, but all the team members are sharing honestly what they've done and we're all trying to grow together. And
+like I said, with this company I'm working with, we're trying to get all the boats to rise. The company gets higher performance, which means it does
+better in the marketplace, which means everybody's shares goes up and we can give more out and like everyone wins at
+some level. So, there are positive ways to do this. It does not have to be zero sum or prisoners dilemma but those
+situations do arise and if everyone we know where the
+prisoners dilemma to site a problem hopefully if somebody's watching they don't know it Google it but I'm assuming they all do
+in the prisoners dilemma we know how it ends which is everyone stabs each other all the time and it ends up nobody makes
+progress but nobody loses progress so in this highly political everybody doing this what you would have is you'd have a
+set where because everyone is maneuvering in this politically optimal way, you're right back where you
+started. No one's getting an advantage. So you're back to neutral.
+What I would say to do is if you recognize that case like, oh, everyone here is very politically astute. I would
+be like, ah, so my problem is I'm playing poker at a team of excellent
+poker players. I can hold my own, but a much better thing is go to that table of suckers and clean them out. Like go
+somewhere else that's a different game or a different level of play where I'm
+the star. I often share it this way. When I chose to do what I do today, which is coach and teach online, I
+realized I have three talents. I'm a pretty good public speaker.
+I know a lot about careers. And I know a fair amount about social
+media from having worked at Twitch and been a Twitch streamer. I am certainly not and by no means was anywhere near
+the best Twitch streamer. I'm probably nowhere near the best public speaker.
+And while I'm a career expert at some level, I may not even know the most about careers, but when you intersect
+those three things, I'm very near the best. So I went and found the one poker
+table where like no, I have very little competition. So, what I would say to do
+in that case is go find the place that like fits you. Um,
+because if you're that good and everyone else is that good, go somewhere where the competition is softer. Now, some
+people are like, "Oo, I don't want to do that. I want to win or I want to be at the toughest place." Well, that's fine, too. It's a lot of effort to stay, you
+know, let's use sports as an analogy. you want to play on the top team,
+whether it's World Cup or whatever, getting the benchwarmer spot on the top
+team, is a lot harder than getting the star spot on like the sixth team. And
+that is a choice. The star on the sixth team though probably makes more than the benchwmer on the top team. So, it is
+what do you want? If you want to say, "I was part of the team that won the championship," you might have to take the benchwarmer spot. And if you want
+the big paycheck, you might want to go somewhere else. And those are both valid choices. They're just choices. In the
+hypothetical, I guess you are at the poker table and everyone's playing
+optimally. Does the way the people play the game change? It does in that [snorts] Well, it
+changes. It changes in that nobody tries simple moves anymore. Meaning the way
+you might bait someone or bluff someone who's
+greener isn't going to work once you recognize it's all stars.
+It makes you more conservative in that no
+makes you more conservative in that there aren't going to be any easy shortcuts and any mistakes are going to
+be caught and punished. So I think it makes you play a lot more cautiously
+because a mistake is at that table. If you make a mistake you're done.
+How Jeff Bezos burned him for empire building
+Darker hypothetical darker. Here we go. Well, so we talked about empire building before. It's
+incentivized if you want to grow as as a manager and you know my question to you
+because you had so much success as a VP. Did you do empire building?
+Yeah. So I mentioned earlier the human mind is great at rationalizing. I think in hindsight I for sure did some empire
+building but at the time you probably don't tell yourself you're empire building. What you tell yourself is with
+all these people I could do so much more. Right? You frame it as, man, I have all these great ideas. We've got a
+big backlog. If only I had 375 more people. Imagine what we could do and it's not your budget, so why not ask for
+it? So, I got totally burned on this. Um, when we were growing Amazon's app store, we had launched the store and we
+had our annual meeting with Bezos and we said like, we've launched the store and we took him this huge ask for all these
+people. And I remember like what stands out to me most is I think we had nobody
+in marketing. We had no dedicated marketers because we had started this lean team. It was something absurd like
+we need 25 marketing people and it was
+going to be like this is not exactly right but it's like we need five PR people and we had these idea like oh
+we're operating in five countries we need one PR person per country. So, we had some justification in our own minds,
+but we were just asking for everything under the sun. Like, well, if we had all this, I'm sure we could do a lot and
+wouldn't it be great? Well, Jeff tore into us. He asked a couple questions like, "What are these people going to
+do?" And what are these people going to do? What? No, what are they actually going to do? And our answers fell apart
+because we were just sort of like, "Wow, they're going to do marketing. That's why they're called marketing people. We need, you know, we need more marketing
+and 25 is a good number." And he he I remember very distinctly he asked one
+question, we gave a crappy answer and he was like you could tell he's like
+so then a second later he asked another question and we gave another crappy answer. And he's like okay I don't
+believe any of your numbers for here on I've asked you two questions. They were both nonsense. I'm not gonna go through
+everything else. I don't believe any of it. Here's what you're gonna do. go back and bring me a sheet where the maximum
+size of any bucket of anything you're asking for is two or three people and it says exactly what they're going to do
+and I will go through that line by line and tell you what you can have and
+that's what he did. We went away and came back with this line by line and he went through it and like two people for
+PR. I can believe you need some PR. No one.
+And he just like literally with a red pen with all of his direct leaders
+watching. No, you know, three, none, two, okay, both for that, but I want
+this, this, and just took us over the coals. He wasn't wrong. He was actually
+right. I was relatively newer. One of my managers was newer. We had gotten big
+eyes because we'd launched the project and thought like, well, let's see what we can do with this. Like, it's a good project. Let's see what they want to do.
+And what we found out was not very much. They want us to be lean. That was for sure empire building. But I would say in
+that case, it was driven out of laziness as much as like this idea of I'll have a huge team. Not that a huge team wasn't
+also appealing, but we were just daydreaming rather than thinking. When people set out to really empire
+build, they're either asking for people and resources they don't really have any use for or they're asking for stuff they
+do need and what they're not doing is worrying about what they're taking it away from because the company only has
+so many resources. So my job is to advocate. The way I was successful
+empire building later, if you want to call it that, was coming up with new ideas that the company wanted to invest
+in. We're going to do this. Look at the money. We're going to do this. Look at the customers. We're going to do this.
+Well, that's a lot of growth, Ethan. Like another challenge. You can't hire all those people. And I'd be like, okay,
+here's what let's do. You hold a hundred heads for me and release them in groups of 20. And if I don't fill the first 20,
+I don't get the second 20. I got really good at filling heads and with good people, by the way, not just filling
+them. But I found ways to turn my heads into performance, but then I was very
+aggressive asking for more. Like, I've done this much. I've built leaders who can do it. I want this, I want that.
+That was me being the I want guy. The the here's my proposal. Here's my new idea. Um, a story of empire building
+sort of. I ran the Amazon App Store team. We sold apps. Our job was to build an app store
+for the Kindle and for phones. We had this idea. We were supposed to
+compete with Google and Apple who own their platforms. It was a very hard job. And we were trying to figure out uh how
+can we compete with Google and Apple? What can we offer? They can't. And we had this somewhat hairrained idea of
+well, they can't ship physical goods. We'll go to all the game makers and offer to be their swag department. like
+we'll make their t-shirts and their coffee cups and whatever and we'll be we'll tell them you should work with us
+because we can help you with your merch. So, we built this group called Merch by
+Amazon and we started with printing t-shirts. Well, my leadership came to me and said,
+"Why are you working on a t-shirt printing project and you have people on a t-shirt project from within the app
+store?" I said, "Well, we have these reasons." Well, the bottom line is t-shirt printing didn't change the app
+business, but Amazon now prints more than a billion dollars of t-shirts a year and we built a t-shirt business.
+It was a matter of me fighting for it and saying, "I have a theory and we have the ability to do it and there's a
+business model behind it." And then when it turned out the business model, this is the key. When it didn't work for what
+I planned for, it was working to sell like clever slogans and people's party
+t-shirts and people's political t-shirts. That was selling great. So, I just pivoted right away and said, you
+know, this isn't really about apps anymore. It's about look at how many t-shirts we can sell and how much money we're making. And I just
+and that became a new empire. Now, we spun that off and it went elsewhere in the company.
+Part of empire building in a good way is being good at turning things into money and being willing to
+be flexible. My theory of why to make print t-shirts was a total failure. It's
+going to make game makers prioritize putting their apps on Amazon's app store. They didn't care. They like merch
+was such a small thing to them. wasn't. But we found other money and so we just used it for other money and we kept it.
+Another thing I've done before is I've gotten heads for a project, that project has tanked. I don't go and say, "Oh,
+that project tanked. You should take the heads back." I'm like, "That project tanked, but you know what? Great news.
+I've put those heads on this thing that's working and now it's going twice as fast." So, you've got to always know like where do you shift the resources
+to where they're making money or delivering results. And if you're doing several things, if one thing fails, you
+just immediately put them on the other thing and do it twice as well. And they don't take them away. I think it's
+undeniable and this this doesn't look good to me to say I was an empire builder in ways. I the only defense I
+have is I made it pay off for the company to the goals the company wanted andor in hard cold cash sometimes those
+weren't the same. You know I've talked about rationalization. I've rationalized it to myself where I feel like I
+delivered value. Some other people looking at listening to this some of my old peers will be like Ethan
+you were just really slippery. I hate that idea that they might think that. I would say well I did deliver a
+lot of value right? At least I made a lot of money and you can't deny that. So if you were empire building, is there
+How to retain your headcount
+ever a case where they clawed back headcount because maybe you didn't need
+all of those headcount? And if so, how do you defend against your headcount getting, you know, clawed back? Amazon
+didn't shrink much during the times I was there. So pure clawbacks,
+I don't think I faced too many, but as I described, that's because I was playing offense
+when something wasn't working, I was upfront about it not working. And before they could say, well, we could use those
+elsewhere. I was talking about what I had already done with them because they were on my team. So I already had them
+assigned to something else, something more valuable. So they would have to come and say like, no, no, you can't
+move them to that. we have to take them back off of that. I'm like, well, isn't that important? Look at So,
+I sort of prevented that by staying ahead of it. I never left headcount open
+at the end of the year because that was their favorite thing to take back. Amazon often did this thing where at the
+beginning of the year, whatever, we'll pick a random number that's too small, but to illustrate, they would say,
+"Okay, we have budget for a thousand heads this year across the company.
+We're going to let people open 1,500 and we'll see who fills them, and we'll cut
+it off when we get there." Well, I put a lot of effort on hiring, so I I played
+offense. My heads were all full before the gate came down. And I did that year after year. And other teams,
+they would be like, "Oh, we were too busy working and now it's November and we haven't hired yet. What do you mean we can't?" Sorry. What you're talking
+about is any kind of resource competition. You've got to think about how do I seize those resources and make
+my use of them something no one will argue with or that it's too late to argue with it. You know, there are some
+things that like once the ship has left the dock, it's gone. I was very good at getting my ship out
+to the ocean and by the time they're like, "Hey, we uh we needed that ship."
+You're like, "Well, I'll give it to you when I get back." Like, it was too late. And that that part of empire building,
+like if you want to say for a place, I was very maliciously empire building. I
+knew that how headcount worked and I was always the first to hire and fill my
+team. So much that I taught a class on how to hire quickly. Um because I knew others wouldn't do it
+and that was my way to get people. That was in fact another argument I made was
+they'd say, "Oh, we don't have any headcount left to give this year." And I'd say, "Well, isn't there a bunch of other teams not filling their
+headcount?" Tell you what, they're probably not going to get to it. like let me hire a little head and we you
+know they're not going to get to it. And I that was another story I told of like hey across your whole org like all these
+other teams are behind you have headcount you can loan me that they're not going to get to and that was just
+literally me like taking other people's heads but knowing I could get away with it.
+Now I put them to good use. Remember I talked earlier about you have to be a good performer. My teams were always at
+least delivering their stuff. And so it wasn't like they were going to look at me like, "Why would we let you do
+anything? Your shit's all broken." I never had that accusation. I've shared before though, I was very willing to
+hack to get things out. And I probably shipped some stuff that was too raw. That was though, keep the speed moving,
+keep in front, like don't get bogged down in the perfect project. like get it
+out there and show progress and then iterate is better than oh but it's not
+quite ready yet. I can't let it out yet. That because if I can't see it, it's not real. People could see my stuff and
+they're like it's got warts and I'm like yeah but it's there. It's different. As opposed to your thing that you know if I
+ever pulled to like shoot at somebody else they'd be like yeah maybe their project's perfect. You know they've been telling us that for two years. Where is
+Career recommendations for the current landscape
+it? With all these changes with AI. I think you could make a case that it's a boom
+in some places, a bust in many places and I know you have a lot of experience across different companies and periods
+in the tech industry. So, uh when you look at today's landscape of tech
+careers, what advice would you give people in the uncertainty of potential
+scenarios with all this AI stuff that's happening? I wish I had a perfect crystal ball with
+AI because I'd make a fortune on Wall Street. But I do think there are going to be winners and losers and I do think
+some types of jobs are going to get eliminated. I think other types are going to change. I think some will also
+get created that we don't understand yet. Um so what do you do to position
+yourself for that? Well, I think breadth of learning is more valuable than depth,
+flexibility. And so, of course, I am a fan, as we talked about, of develop your soft skills because that's not a target
+of AI at the moment. AI's strongest target
+is things that have rule sets, coding languages, law, math, things that have
+firm rules, it can be optimized around a lot easier. You've said how many times today regarding soft skills, well, it's
+a gray area. That's where AI is going to struggle because how to act like a human
+at that level and how to convince people and it doesn't have a body or a face and it can't hug anyone or shake hands. It's
+got a lot of limitations that in this pure does the code run or not? Is this contract viable or not?
+So I think leaning into some of those skills that require human presence
+is a big tool, a big tactic. Um at the
+same time you can't be AI ignorant or resistant. You have to be aware of the tools able to use them.
+I think the people who are spending absolutely every moment trying to stay
+on top of AI only may be I've called it like winning the
+race off the cliff. You're you will be the best person at
+using the tools, but as those tools chip away at what you do or obsolete what you
+do, you'll be the last one kept around to operate them until they don't need you either. It's a kind of a pirick
+victory. Now again, there's at least two analogies
+that get bandied around. You mentioned engineers and coding in our opening.
+We know that spreadsheets didn't eliminate bankers or financial analysts. They increased the demand. Financial
+tools have increased the interest in doing all kinds of weird financial instruments and analysis. And so there
+are more bankers, not less. Similarly, it was thought like ATMs are going to automatic teller machines are going to
+eliminate bank tellers. Didn't happen. There is an argument that these tools
+are only going to increase the demand for things. In other words, more people have seen what code can do for them.
+There's more people uh playing around with vibe coding and they're going to
+reach a point where they realize I actually need a software engineer to help me with this. So, it's going to increase demand. I don't actually know
+which of those wins. I'm sure that sitting and pounding a keyboard the way I grew up doing it is not going to be
+the same. So, the jobs are going to change. What do I advise having the best
+eye you can on where is the value going? What are people valuing?
+What I think they're valuing more and more now is more people can produce more code or
+more legal documents or whatever. Who's deciding? Who's explaining those? who's
+deciding what's needed, who's deciding what to prioritize for release, who's deciding what to tell customers. Uh,
+let's say the engineers on Gmail can now write 10 times as many features.
+Well, we don't need 10 times as many features. We we actually might need less, fewer, that are better or
+different. Who's deciding? That's that whole taste or judgment. I think that's
+going to be very highly prized. And I'd rather be in the judgment seat than
+in the running the tools seat. In the last few years, there's this
+trend of flattening orgs or getting rid of the the layers. And I wanted to ask
+you in your experience, is that in the tech industry, is that just something that es and flows with the booms and the
+bus or do you think that's a new permanent way of of operating? The
+delayering is a is a cyclical um it's a cyclical pressure and it's a
+cyclical pressure when companies are very focused on headcount on keeping
+headcount flat. Companies go through periods of expansion and contraction or
+or rationalizing. And when they're trying to rationalize, they're always trying to flatten because
+there's this belief managers in the middle don't do anything. And so, how do we get rid of them? But I want to talk a
+little bit about history. There was an early dynasty in China that in 600 BC
+implemented the first testing for civil servants. And by 200 BC, this had
+actually become like a formal process with a written exam. So if you think of administrators as basically the same as
+managers, we've been we've had manager layers
+since like 600 BC to the point that they were selecting them with tests.
+I believe AI changes a lot of things. I don't believe it changes human nature to where there's no longer going to be this
+idea that you need one person to organize other people's work or to speak for it or to centralize it. And so
+I think it's cyclical. I don't think it permanently changes. It
+might be that AI tools increase what is considered a team, like
+how many people can be on a team because the manager has automation helping them.
+But I can just as easily argue that because each individual on the team is producing more and more decisions are
+needed and more judgment is needed, more communication about what's been done is needed, that it increases the need for
+people acting as managers. Right now, this flattening idea, it's
+got a couple of poster children like Jensen Wong, who's got 60 direct reports.
+Is everyone Jensen? They're not. And by the way, those 60 people, I coached some
+people in his organization. They are extremely senior. So, can one brilliant
+guy lead 60 other brilliant people? Yeah, maybe. Can I do it? Can you do it?
+Can Can the average first level manager scale from 10 engineers to a hundred and still do a good job?
+I doubt it. Right. I really doubt it. So, I think it's cyclical. Predicting that human nature is going to be
+different is a really bad prediction because it's been the same for so long.
+And the idea that a tool is magically going to make humans different, I'm skeptical.
+How to avoid negative layoff optics
+In the doomer AI case where there's less technical roles, I think people might
+worry about layoffs and those kinds of things. what are the top ways that you
+know to protect against against layoff and also I'm curious to know how do you
+avoid the negative optics? Yeah. So let me address your second question first which is the optics. I think right now
+AIdriven layoffs or downsizing from big companies is so common. You tell that story. Exactly. You say look my my org
+was eliminated. My whole org was eliminated. That's a simple way of saying it's nothing to do with me. And
+that's so common now that a recruiter isn't going to be like, "Oh,
+you were at Google, but now you're" or again, fill in the blank. Meta's done a lot of layoffs. Amazon's done them. Uh,
+all the big companies have saying that you were laid off from one of these big companies when your org was
+closed down or significantly reduced no longer has the tarnish it did. But the
+rest of how you prevent that from tarnishing you is you make it a quick fact and you pivot. And so you say,
+"Yeah, unfortunately my organization at Meadow is eliminated." But the good news is
+fill in your story. That gives me a chance to do something new. That
+actually gives me a chance to bring the meta philosophy or the meta insights on, you know, whatever fill in the blank
+again to to other companies. that gives me a chance to bring Amazon's experience with scale to to you. And so I'm
+actually excited. You know, it sucks I got laid off. I admit I wasn't looking for that, but it's opened my eyes that
+there's a chance to bring that to someone else. And you change the topic quickly to the future. So truth about
+the past quick move on. Um now, how do
+you avoid a layoff? First, sometimes you can't. You know, if they whack a whole org, you may be done. But even in most
+layoffs, I know top managers or executives, they try to
+place their key people in other orgs. So I know a leader at Amazon was
+shutting down a whole big org and she had a list of like her top performers
+and she was calling other leaders and saying like make a space. You want to make a space for this person? How do you
+get on that list? The layoff key is the decision is often not made by your manager, it's made by your skip or a
+couple levels up. So, you need some visibility as a top performer. Top ratings is one key. They'll look by
+rating, but being known for an accomplishment, something like that Matt Round tool that I talked about earlier
+or something, a tool with your name on it, having a unique skill. We talked about the keragin engineer that's the
+only one who knows something. If you're on, if you're the only one who knows something that's still needed, I can cut
+half of your org, but I have to keep you because you're the only one who knows this thing. Those are the different techniques. And again, I'm mixing
+technical knowledge, building tools, or having unique expertise with social engineering, being
+known to the skip, skip, and whatever. It's always every answer I give should
+be a combination of what I said be good and be likable. Both
+are additive, maybe even multiplicative. Yeah, we we talked a lot about the the
+How to develop executive presence
+social engineering and kind of the the negative and the the politics. I do want to talk a little bit about the the
+positive side of soft skills as well. What is executive presence and how do
+you develop it? Yeah. So, executive presence is very hard to define because
+it's something others decide about you. They look at you and they either decide you have it or you don't. And they're
+combining a few things. So, what is executive presence? Uh, I have two definitions. One of them is from a book
+and it's academic. And it says it's 60% gravitas, which is like the weight of your accomplishments, what you've done.
+It's 30% communication skills, 10% appearance. This is from a researcher who has done all this work to figure it
+out. I think it's a fine framework. The other way I look at executive presence
+is are people coming to you for your opinion particularly on things that um
+you may not directly be involved in like are they coming and saying hey Ryan we'd
+love to get your take on this because you have really good insights or we'd love to get your support on this because we know people look up to you. That's
+the other sign of presence is you're being sought after even when it's not directly your work. You're being valued.
+Um it's those two ways of looking at it
+define executive presence. If you want me to really boil it down to a phrase,
+it is do you command respect in a room? Do people like listen to you? Do they
+look to you? Are they busy? This is a little overly political, but are they busy like uh reading your gestures? So,
+if like you're talking and I pick up the phone, are they like, "Oh, well, we can ignore Ryan because Ethan is." That's
+the sign of a lot of presence. when you framed executive presence as people want to know your opinion. I've seen that
+where there may be someone who's a quiet engineer, but they've been there a long
+time and they know everything and a lot of people go to them for their opinion.
+So, I I could see that being one path to executive presence. I could also see a
+case where it's not grounded in their being objectively correct all the time.
+something about the way they stand, the way they speak, what they accept, what
+they don't accept. And it's that's a little harder to define. I will tell you a story which is I speak
+with tremendous confidence. And sometimes I can sound like the voice of God. Like
+I can sound like I am declaring truth from on the mountain. I have the tablets.
+And my wife who knows me very well, she once told me, she said, "You know, Ethan, I've learned that you sound like
+you know." And so sometimes when I think something different, I don't say anything because you sound so sure. And
+then it turns out you're wrong. And I'm like, "Why didn't I say anything? I knew we needed to turn right at the last corner, but you said, "No, it's
+straight." And you sounded like you knew and I bought it. That's
+my executive presence going too far, right? Because I think it's straight, but I don't know. But I'm saying, "Oh,
+I'm sure it's straight." And she's hearing, "I'm sure it's straight."
+What are those traits? Well, some of them are very superficial. The number one and two are confidence and
+decisiveness. Um, if you undermine yourself and say, "Well, I think maybe it's straight, people are definitely
+going to challenge you." Whereas, if you say, "It's straight. The next we don't turn. It's it's two two lights then a
+right. Very specific. Everybody's going to buy it. One thing I do in my executive presence class, I teach a
+class on it, is I share the fact that stats with numbers are 62% more
+believable than stats without them. Now, the truth is I just made that up. I've never looked it up. But 62% sounds so
+specific and I delivered it like, "Oh, yeah. This is true." Maybe you bought it. Probably you bought it. But a lot of
+people listening were like really 62%. I was just lying through my teeth or at least embellishing, right? Um
+specificity delivered with confidence, speaking up quickly. The list of traits
+are being tall and white. You don't have to like it, but it's true. They're both like if you look at presidential height,
+if you look at how many white men we've had as president, not just here. Go around the world, go through history. These are these are things, okay? Um,
+doesn't mean they're good. It means they're true. Deep voice. We respond better to people with deep voices. Uh,
+which is why when I do the voice of God, I go even lower. Um, and so did all the actors who've ever done God. So
+apparently God's a baritone. Like you never see a squeaky God. Another trick is speaking slowly.
+Usually pausing for emphasis makes you seem confident
+and gestures, body language when you said all the things that aren't just
+being a great engineer who knows all the facts. It's this feeling like your trustworthy
+uncle. Like that's the picture, right? The uncle who's like your dad's older
+brother and runs a business. He's fun, but he's really smart and he owns two
+cars and has a beautiful wife and three lovely children. It's exuding that
+successful, comfortable in every situation. Another big factor is never getting flustered.
+They're never out of control. They may show anger, but it's always like this.
+It's not this wild like screaming rage and spit, you know, blowing spittle.
+It's this lean in like how dare you little one. And and so it's emotion
+under control. It's, you know, if you don't like it, I guess, or if you do like it, it's all these ape dominance
+tricks. Like what makes the top ape in the tribe who gets the bananas? It's just the human version of those brought
+into a room. This reminds me, there was that one CEO, Elizabeth Holmes, and she was, I guess,
+famous for her deepened voice when she was speaking, and there's there's recordings of her
+not doing the CEO voice and it's different. Different. Yeah, it's different. So, I
+guess she picked up on that and she's trying to exude executive presence.
+And she's not the only one. Um, Margaret Thatcher, the historic, you know, the prime minister in the UK back in the
+80s, I think she was the first female prime minister. I may have that wrong, but I think so. She early in her career
+was accused in the media of screeching, of being high pitch. She said that'll never happen again. She systematically
+trained herself to speak low and slow, basically. And this again will bother
+lots of people, took on a man's voice to compete in a man's world. Now, this goes
+down into that whole should thing again. Should she have to do that? No. Did she do that? Yes. Did it work for her and
+Elizabeth Holmes? Yes. So, until our world changes,
+that's different. And and so, yeah, that is one of the signs. The good news is
+you can be successful and have high executive presence without any one of these given traits, but you're going to
+have to have some of the others. So, you're either going to have to be really good at what you do. That's the
+engineering viewpoint. The example I always point to there is Warren Buffett. Warren Buffett, no one that I know of
+has ever said, "What a dramatic speaker. What a showman." And yet, he commands
+tremendous respect, tremendous executive presence. That's your case of the engineer who's the expert. It's because
+he's Warren Buffett and his investment track record. It's not any of these other factors. We look at somebody else,
+Steve Jobs or Elon Musk. They are both showmen. They were very good. They may
+have had great ideas, but they are icons in our industry because they were also
+very good at all the speaking and presence. They controlled their
+stage presence. They did things in a very exacting way.
+Well, it's interesting you mentioned the Elon Musk one as an example of showmanship because when I see a public
+speech of Steve Jobs, it's very polished. But yeah, when Elon speaks, it
+it doesn't seem so much as showmanship. What are those traits in him that you're
+seeing that are I think the showmanship in him uh that works for him is he can deliver
+relatively outrageous claims very 100% conviction. He can make you believe that
+at least he believes. So like if we look at the recent SpaceX IPO, he's talking about how he's going to build factories
+in space. Maybe like if you start really thinking
+through all the things that would have to be true to make it possible to like build things at space and make it
+useful, it's a very long list of problems. But he says it with this total
+conviction and like his whether he says these words or not, he's
+like, "Nobody thought we could do electric cars. Check did that. Nobody thought I could build a private rocket
+company. Check did that." And I'm telling you next is space factories. And he just says it in a way that like it's
+it's inevitable like the sun will come up tomorrow, water is wet, and Elon Musk will build factories in space. It's I
+think his showmanship whether it's an act or not is conveying utter conviction
+of ideas that are somewhere between incredibly cutting
+edge and total fantasy
+who what you think there depends on what you think of Elon like is it
+one or the other but he's able to like get out in that space and make it plausible because he's done stuff that
+people didn't believe was possible. So his essential pitch is you didn't believe me before and you were wrong.
+Are you going to dare to doubt me again? Obviously, it's it's an asset if you're
+How to network in a natural way
+liked and you should build relationships at work. How do you actually go about
+that? I think networking there's a recipe to do it. is very authentic, very effective, and that's figure out some
+stuff you love, stuff you're passionate about, stuff you would like to share with people, you're proud of, you're interested in. Do those things or work
+on those things and figure out just put in a little extra effort to figure out how can I give this to other people? How
+can I make it available? How can I package it as a tool? How can I give away my advice, give a class, give a
+talk? The key is to give. take what you like doing and give it away because
+there are other people who don't like that thing or don't know
+about it or want to know more and they want your help with it. So, it does require that you have some sort of
+expertise, but it doesn't have to be wild. It just has to be solid because
+there's other people who aren't good at that thing and if you can figure out how to give away some value. So my first way
+of doing this at Amazon was I mentioned how I was really good at hiring. So I
+started teaching a class to other managers on how to hire really fast and well. Then I started teaching some other
+stuff and that led to my teaching. I and I found other ways to give stuff away. So, I started streaming on Twitch,
+giving away advice, and I built an audience. That's all network, but it was
+all based on what could I give away. And why was I willing to give away with it? Give it away. I loved it and I was good
+at it. It was fun for me. It wasn't work. So, I often share a story. There
+was a guy at Amazon who liked to ski and he was an engineer,
+I think, but he went to the local ski slopes and he got their um bulk ski
+tickets and he had a deal with him where they would ship him tickets and he would resell them internally so that people
+could get a ski ticket for those hills at the discount bulk price. Well, he
+just basically did it because he liked skiing, he liked helping people, and he liked to get cheap tickets himself. So,
+it was a way for him to get bulk pricing. But through doing this, he made hundreds of connections with people who
+got discounts through him. It meant if he ever needed anything, he had all these people he knew or if he called up
+a random person, there was a good chance like, "Oh, you're the ski ticket guy. Yeah, I'll help you out." Why do I give
+this example? He wasn't sharing anything technical. He wasn't doing anything he didn't want to do or even that he didn't
+benefit from, but it built a network. And everyone can find some way to do
+that, to share something they're interested in or love or don't mind doing that they're really good at. It's
+easy and fun for them or at least not too hard and other people appreciate it. What most people think of when they
+think of networking is we're all standing in some room for some random purpose and I have a cocktail and I have
+to go talk to people I don't know and be like, "Hi, I'm Ethan. Why are you here?
+Let's find something in common so you give a shit." And that that's an
+introvert's nightmare. And I get it. And it's hard to build a relationship where
+there's no uh shared interest. What works about the
+skiing example or anything else is the one guy liked to ski? Well, the people who were getting the tickets also liked to skis. They immediately had something
+in common. Oh, are you going this weekend? How was the snow? Conversation is easy. And then once you like have
+talked a little bit, it's easy to go deeper. Um, that's how you build a network
+naturally, organically. Every engineer has some piece of
+technology that they know more about than the average engineer and that they're excited to talk about.
+Talk about it. You can talk about it in recordings. You can talk about it in forums, on Reddit, it doesn't matter
+where. Share value. I like this version of networking, but
+How to network with powerful people
+of course I got to ask the dark version. [laughter] Of course you do. which is I stumbled
+upon this post and it is the the basic principles of politics and it was saying
+step one be aware of who's powerful and who's not. Step two, help the powerful
+people as best you can. Yeah. Step three, make sure they know that you're helping them. So, this is a little bit
+of a darker, more mchavelian framing of networking.
+A lot of people, let's say they're going for a promo, they want to think, okay, how do I make that VP that's making that
+decision like me? Is there a way to do it organically that you would recommend?
+There are ways. Uh, let me give you a few. First, let's take this VP. You can
+take a couple shots like, hey, I've built this thing where I get bulk ski tickets. I don't know if you go skiing,
+but if you do, I went like 375 people around the company are using it. Is it
+something you'd want to use? That's one way. It like talks about something you've done and maybe you'll get lucky
+and they're like, "Oh yeah, I ski. How do I get some tickets?" That's one way. Same thing with if you've built a tool
+or you're sharing your expertise, you can be like, "Hey, I built this interview tool or fill in the blank what
+you did. I don't know if it's of use to you, but a lot of people in your org are using it, so I thought you'd want to
+know it existed. And that's just a way of like dropping in like you may or may
+not directly value what I do, but I've got a line on a bunch of your people. And the really like in your dark world,
+powerful people always want to know like who's influencing my people. They like,
+oh, you've attracted attention from a third of my people. I better like know you and keep an eye on you. And that
+keep an eye can be like I got to watch you, but it can also be like maybe there's a way to use you. And so that's
+a door in. But the other door is if you built a network, someone in your network
+knows that person. And so what you do is you go to one of their direct reports or
+whatever and say, "Hey, I really would like to get to know our VP. I haven't figured out. We don't have any, you
+know, common interest I can figure out. You know them. would you be willing to put in a good word for me or suggest
+that they do a skip level with me or you know like can you help me get in front
+of them? And because you've built a relationship with the person in your network and you've helped them out with ski tickets or whatever, they're like,
+"Yeah, I can help you out. Let me think about that." So, I'll give you the dumbest example that blows my mind. I do
+charity work for Ukrainian refugees that were driven out of Ukraine by the war and they're in Poland. And early in the
+war, I wanted to get a bunch of suitcases of medical supplies and other gear shipped from the US to Poland free
+on a United Airlines flight. So, I went out to my network. It's a very
+empathetic story, so I had that to my advantage. I said, "Oh, I want to get medical supplies to Ukraine, and I need
+somebody who knows people in United Airlines that can help me get 10 suitcases sent for free on this flight."
+I was thinking, who knows what'll happen. I get an email back from someone in my network who says,"I know the
+chairman of the board for United. I'm going to connect you to him in email." Now, this is using a sledgehammer to
+kill an ant. But I get this email a little bit later. I get put on email with this guy, chairman of the board for
+United, who's like, "Hey, I hear you want to, you know, you're trying to help some people displaced by the war. What
+do you need?" And I wrote him an honest note being an executive. I'm like, "Dude, this is such a waste of your
+time. Just delegate me to someone. Here's what I need." And he was like, "It's cool. I like to help people."
+Well, all the bags went on the airplane for free, but when the guy who was flying with them got went to drop them
+off, like the whole team from United met him with like a gift basket, which is
+just stupid overkill. The point I'm making though is I had built a network
+and then I needed something random and I didn't even ask a specific person.
+I just put out there into the world. I need help reaching someone in power at United. And I ended up with the chairman
+of their board. I could tell three more stories that are almost the same level of like I reached
+out for help and I got this like overkill god help. You go through an
+intermediary who wants to help you. Here's the key. I'll give everyone a key. Helping people makes you feel good.
+So, when someone in your network asks for a favor, if it's a favor you can
+grant easily, you get to feel so good and it didn't
+cost you anything. So, like let's jump to the situation of the guy who introduced me to the chairman. For him,
+he gets this note. He sees it on LinkedIn. He's like, "Oh, I like he needs help. He's doing something good.
+He's helping refugees." Wow, that's really good. If I help him do that, that
+means I'm really good and I know the chairman and he's going to go along with
+it. Wow. All I got to do is send an email and I look like a the tooth fairy.
+Now, if my friend is listening to this, I'm not saying your motivations were that base
+because it's legit to be like, "Oh, refugees, I want to help them and I can." So, it wasn't like he was like, "Oh, I get to feel good." But believe
+me, I'm sure he did feel good. And that's a great feeling. So, the
+reason networking works is you're finding someone and giving them a way to feel really good and magnanimous. And we
+all love to be able to pat ourselves on the back about what great friends we are.
+I'm just opening the door if you'd have a chance to do that. When you were a VP at Amazon, did you
+have people coming up to you and clearly there was an ulterior motive and they
+were trying to I guess you quotequote network? What' you what' you feel in those cases? What' you do in [laughter]
+those cases? So, I've already shown you I'm very blunt. I had like engineers three levels
+below me or four levels, you know, I had big organizations. So way down the org, they'd come to me and be like, "Hey, can
+you mentor me or can I have a one a monthly one-on-one with you?" And I'd be like,
+"So, I have absolutely no time for this. I have no time to put you on my calendar, but here's the deal. I'm going
+to give you one meeting. You're going to bring me something really interesting I don't know, and you're going to bring me
+value in that meeting. And if you do, we'll have another one. That's your shot. Go do it." That's And if they
+wanted something, I would just tell them like, "What's the price?" Like I've said bring value okay
+I will do what you want surprisingly I will say yes but what are you going to show me like make it interesting and
+that was actually my challenge to them often which is my job's kind of boring it's a lot of meetings it's a lot of
+pushing paper around bring me something interesting if you can keep my interest we'll keep meeting as soon as you become
+boring well it was more of a chance than sorry I'm too busy
+Right. So, uh, and a lot of some some people were good at and some of them never came back and I'm okay with that.
+How to learn hidden incentives
+Most people I feel like are not as direct with their incentives. And so, in those cases, how do you find the things
+that people want or what their goals are, how you can help them in a way that, you know, can make some win-win
+interpersonal dynamics? So I think you want to build a trusting relationship so you can have more of that talk even if
+you can't use his blendal language. But before you do that or as you do that I
+think there are four ways to kind of figure out what people want. One is to directly ask them. We've kind of talked
+about that. The second is listen to what they're saying. What are they talking about in their all hands? What are they
+talking about in the staff meeting? Whatever. What are they saying? Are the problems? What are they saying are the goals? because those are they're talking
+about the things they want and don't want. The third way is
+ask their direct reports. Ask ask others in the organization who know them or
+have a relationship with them. This is called triangulation. Rather than ask them directly, you go out and you c you
+know you cross over and you see what this person says they think they want this person, this person and you figure
+out okay, what are they um what are they telling others? even if it's only little
+bits or what are others inferring so you triangulate. The last way is observing them. Actions speak louder than words.
+Where are they putting their money? Where are they putting their time? Where are they hiring? Where where are they
+spending their time in meetings? Their actions are going to show what matters to them. So four ways, ask
+um what? Ask, listen, triangulate, observe. Those are the four ways to
+figure out what they want. And then more or less those are the same paths to
+start going at them and and adding value. you start moving towards the
+things they value and then finding ways to come to their attention or or whether
+you send it up through friends or you send it up through a status report or you know when you bump into the hallway,
+you find different ways to showcase that you're working on the things they value and asking how you can help. And
+again, this is less direct than the Ethan, let's make a deal kind of way.
+And some people are even bothered by that idea. They say, "Let's make a deal." That door was open to everyone.
+Make a deal with me where you deliver more value and I will find a way to help you move you up. Like that's a fair deal. It is the corporate deal. The more
+valuable you are, the more I can pay you. So bring more value, I'll give more value. Fair deal.
+And therefore, I don't think deal making is bad. It's just explicit. But for the people who aren't so
+transparent or transactional, they do still have all the same goals and motives at some level, which is
+progress, you just have to find a way to do it in their style. And their style is less
+explicit, more implicit. You're going to have to tolerate more ambiguity because
+if you'd like to have that clear statement of you do these three things and I will do my best to get you promoted next cycle, you're not going to
+get that from them. You're going to have to be like, "Well, I can see who they're promoting and what they're valuing. I'm going to do those things and trust."
+You're going to have to weather more ambiguity. I have found that if you build a relationship with people,
+most people, they may never be willing to be transactional or explicit with everyone,
+but they will do it with you inside the confines of that built personal relationship. When I was working at
+What happens behind the scenes with HR
+Meta, when someone's underperforming and then they get managed out, it's it's more clear even if no one says anything.
+But there were cases where someone came to work on Friday and then on Monday they were gone and there was no clear
+evidence of why they would disappear. So in those cases, it felt like there was some secret HR thing that had happened.
+And at the time I was just a software engineer and I just thought okay I don't know what just happened to that person
+but they're gone and it was not performance because I had worked with them and as a VP I imagine you you knew
+a lot of the things that happened and so in those cases where people just disappear suddenly what what is it that
+goes on behind the scenes at the HR team? Well, I mean, a lot of those
+so-called disappearances, they're the case where someone did something, frankly, that put the company
+at some kind of risk. So, they're usually the bad things.
+Racism, theft, embezzlement, sexual harassment. I will tell a story. I know
+someone. They had a strong political opinion on a topic and the company was doing something they saw as inconsistent
+with that and they leaked an internal memo to a reporter and then they got
+caught. uh they didn't think enough about how the company's IT systems worked and they left a paper trail and
+after the news report came out that obviously the reporter had had access to
+information um you know the company tracked it back down to them and they were gone. I
+actually now that I think about it I saw several people fired for leaks.
+So, a case that you might not think of that gets people broomed that isn't like
+interpersonally gross, like a sexual harassment thing, is stuff like that. Leaks, sharing competitive information.
+Sometimes they're just dumb. Another story I tell, we didn't end up firing this guy, but we very easily could have,
+and no one would have blinked. At one point, I ran a video game team, and that team made violent shooter games. One of
+our artists one day brought in his actual real firearm collection, spread
+it all over his desk and like when other people walked in, his desk was covered with guns. He was totally innocent. He
+was making up new weapons and he wanted his guns as models and inspiration and it never clicked with him like how
+having a desk full of guns in a California office might like wig some
+people out. Now, if we'd have just been like, "Guns in the office, done," nobody
+would have said a thing. We figured out like, "Okay, there's a difference between thoughtless and actually
+planning on murdering your teammates." So, we're just going to send you home
+with all your stuff and tell you, "Please never do that again." But that could have been like gone. So,
+people make the dumbest the stuff that happens.
+You would never believe. One time I had uh I came back to my
+office from a business trip to visit another office. My female executive assistant and one of my female employees
+greeted me at the office door and said, "We got to tell you what happened while you were gone." And like every alarm
+bell for a manager at this point is going off. It's we're, you know, it's Amazon, so it's mostly male. I have a
+female leader in my EA who are both women saying, "They have to tell me what happened. I know it's going to be bad."
+Well, what had actually happened was so unbelievable. What had happened was my employee came
+in, the the leader, and found a pile. We had dogs in our office. We had pet
+policy, right? You could have dogs. She found a pile of poo under her desk, and she's like, "Oo, gross." So she calls,
+you know, the building maintenance like, "Uh, dog had an accident." The woman gets there to clean it up and says,
+"This is not dog poo." So they call security like, "There's human poop under
+the desk." Oh [laughter] god. And so security is pretty smart. They ask her like, "Has anybody been showing unusual
+attention in you?" You know, blah blah blah. And she's like, "Well, you know,
+now that you mention it, there's this one janitor and he seems to hang out and whatever." So, they go grab this janitor
+and they quiz him like security does. Well, he cops to it and this was his way
+of like showing obviously he was not normal the way we
+was his way of showing interest was he had but when I say you wouldn't believe what
+goes on of course he was fired and given a restraining order to go with it like you can't come near the building again
+or her but when I say you wouldn't believe because
+when I tell these stories people bringing guns runs in like, "Oh yeah, it'll be fine if I just spread them out all over my cube or I'm going to like
+show my affection or interest by." You wonder what were they thinking? And
+the answer is they weren't thinking in a normal way. People both do things that are unethical and they're very
+intentional, but they also do some stuff that later you're just like, "Wow." So that's why those people disappear.
+Did he burn people to get ahead
+We've talked about gray areas all throughout this conversation and you mentioned this situ I think you said it
+was like Joe Blow that gets the the F or whatever and this other person gets the
+the A. There's this implicit framing of one person's going to get ahead and one
+person's going to get put behind. And so in your career, you were there ever
+cases where you had to burn someone to get ahead?
+I would love to say no to that. I'm cautious to say no because of rationalization.
+Um there are definitely places where I competed with people. There were definitely places where I was trying to
+make sure I look better than others. I'd like to say that was always me doing superior work. Is there ever a case
+where I like targeted someone to burn them down?
+I don't think so. I think there were definitely places where I did everything I could to make sure I came out ahead. I
+think one of the cases I feel worst about wasn't anything I explicitly
+did to someone on purpose. But when I first joined Amazon,
+and when I mean first, I mean the first week, I had been hired without being told what
+my job would be. It was a secret project and all they would tell me was like the general area, but I couldn't know what the project was and I had to accept. So
+I got there and I went to my boss and I said, "Hey, I'm here now. What the hell am I doing?" and he said, "Well, we have
+two jobs open. One of them is building our next video product, our first video
+product, and the other one is building the ingestion systems that will be used to ingest the video and also will
+support our music project and our books project, what became Kindle.
+Which one do you want?" Well, I'm an end I'm an enduser guy, so I'm like, I want to build the end user thing. I'm not an
+infrastructure person. I want to build the video product. He's like, great, done. What? I had no idea. Another
+manager started the next Monday and they had apparently told him he could build video and he got the infrastructure
+project. He like he joined for the job I had asked for. I had no idea, but I
+absolutely the result of my action was he got put in a job he didn't want. And I think it sucked for him. That's the
+closest I can think of to where something I did really screwed someone else in a in like that lasted you that
+was like his job for the next two years. Now the other thing if I had been told
+well there's two people I would have still fought for that job. I'd have still said like can't I have it? I'm
+good at that. I have history in that. Like why didn't you pick me? So I would have still fought for it. Um,
+but it would have been because I wanted that job, not to screw him, but it had
+that side effect even though I didn't know in that case. But I would have pushed for it, sure, because I want to
+do what I want to do, just like everybody else. When we make these videos, it's very polarizing because
+What he says to people who hate politics
+there's a big group of people who say, "Thank you for saying it as it is. This is so helpful, and I'm going to be aware
+of this and use some of these tips in their career, and this is how the game works." And then there's a group of
+people that don't engage with the content fully. They just hear something that they don't like on a moral level
+almost. They hear, "Oh, how could you think that? How could you say that?" And what would you say to those people
+that say the premise of all of this stuff, the premise of the game is
+distasteful. It's not something they even want to believe, for instance. Yeah. So, I have a good friend who takes
+exactly that viewpoint and we argue all the time. Um, and the premise is this
+game sucks and no one should have to play it. And the fact you're talking about how to play it means you've
+already bought into the evil side. Um, what I would say is this game is real
+and I wish it wasn't real in some ways. I wish we could all be judged on our intentions and on our merit and we were
+all seen, you know, we all had unlimited opportunity and we were all rewarded for
+what we really did. I wish those things were true, but I don't know how to make them true. So,
+what I say is I try to make them as true as possible for people working with me
+and around me. That's why I'm so transparent, not only with you, I was pretty transparent at Amazon. And I made
+deals and I did everything I could to keep them. And I've been honest about I still
+regret 20 years later this one guy I let down. It still bothers me. But
+humans human society is full of nasty people and it's also full of limited resources and competition. And I think
+this is reality. And so I get that all
+the time. I hear people are bothered by the reality and they want me to make the world just.
+I don't know how to do that. I know how to work towards it, but that's going to take well beyond my life or your life.
+And we see that because if we look at all the nasty things that happened in history like slavery or oppression or
+you know uh uh limitations on women's rights.
+I dismiss none of those, but they've been ongoing battles for a century or more. They're not going to be solved
+this year or next year. So I coach women all the time how to get ahead in a biased world. Does that mean I support
+bias against women? Absolutely not. But I can't fix that this year. And those
+people have to try and move their career ahead this year. So what I would say to the people who dislike it is I am trying
+to deal with what's going to happen this year while also working on rights. I
+think people can throw stones at me, but when I talk about like I started a
+charity in Poland to help refugees from Ukraine, it's not like I don't believe in causes and I'm not willing to tilt
+against windmills and try and write injustice. That's my particular cause. You may wish
+I worked on your particular cause. But if you just objectively say, does this guy try and do good? I do. But I also
+have to deal with what is reality today moral situation.
+I I made a friend who's Ukrainian. Her husband voluntarily joined the army in
+Ukraine. He served two years. He wanted to get out after two years of volunteer.
+Ukrainians need soldiers. They wouldn't let him out. He was going to be sent to the front in a place where he would
+likely die. We knew that he could be bribed out of the army
+and it was relatively little money. It's about $1,000. So, a friend of mine and I gave his wife $1,000 and she went in and
+bribed her husband out of the Ukrainian army. Probably some other dude we don't know died in his place. So, American
+wealth because we knew this woman saved this guy's life, killed this other guy.
+It's very real and I am completely okay with it because I know her and she's my friend. I didn't want to kill the other
+guy. Maybe I didn't. I get to have plausible deniability. Maybe it's all happy nobody died. But
+I deal in that reality. She was important to me and I could help her. He had served some time. He had done some
+duty for his country. I was okay letting him out. Right decision or not, I don't know.
+Like me or don't, I'm okay with my decision. Same thing as all the corporate
+politics. I teach people how to deal with the world that is. The world that is was
+he'd serve some time and probably he was going to die and this woman I cared about was going to be hurt and it was
+going to cost me relatively no money to save his life. I was okay with that.
+There are 50 ways you can say that was an evil decision of mine. There are also
+50 ways you can say, "Wow, you did something remarkable for that woman and you're trying to help other
+people there." So, here's the thing I think about some
+of the critics. They have an ideal in mind. It's a great ideal. I support
+their ideal, but you got to understand, it's an ideal that we're far from. And just because I
+deal with reality today does not mean I think your ideal is wrong. I'm just
+trying to also live today and help other people do that. I pulled people on Instagram and one
+Top book recommendations on power dynamics
+common question people were asking is uh do you have any book recommendations on
+you know power dynamics or people or you know these kinds of uh topics that we we
+discuss that you'd recommend to people? I have several. Um, so my all-time
+favorite book on this has uh is called Leadership and Self-Deception by the Arbinger Institute. It's a book that
+explains uh how we sometimes treat other people as objects without meaning to.
+But if we objectify people, which means we treat them as a roadblock, like a we treat them as an API, how do I press the
+right buttons to get the response I want? That doesn't usually get a good reaction because they feel manipulated.
+It's but if you treat them as a human and like hey I know this is hard for you. I know you're busy. You know, how
+can we make this work? Here's what I need. And with warmth, they're more willing to help because people seen as
+humans will treat you back as a human. That's that book. Second book is Chris Voss, Never Split the Difference. That's
+all about negotiation and about understanding how human motivation works. All of this
+is human psychology. So, all of these things are human psychology. Um, the third book, even though I hate
+to recommend it for all your interest in dark side, is that 48 laws of power, it's a very thorough catalog of the dark
+ways people think and manipulative tricks. You can either become that
+person who manipulates or you can at least become aware of how psychology can
+be pulled on and see some of it and it will open your eyes for better or worse.
+How he would speedrun career growth today
+In video gaming, there's this premise of speed running. And this is basically
+trying to get through a game, okay? As quickly as possible. I worked at Twitch. I know speed running, right?
+Okay. So, imagine you're playing the game speed running, you know, any percent. You're trying to just get to a
+VP level and you start at the beginning at Amazon. What would you do? What might
+you change today? Yeah. So first thing is I would not be planning on getting a VP at Amazon.
+That's not going to be a speedrun at this point. And the reason is the company's not growing the way it was. It
+grew while I was there grew a hundfold. That meant endless opportunity. It's not
+true anymore because it's not got the growth. So what I would do if I was at Amazon today is I would say how can I
+suck as much information and technique out of this company in 18 to 24 months
+to get more skilled and then I'm going to have to go somewhere that's high growth. And so I'm going to try to
+become an expert in a skill that will get me bought externally which probably
+means AWS. It could mean a few other things, but I'm going to try and become enough of an AWS expert that someone who
+needs AWS knowledge will hire me in at a higher level in a high growth place. And then I'm going to go find a high
+[snorts] growth place that wants to use cloud computing, hopefully the stuff I've been working on, and I'm going to
+pitch to them. Bring me in, and I'm going to be your solution to adopting to
+like adopting this fast, well, and cheaply. Then I'm going to deliver on that and talk to them about, okay, how
+do I move? That's where I'm then going to run this. How do I move up? I want to grow in this way. I want to lead. Now,
+the next thing you're going to need to do is speedrun. You're going to need some management skill if you want to be a VP. You've got to be good at the job.
+You're not trained in that. So, you're going to have to start studying the psychology, the organization, the risk
+takingaking, the decision makingaking. The next thing I will say is favor
+gambling. favor taking risks. You'll probably move up faster by shooting for
+big wins and missing a few because you can always unfortunately fortunately you
+can always leave behind the smoking ruins of your disaster at one company and try again somewhere else and
+eventually if you take enough big swings um you will uh hit one. So I'm going to
+use a baseball analogy from the book Moneyball. You can either bat for like on base percentage and I want to swing
+to get a safe trip to first base and that's actually easier than trying to hit a home run, but if what you want is
+the home run, you got to swing hard and wild a little bit and you'll strike out
+more, but you'll get a few home runs. And that's actually what makes you famous. Like nobody cares that you got on base. They like to see the ball fly
+over the wall. So, uh, that's
+I would leave Amazon with my expertise, with the Amazon name on my resume, go
+somewhere high growth and start giving them value, asking for advancement, and taking risks. If I succeeded, I'd move
+up. If I didn't, I'd hop again. And that would be my way is when I found
+a high growth place where I was succeeding and moving up, I'd then ride that. That would be the end of my speedun. But that might be the third or
+fourth company. Um there was a time I know many people who went from entry
+level at Amazon to VP. They're VPs today, but I don't think that's repeatable without 35. There is no
+speedrun of that today. There's like a slug run. I don't know what the opposite of a speedrun is, but it's very slow and
+that's what a playthrough it's, you know, like what's the what's the playthrough where you complete every
+quest? It's that one. And it's like slow as And that's what's left. And it's because, well, it's because a
+company that grew from 14,000 employees when I joined to 1.4 million when I left
+is now still more or less 1.4 million. The opportunity is not there. And the same as you were at Meta. Meta used to
+grow like crazy. Now it's shrinking. They like I'm sure many careers were
+made at Meta, but I don't think they're being made the same way now. like what you did at meta because I know you had a
+lot of success there. I don't even know. Do you believe that's repeatable at meta
+today this moment? maybe through the early engineering levels but not in the higher levels
+where business case matters more I would say right so that's why to VP it's not
+possible you totally could stay at Amazon to go L4 which is the entry level to L5 maybe L6 but from there it's out
+get go out somewhere that's going to be faster because other people are going to value that expertise way higher than
+Amazon does one thing I'd say about Amazon that makes this interest answer interesting They have 50,000 L4s or whatever 30,000
+I don't know the number. They have 50,000 L5s.
+That means you're just a number. You can go somewhere where you're the only AWS
+native engineer. That is turning being one of 50,000 L5s
+into leverage in another company. It actually drives Amazon nuts because they
+can't afford to pay all 50,000 L5s what each one is individually worth to
+externals. So they're always getting snapped out by companies are like having
+that person in here is going to save us a ton on our bill and our implementation times. They're worth 300,000 to us, but
+Amazon's only paying them two. Buy them out. Thank you so much for your time and your
+transparency. And for people who want to find more of what you're doing, where
+can they find you? Two places. Ethan evans.com is my website. It links to everything else. Or
+find me on LinkedIn. I'm Ethan Evans there. You'll find me in a heartbeat. Awesome. Well, thank you so much for
+your time, Ethan. I really appreciate it. Thank you, Ryan. It's always a pleasure. I know you have an endless list of
+questions, so someday we'll continue. Hey, thank you for watching this podcast. If you liked it and you want to
+Outro
+see the show grow, please support with a comment or a like. Also, if you have any
+recommendations for people you want me to bring on, please drop a comment. Guests like Barbara Liskov, Mike
+Stonereaker, Mark Brooker, these were all people that I brought on because someone left a comment. On another note,
+aside from the podcast, I'm working on building the ergonomic keyboard that I wish existed. Here's a glance at the
+prototype. It's a split keyboard, so there's two sides. um this isn't the case, but yeah, we launched on
+Kickstarter and we hit our goal within eight hours of launching. I really appreciate it if you were one of the people who grabbed one of the early
+units. Um we're now working on the long journey of building the tooling now and so if you still want to pick one up,
+I've left the late pledges open on Kickstarter, so you can grab one there. I'll put a link in the description.
