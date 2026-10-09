@@ -1,0 +1,847 @@
+# Hands-on Redis Curriculum (Expanded)
+
+Oct 9, 2026 · @krishnamn · expanded by @d1ttb
+
+A 4-week, lab-first path from zero to running Redis as an in-memory data store, cache, queue, stream processor and leaderboard. Plan on about 1 hour a day, plus one weekend for the capstone.
+
+> **Version note:** These labs target **Redis 8.x**. Redis 8 includes JSON, the Query Engine (search), time series and probabilistic types in the core server, and adds the AGPLv3 license option. Everything here also works on **Valkey**, the open-source fork, except the module-based features in the appendix.
+
+---
+
+## How to use this curriculum
+
+1. **Learn in this order:** redis-cli first, then Python. Typing commands by hand builds the mental model; the client library just wraps those commands.
+2. **Finish each lab before moving on.** Every module has a lab with a checklist. A lab counts as done when the checklist is complete and you've written down what you saw in `NOTES.md`.
+3. **Expect to break things.** Redis runs in Docker, so `docker rm -f redis` resets everything.
+4. **Keep `MONITOR` open in a spare terminal** from Module 4 onward. It shows exactly which commands your code sends.
+
+### Companion repo layout (suggested)
+
+```text
+redis-handson/
+├── README.md
+├── NOTES.md                  # your observations per lab
+├── docker/
+│   ├── single/compose.yml    # Modules 0–7
+│   ├── replication/compose.yml
+│   ├── sentinel/compose.yml  # + sentinel.conf x3
+│   └── cluster/compose.yml   # 6 nodes
+├── labs/
+│   ├── m01_counter/
+│   ├── m02_session_queue/
+│   ├── m03_leaderboard_ratelimit/
+│   ├── m04_cache/
+│   ├── m05_streams/
+│   ├── m06_durability_lua/
+│   ├── m07_api/
+│   └── m08_ha/
+├── scripts/
+│   ├── rate_limit.lua
+│   └── stock_decr.lua
+└── tests/
+    └── conftest.py           # Testcontainers Redis fixture
+```
+
+---
+
+## Roadmap
+
+| Week | Module | Core topics | Proof-of-skill lab | Time |
+| --- | --- | --- | --- | --- |
+| 1 | 0. Setup | Docker, redis-cli, RedisInsight | Round-trip SET/GET, inspect in GUI | 0.5 h |
+| 1 | 1. Strings and keys | SET/GET, INCR, TTL, SCAN, key design | Page-view counter with expiry | 1.5 h |
+| 1 | 2. Hashes, lists, sets | HSET, HEXPIRE, LPUSH/BRPOP/LMOVE, SADD/SINTER | Session store + reliable job queue | 2 h |
+| 2 | 3. Sorted sets | ZADD, ZRANGE, ZRANK, ZRANGESTORE | Leaderboard + sliding-window rate limiter | 2 h |
+| 2 | 4. Caching and eviction | Cache-aside, write-through, maxmemory, LRU/LFU, stampedes | Cache a slow query, measure hit ratio | 2 h |
+| 3 | 5. Streams, pub/sub, probabilistic | XADD, consumer groups, XAUTOCLAIM, HLL, bitmaps | Event pipeline with 2 consumers | 2.5 h |
+| 3 | 6. Durability and atomicity | RDB, AOF, MULTI/WATCH, pipelines, Lua, Functions | Crash-recovery test + atomic stock decrement | 3 h |
+| 4 | 7. Python app | redis-py, pools, async, testing | Cached REST API with rate limiting | 3 h |
+| 4 | 8. High availability | Replication, Sentinel, Cluster | Kill a primary, watch failover | 3 h |
+| 4+ | 9. Operations and security | ACLs, TLS, SLOWLOG, latency, memory | Hardened, monitored instance | 2 h |
+| Wknd | Capstone | Everything | Ship + README | ~8 h |
+
+---
+
+## Module 0: Setup (30 min)
+
+**Goals:** have a disposable Redis instance, a CLI and a GUI ready.
+
+```bash
+docker run -d --name redis -p 6379:6379 redis:8
+docker exec -it redis redis-cli
+# Optional: GUI
+docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest
+```
+
+- [ ] Run `PING` and get `PONG`
+- [ ] Run `SET hello world`, then `GET hello`
+- [ ] Run `INFO server` and note `redis_version`
+- [ ] Run `INFO memory` and note `used_memory_human`
+- [ ] Open RedisInsight at http://localhost:5540 and connect to `host.docker.internal:6379` (Mac/Windows) or the container IP (Linux)
+- [ ] Learn `MONITOR` (it streams every command; you'll use it to watch your Python code later)
+- [ ] Learn `redis-cli --stat`, `redis-cli --bigkeys` and `redis-cli --latency`
+
+**Mental model:** Redis executes commands on a single main thread and keeps typed data structures in RAM. Each command is atomic. Speed comes from memory, simple O(1)/O(log n) operations and no query planner, so the real skill is choosing the right structure for each problem. Redis 6+ uses extra threads only for network I/O.
+
+**Sources**
+- Install guide: https://redis.io/docs/latest/operate/oss_and_stack/install/
+- redis-cli guide: https://redis.io/docs/latest/develop/tools/cli/
+- RedisInsight source: https://github.com/redis/RedisInsight
+- Official image: https://hub.docker.com/_/redis
+
+---
+
+## Module 1: Strings, keys and TTL (1.5 h)
+
+Strings hold text, integers, floats or raw bytes up to 512 MB. Counters, flags, locks and cached blobs are all built on them.
+
+```bash
+SET user:1:name "Ada"
+GET user:1:name
+INCR page:home:views
+INCRBY page:home:views 10
+INCRBYFLOAT price:sku1 0.5
+SET token:abc 1 EX 60 NX     # set only if absent, expire in 60s
+TTL token:abc                # -1 = no TTL, -2 = key missing
+PTTL token:abc               # milliseconds
+EXPIRE user:1:name 300
+PERSIST user:1:name          # remove TTL
+GETEX user:1:name EX 60      # get + reset TTL
+GETDEL token:abc
+MSET a 1 b 2 c 3
+MGET a b c
+EXISTS a
+TYPE a
+OBJECT ENCODING a            # int / embstr / raw
+DEL a
+UNLINK big:key               # non-blocking delete
+SCAN 0 MATCH user:* COUNT 100 TYPE string
+```
+
+**Key concepts**
+
+- Namespace keys with colons, like `object:id:field`, and keep the convention consistent across services.
+- Use `SCAN` on real data, never `KEYS *`. `KEYS` is O(N) and blocks the server.
+- `SET ... NX EX` is the building block for locks and idempotency keys.
+- `INCR` is atomic, so concurrent clients never lose counts.
+- Expiry works two ways: lazily, when a key is accessed, and actively, through sampling about 10 times per second. Expired keys can stay in memory briefly.
+- Use `UNLINK` instead of `DEL` for large keys, so memory is freed in a background thread.
+
+**Lab: page-view counter**
+
+- [ ] Count views per page with `INCR page:<slug>:views`
+- [ ] Add a per-day key like `views:2026-10-07:<slug>` that expires after 7 days (`SET ... EX 604800` on first write, or `INCR` + `EXPIRE ... NX`)
+- [ ] Check the expiry with `TTL`, then shorten it to 10 s and confirm the key disappears
+- [ ] Run 3 `redis-cli` terminals incrementing at once and confirm the total is exact:
+  ```bash
+  for i in $(seq 1 10000); do echo "INCR race"; done | redis-cli > /dev/null
+  ```
+- [ ] Inspect `OBJECT ENCODING` for `"123"`, `"hello"` and a 100-character string, and explain the difference
+
+**Stretch:** Build a simple lock with `SET lock:job1 <uuid> NX PX 30000` and release it only when the value still matches. You'll make the release safe with Lua in Module 6. Then read the Redlock discussion linked below.
+
+**Sources**
+- Strings: https://redis.io/docs/latest/develop/data-types/strings/
+- `SET` options: https://redis.io/docs/latest/commands/set/
+- `SCAN`: https://redis.io/docs/latest/commands/scan/
+- Distributed locks pattern: https://redis.io/docs/latest/develop/use/patterns/distributed-locks/
+- Critique of Redlock (Martin Kleppmann): https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html
+- antirez's reply: http://antirez.com/news/101
+
+---
+
+## Module 2: Hashes, lists and sets (2 h)
+
+```bash
+# Hashes: objects with fields
+HSET user:1 name Ada email ada@x.io plan pro
+HGET user:1 name
+HMGET user:1 name plan
+HGETALL user:1
+HINCRBY user:1 logins 1
+HEXPIRE user:1 60 FIELDS 1 plan     # per-field TTL (Redis 7.4+)
+HTTL user:1 FIELDS 1 plan
+
+# Lists: queues and stacks
+LPUSH jobs "resize:42"
+RPUSH jobs "email:7"
+RPOP jobs
+BRPOP jobs 5                        # blocking pop, waits up to 5s
+LMOVE jobs jobs:processing RIGHT LEFT    # reliable-queue handoff
+BLMOVE jobs jobs:processing RIGHT LEFT 5
+LRANGE jobs 0 -1
+LTRIM recent 0 99                   # keep a capped list
+
+# Sets: unique members, set algebra
+SADD tags:post:1 redis cache nosql
+SADD tags:post:2 redis streams
+SINTER tags:post:1 tags:post:2
+SINTERCARD 2 tags:post:1 tags:post:2
+SUNION tags:post:1 tags:post:2
+SDIFF tags:post:1 tags:post:2
+SISMEMBER tags:post:1 cache
+SMISMEMBER tags:post:1 cache redis go
+SCARD tags:post:1
+SRANDMEMBER tags:post:1 2
+```
+
+**When to use which**
+
+| Need | Structure | Why |
+| --- | --- | --- |
+| Object with fields | Hash | Update one field without rewriting the whole value |
+| FIFO job queue | List | `LPUSH` + `BRPOP` is O(1) and blocking |
+| Queue that survives worker crashes | List + `LMOVE` | The job stays in a processing list until it's acknowledged |
+| Capped recent items | List + `LTRIM` | Bounded memory |
+| Unique items, membership | Set | O(1) add and lookup |
+| Common/different members | Set | `SINTER`, `SUNION`, `SDIFF` |
+
+**Why small hashes are cheap:** Small hashes, lists and sets use compact encodings (`listpack`, `intset`) until they grow past thresholds such as `hash-max-listpack-entries`. That's why 1,000 small hashes can use far less memory than 1,000 JSON strings.
+
+**Lab: session store and job queue**
+
+- [ ] Store a login session as a hash `session:<id>` with `EXPIRE 1800`, and refresh the TTL on each "request"
+- [ ] Use `HEXPIRE` to expire only a `csrf_token` field after 5 minutes
+- [ ] Build a producer terminal that pushes jobs and a worker terminal that loops on `BRPOP`
+- [ ] Make the queue reliable: the worker uses `BLMOVE jobs jobs:processing`, then `LREM jobs:processing 1 <job>` on success. Kill the worker mid-job and recover it from `jobs:processing`
+- [ ] Track online users in a set, and find users online in both of two rooms with `SINTER`
+- [ ] Compare the memory of 1,000 small objects stored as JSON strings vs hashes using `MEMORY USAGE`, and check `OBJECT ENCODING`
+
+**Sources**
+- Hashes: https://redis.io/docs/latest/develop/data-types/hashes/
+- Lists: https://redis.io/docs/latest/develop/data-types/lists/
+- Sets: https://redis.io/docs/latest/develop/data-types/sets/
+- `LMOVE` reliable queue pattern: https://redis.io/docs/latest/commands/lmove/
+- Memory optimization: https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/memory-optimization/
+- Battle-tested queue libraries to read: [rq/rq](https://github.com/rq/rq), [sidekiq/sidekiq](https://github.com/sidekiq/sidekiq), [OptimalBits/bull](https://github.com/OptimalBits/bull) / [taskforcesh/bullmq](https://github.com/taskforcesh/bullmq)
+
+---
+
+## Module 3: Sorted sets (2 h)
+
+Sorted sets keep unique members ordered by a numeric score, which makes them the most versatile Redis structure. Internally they're a skip list plus a hash table, so most operations are O(log n).
+
+```bash
+ZADD board 1500 alice 1200 bob 1800 carol
+ZADD board GT 1400 alice            # only update if the new score is greater
+ZINCRBY board 50 bob
+ZRANGE board 0 2 REV WITHSCORES     # top 3 (modern syntax)
+ZREVRANK board alice                # 0-based rank from top
+ZSCORE board carol
+ZRANGE board 1000 1600 BYSCORE
+ZRANGE board 0 -1 BYLEX             # lexicographic when scores are equal
+ZRANGESTORE top10 board 0 9 REV
+ZPOPMAX board                       # also BZPOPMIN for priority queues
+ZREM board bob
+ZCARD board
+ZCOUNT board 1000 2000
+```
+
+**Sliding-window rate limiter pattern**
+
+```bash
+# allow max 5 requests per 60s per user
+ZREMRANGEBYSCORE rl:u1 0 <now_ms - 60000>
+ZCARD rl:u1                 # if >= 5, reject
+ZADD rl:u1 <now_ms> <unique_id>
+EXPIRE rl:u1 60
+```
+
+**Rate limiting alternatives**
+
+| Algorithm | Redis primitive | Trade-off |
+| --- | --- | --- |
+| Fixed window | `INCR` + `EXPIRE` | Cheapest, but allows bursts at window edges |
+| Sliding log | Sorted set (above) | Exact, but O(requests) memory |
+| Sliding window counter | 2 `INCR` keys, weighted | Approximate, cheap |
+| Token bucket / GCRA | Hash + Lua | Smooth, burst-friendly (see [brandur/redis-cell](https://github.com/brandur/redis-cell)) |
+
+**Lab**
+
+- [ ] Build a game leaderboard: add 20 players, show the top 5, and show one player's rank and neighbors (`ZREVRANK`, then `ZRANGE ... REV` around that index)
+- [ ] Build weekly and all-time boards and merge them with `ZUNIONSTORE ... WEIGHTS`
+- [ ] Implement the rate limiter above and prove the 6th call inside 60 s is rejected
+- [ ] Use timestamps as scores to build a "recent activity" feed trimmed with `ZREMRANGEBYRANK`
+- [ ] Build a delayed-job queue: the score is the run-at time, and the worker polls `ZRANGE delayed 0 <now> BYSCORE LIMIT 0 10`
+- [ ] Note the race condition between `ZCARD` and `ZADD`; you'll fix it with Lua in Module 6
+
+**Sources**
+- Sorted sets: https://redis.io/docs/latest/develop/data-types/sorted-sets/
+- `ZRANGE` (unified syntax): https://redis.io/docs/latest/commands/zrange/
+- Leaderboard tutorial: https://redis.io/solutions/leaderboards/
+- Rate limiting reference (Stripe engineering): https://stripe.com/blog/rate-limiters
+
+---
+
+## Module 4: Caching patterns and eviction (2 h)
+
+Caching is the most common production use of Redis.
+
+| Pattern | How it works | Risk |
+| --- | --- | --- |
+| **Cache-aside** (lazy) | App reads the cache; on a miss, reads the DB and writes the cache with a TTL | Stale data until TTL or invalidation |
+| **Write-through** | App writes the DB and the cache together | Write latency, caches unread data |
+| **Write-behind** | App writes the cache; a worker flushes to the DB | Data loss if Redis dies |
+| **Refresh-ahead** | Refresh hot keys before their TTL ends | Complexity |
+
+```bash
+CONFIG SET maxmemory 50mb
+CONFIG SET maxmemory-policy allkeys-lru
+CONFIG GET maxmemory*
+INFO stats          # keyspace_hits, keyspace_misses, evicted_keys, expired_keys
+INFO keyspace
+OBJECT FREQ mykey   # needs an LFU policy
+OBJECT IDLETIME mykey
+MEMORY USAGE mykey
+MEMORY DOCTOR
+```
+
+**Eviction policies to know**
+
+| Policy | Evicts | Use when |
+| --- | --- | --- |
+| noeviction | Nothing; writes fail when full | Redis is a primary store |
+| allkeys-lru | Least recently used, any key | General-purpose cache (best default) |
+| allkeys-lfu | Least frequently used, any key | Hot/cold skew |
+| volatile-lru / volatile-lfu | Same, but only keys with a TTL | Mixed cache and persistent keys |
+| volatile-ttl | Soonest-expiring keys with a TTL | Mixed, TTL as priority |
+| allkeys-random | Random | Uniform access |
+
+Redis's LRU and LFU are approximations: it samples `maxmemory-samples` keys (default 5) and evicts the best candidate. Raising the sample count improves accuracy at some CPU cost.
+
+**Cache stampede defenses**
+1. **TTL jitter:** `ex = base + random(0, base*0.2)` stops many keys from expiring at once.
+2. **Single-flight lock:** on a miss, `SET lock:<key> 1 NX PX 5000`. The winner recomputes while the others wait briefly or serve stale data.
+3. **Probabilistic early expiration (XFetch):** recompute early with a probability that rises as the TTL nears zero.
+4. **Client-side caching** (Redis 6+ `CLIENT TRACKING`): the server pushes invalidations to clients that cache locally.
+
+**Lab: cache a slow query**
+
+- [ ] Write a function that sleeps 500 ms to fake a DB call, and wrap it in cache-aside with a 60 s TTL
+- [ ] Measure latency on a miss vs a hit
+- [ ] Compute the hit ratio, `hits / (hits + misses)`, from `INFO stats` after 1,000 requests with a Zipf-like key distribution
+- [ ] Set `maxmemory 5mb`, flood it with unique keys, and watch `evicted_keys` rise. Repeat with `noeviction` and see the `OOM` error
+- [ ] Compare `allkeys-lru` vs `allkeys-lfu` hit ratios on the same skewed workload
+- [ ] Add random jitter to TTLs and explain how it prevents a cache stampede
+- [ ] Implement a single-flight lock and show that 50 concurrent misses cause only 1 DB call
+- [ ] Invalidate on write: delete the cache key when the source row changes, and discuss the race between a write and a concurrent read-fill
+
+**Sources**
+- Eviction: https://redis.io/docs/latest/develop/reference/eviction/
+- Client-side caching: https://redis.io/docs/latest/develop/reference/client-side-caching/
+- XFetch paper, "Optimal Probabilistic Cache Stampede Prevention" (Vattani et al., VLDB 2015): https://www.vldb.org/pvldb/vol8/p886-vattani.pdf
+- Facebook, "Scaling Memcache at Facebook" (leases, thundering herds): https://www.usenix.org/conference/nsdi13/technical-sessions/presentation/nishtala
+- AWS caching best practices: https://aws.amazon.com/caching/best-practices/
+
+---
+
+## Module 5: Streams, pub/sub and probabilistic types (2.5 h)
+
+Streams are an append-only log with consumer groups, so messages persist and can be replayed. Pub/sub is fire-and-forget: if nobody is listening, the message is lost.
+
+```bash
+# Streams
+XADD events MAXLEN ~ 10000 * type click user 42   # capped stream
+XLEN events
+XRANGE events - +
+XREVRANGE events + - COUNT 5
+XGROUP CREATE events workers $ MKSTREAM
+XREADGROUP GROUP workers w1 COUNT 10 BLOCK 5000 STREAMS events >
+XACK events workers <message-id>
+XPENDING events workers
+XPENDING events workers - + 10 w1
+XAUTOCLAIM events workers w2 60000 0-0 COUNT 10    # take over idle msgs
+XINFO GROUPS events
+XINFO CONSUMERS events workers
+XTRIM events MINID <id>
+
+# Pub/sub
+SUBSCRIBE news            # terminal A
+PSUBSCRIBE news.*         # pattern subscribe
+PUBLISH news "hello"      # terminal B
+PUBSUB CHANNELS
+SSUBSCRIBE / SPUBLISH     # sharded pub/sub in Cluster (Redis 7+)
+
+# Compact counting
+PFADD uniq:visitors u1 u2 u3
+PFCOUNT uniq:visitors     # approximate distinct count, ~0.81% error, 12 KB max
+PFMERGE uniq:week uniq:mon uniq:tue
+SETBIT active:2026-10-07 42 1
+BITCOUNT active:2026-10-07
+BITOP AND active:both active:2026-10-07 active:2026-10-08
+
+# Redis 8 built-in probabilistic types
+BF.ADD seen:urls https://a.io      # Bloom filter
+BF.EXISTS seen:urls https://a.io
+CMS.INITBYDIM cms 2000 5           # Count-Min Sketch
+TOPK.RESERVE topk 10
+```
+
+**Streams vs lists vs pub/sub vs Kafka**
+
+| | Pub/sub | List queue | Stream | Kafka |
+| --- | --- | --- | --- | --- |
+| Persistence | No | Yes | Yes | Yes (disk) |
+| Multiple consumer groups | Fan-out only | No | Yes | Yes |
+| Replay | No | No | Yes (by ID) | Yes |
+| Acknowledgements | No | Manual | `XACK` + PEL | Offsets |
+| Size limit | n/a | RAM | RAM (trim it) | Disk |
+
+**Lab: event pipeline**
+
+- [ ] A producer adds 100 events with `XADD`
+- [ ] Two consumers in one group split the work; confirm no event is processed twice
+- [ ] Kill a consumer before `XACK`, then reclaim its pending message with `XAUTOCLAIM`
+- [ ] Add a dead-letter step: messages with a delivery count over 3 (from `XPENDING`) move to `events:dlq`
+- [ ] Repeat the same flow with pub/sub and observe the lost messages while a subscriber is down
+- [ ] Track unique daily visitors with `PFADD` and daily active users with bitmaps; compute the 7-day DAU with `BITOP OR`
+- [ ] Compare `MEMORY USAGE` of a set vs a HyperLogLog holding 1M visitors
+
+**Sources**
+- Streams intro: https://redis.io/docs/latest/develop/data-types/streams/
+- Pub/sub: https://redis.io/docs/latest/develop/interact/pubsub/
+- HyperLogLog: https://redis.io/docs/latest/develop/data-types/probabilistic/hyperloglogs/
+- Bitmaps: https://redis.io/docs/latest/develop/data-types/bitmaps/
+- Probabilistic types (Bloom, CMS, Top-K): https://redis.io/docs/latest/develop/data-types/probabilistic/
+- antirez on HyperLogLog design: http://antirez.com/news/75
+
+---
+
+## Module 6: Persistence, transactions, pipelining and Lua (3 h)
+
+Memory is volatile, so you decide how much data you can afford to lose.
+
+| Mode | How | Loss on crash | Restart speed |
+| --- | --- | --- | --- |
+| None | No persistence | Everything | Instant (empty) |
+| RDB | Forked snapshot every N sec/changes | Minutes | Fast |
+| AOF `everysec` | Log of every write, fsync each second | ~1 s | Slower (replay) |
+| AOF `always` | fsync on every write | ~0 | Slowest writes |
+| RDB + AOF | Both; Redis 7 uses multi-part AOF with an RDB base | ~1 s | Good |
+
+```bash
+CONFIG SET appendonly yes
+CONFIG SET appendfsync everysec
+CONFIG SET save "3600 1 300 100 60 10000"
+BGSAVE
+BGREWRITEAOF
+LASTSAVE
+INFO persistence
+
+# Transactions: queued, executed together, no interleaving
+MULTI
+DECRBY stock:sku1 1
+RPUSH orders sku1
+EXEC
+# Note: there's no rollback. If one command errors at runtime, the others still run.
+
+# Optimistic locking
+WATCH balance:1
+GET balance:1
+MULTI
+DECRBY balance:1 20
+EXEC               # returns (nil) if balance:1 changed after WATCH
+
+# Lua: atomic read-modify-write
+EVAL "local s = tonumber(redis.call('GET', KEYS[1])); if s and s > 0 then return redis.call('DECR', KEYS[1]) else return -1 end" 1 stock:sku1
+
+# Cache scripts by SHA
+SCRIPT LOAD "<script>"
+EVALSHA <sha> 1 stock:sku1
+
+# Redis Functions (7+): named, persisted, replicated libraries
+FUNCTION LOAD "#!lua name=shop\nredis.register_function('decr_stock', function(keys) ... end)"
+FCALL decr_stock 1 stock:sku1
+```
+
+**Atomic sliding-window rate limiter** (`scripts/rate_limit.lua`)
+
+```lua
+-- KEYS[1] = rl:<id>; ARGV = now_ms, window_ms, limit, member
+local key, now, window, limit = KEYS[1], tonumber(ARGV[1]), tonumber(ARGV[2]), tonumber(ARGV[3])
+redis.call('ZREMRANGEBYSCORE', key, 0, now - window)
+local count = redis.call('ZCARD', key)
+if count >= limit then
+  return {0, count}
+end
+redis.call('ZADD', key, now, ARGV[4])
+redis.call('PEXPIRE', key, window)
+return {1, count + 1}
+```
+
+**Safe lock release** (follow-up to Module 1)
+
+```lua
+if redis.call('GET', KEYS[1]) == ARGV[1] then
+  return redis.call('DEL', KEYS[1])
+end
+return 0
+```
+
+**MULTI vs WATCH vs Lua**
+
+| Need | Use |
+| --- | --- |
+| Batch writes, no reads in between | `MULTI/EXEC` |
+| Read, then conditional write, with low contention | `WATCH` + `MULTI` (retry on nil) |
+| Read, then conditional write, with high contention or complex logic | Lua / Functions |
+| Fewer round trips, atomicity not needed | Pipeline |
+
+**Lab**
+
+- [ ] Write 100 keys, run `docker restart redis` with no persistence, and observe the data loss
+- [ ] Mount a volume (`-v redisdata:/data`), enable AOF, repeat, and confirm the data survives
+- [ ] Force a crash with `docker kill redis` while a writer loop runs, and check how many of the last writes were lost under `everysec` vs `always`
+- [ ] Inspect `/data/appendonlydir/` and identify the base RDB file and the incremental AOF files
+- [ ] Cause a `WATCH` conflict from two terminals
+- [ ] Rewrite the Module 3 rate limiter as a single Lua script so check-and-add is atomic, then hammer it from 10 parallel clients
+- [ ] Turn the stock-decrement script into a Redis Function and call it with `FCALL`
+- [ ] Benchmark 10,000 `SET`s one by one vs in a pipeline, and compare with `redis-benchmark -t set -n 100000 -P 16`
+
+**Sources**
+- Persistence: https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/
+- Transactions: https://redis.io/docs/latest/develop/interact/transactions/
+- Pipelining: https://redis.io/docs/latest/develop/use/pipelining/
+- Lua scripting: https://redis.io/docs/latest/develop/interact/programmability/eval-intro/
+- Redis Functions: https://redis.io/docs/latest/develop/interact/programmability/functions-intro/
+- `redis-benchmark`: https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/benchmarks/
+
+---
+
+## Module 7: Python app with redis-py (3 h)
+
+```bash
+pip install "redis[hiredis]" fastapi uvicorn pytest testcontainers
+```
+
+```python name=labs/m07_api/cache.py
+import json, random, time, uuid
+import redis
+
+pool = redis.ConnectionPool(host="localhost", port=6379, decode_responses=True,
+                            max_connections=50, health_check_interval=30)
+r = redis.Redis(connection_pool=pool)
+
+def slow_db_lookup(uid: int) -> dict:
+    time.sleep(0.5)
+    return {"id": uid, "name": f"user{uid}"}
+
+def get_user(uid: int) -> dict:
+    key = f"user:{uid}"
+    if (hit := r.get(key)):
+        return json.loads(hit)
+    # single-flight: only one caller recomputes
+    if r.set(f"lock:{key}", 1, nx=True, px=5000):
+        try:
+            user = slow_db_lookup(uid)
+            r.set(key, json.dumps(user), ex=300 + random.randint(0, 60))
+            return user
+        finally:
+            r.delete(f"lock:{key}")
+    time.sleep(0.05)
+    return get_user(uid)
+
+# Pipeline: one round trip for many commands
+with r.pipeline(transaction=False) as p:
+    for i in range(1000):
+        p.set(f"k:{i}", i)
+    p.execute()
+
+# Registered Lua script (uses EVALSHA, falls back to EVAL automatically)
+rate_limit = r.register_script(open("scripts/rate_limit.lua").read())
+
+def allow(ip: str, limit=5, window_ms=60_000) -> bool:
+    now = int(time.time() * 1000)
+    ok, _ = rate_limit(keys=[f"rl:{ip}"], args=[now, window_ms, limit, f"{now}-{uuid.uuid4()}"])
+    return bool(ok)
+```
+
+```python name=labs/m07_api/main.py
+from fastapi import FastAPI, Request, HTTPException
+from cache import r, get_user, allow
+
+app = FastAPI()
+
+@app.middleware("http")
+async def limiter(request: Request, call_next):
+    if not allow(request.client.host):
+        from fastapi.responses import JSONResponse
+        return JSONResponse({"detail": "Too Many Requests"}, status_code=429)
+    return await call_next(request)
+
+@app.get("/users/{uid}")
+def users(uid: int):
+    return get_user(uid)
+
+@app.post("/leaderboard/{player}/{points}")
+def score(player: str, points: int):
+    return {"score": r.zincrby("board", points, player)}
+
+@app.get("/leaderboard")
+def leaderboard(n: int = 10):
+    return r.zrange("board", 0, n - 1, desc=True, withscores=True)
+```
+
+```python name=tests/conftest.py
+import pytest, redis
+from testcontainers.redis import RedisContainer
+
+@pytest.fixture(scope="session")
+def redis_url():
+    with RedisContainer("redis:8") as c:
+        yield f"redis://{c.get_container_host_ip()}:{c.get_exposed_port(6379)}"
+
+@pytest.fixture
+def r(redis_url):
+    client = redis.Redis.from_url(redis_url, decode_responses=True)
+    yield client
+    client.flushdb()
+```
+
+**Lab: cached API with rate limiting**
+
+- [ ] Build a FastAPI endpoint `/users/{id}` using cache-aside as above
+- [ ] Add a per-IP rate limit (the Lua script from Module 6) that returns HTTP 429 with a `Retry-After` header
+- [ ] Add `/leaderboard` backed by a sorted set
+- [ ] Port one endpoint to `redis.asyncio` and compare throughput
+- [ ] Run `MONITOR` in another terminal and check the commands your app sends
+- [ ] Load-test with `hey -z 30s -c 50 http://localhost:8000/users/1` or `wrk` and report p50/p99 latency with and without the cache
+- [ ] Write tests against a throwaway Redis container (Testcontainers fixture above, `FLUSHDB` between tests)
+- [ ] Optional: model users with Redis OM (`redis-om-python`) and query them with the Query Engine
+
+**Sources**
+- redis-py: https://github.com/redis/redis-py · docs: https://redis.readthedocs.io/
+- Python client guide: https://redis.io/docs/latest/develop/clients/redis-py/
+- Redis OM Python: https://github.com/redis/redis-om-python
+- Testcontainers Python: https://github.com/testcontainers/testcontainers-python
+- fakeredis (in-process fake for unit tests): https://github.com/cunla/fakeredis-py
+- `hey`: https://github.com/rakyll/hey · `wrk`: https://github.com/wg/wrk
+- FastAPI: https://github.com/fastapi/fastapi
+
+---
+
+## Module 8: Replication, Sentinel and Cluster (3 h)
+
+Replication copies one primary to read-only replicas, asynchronously by default. Sentinel watches them and promotes a replica when the primary dies. Cluster shards keys across many primaries using 16,384 hash slots (`CRC16(key) mod 16384`).
+
+| Setup | Solves | Pick it when |
+| --- | --- | --- |
+| Single node | Nothing; simplest | Dev, or a small cache you can afford to lose |
+| Primary + replicas | Read scaling, a hot copy | Reads dominate |
+| Sentinel (3 nodes) | Automatic failover | Data fits on one machine, but you need uptime |
+| Cluster | Failover plus more RAM than one machine | The dataset or write load outgrows one node |
+
+```yaml name=docker/sentinel/compose.yml
+services:
+  redis-primary:
+    image: redis:8
+    command: redis-server --appendonly yes
+  redis-replica-1:
+    image: redis:8
+    command: redis-server --replicaof redis-primary 6379
+  redis-replica-2:
+    image: redis:8
+    command: redis-server --replicaof redis-primary 6379
+  sentinel-1: &sentinel
+    image: redis:8
+    command: redis-sentinel /etc/sentinel.conf
+    volumes: ["./sentinel1.conf:/etc/sentinel.conf"]
+  sentinel-2:
+    <<: *sentinel
+    volumes: ["./sentinel2.conf:/etc/sentinel.conf"]
+  sentinel-3:
+    <<: *sentinel
+    volumes: ["./sentinel3.conf:/etc/sentinel.conf"]
+```
+
+```conf name=docker/sentinel/sentinel1.conf
+sentinel resolve-hostnames yes
+sentinel monitor mymaster redis-primary 6379 2
+sentinel down-after-milliseconds mymaster 5000
+sentinel failover-timeout mymaster 10000
+sentinel parallel-syncs mymaster 1
+```
+
+Sentinel rewrites its config file at runtime, so give each Sentinel its own writable copy.
+
+```bash
+# Replica pointing at a primary
+REPLICAOF redis-primary 6379
+INFO replication
+WAIT 1 1000                     # block until 1 replica acks (not true sync durability)
+
+# Sentinel
+redis-cli -p 26379 SENTINEL get-master-addr-by-name mymaster
+redis-cli -p 26379 SENTINEL replicas mymaster
+
+# Cluster (6 nodes: 3 primaries, 3 replicas)
+redis-cli --cluster create host1:7000 host2:7001 host3:7002 host4:7003 host5:7004 host6:7005 --cluster-replicas 1
+redis-cli -c -p 7000           # -c follows MOVED redirects
+CLUSTER INFO
+CLUSTER NODES
+CLUSTER SHARDS
+CLUSTER KEYSLOT user:1
+redis-cli --cluster reshard host1:7000
+```
+
+**Failure semantics to understand**
+- Replication is asynchronous. Acknowledged writes on the old primary can be lost during failover.
+- A split brain is possible. `min-replicas-to-write` / `min-replicas-max-lag` limit the damage.
+- Cluster multi-key commands, transactions and Lua scripts need all keys in one slot. Use hash tags like `{user:1}:cart`.
+
+**Lab (Docker Compose)**
+
+- [ ] Start 1 primary and 2 replicas; write on the primary, read on a replica, and confirm the replicas reject writes (`READONLY` error)
+- [ ] Add 3 Sentinels, run `docker stop` on the primary, and watch the `+switch-master` event in the Sentinel logs
+- [ ] Restart the old primary and confirm it rejoins as a replica
+- [ ] Connect redis-py through `redis.sentinel.Sentinel(...).master_for("mymaster")` and confirm your app keeps working after failover; measure the downtime window
+- [ ] Spin up a 6-node cluster and show which node owns `user:1` with `CLUSTER KEYSLOT` + `CLUSTER SHARDS`
+- [ ] Use hash tags like `{user:1}:cart` and `{user:1}:profile` so related keys land on one slot, then try `MGET` across slots and read the `CROSSSLOT` error
+- [ ] Kill a cluster primary and watch its replica take over its slots
+- [ ] Use `redis.cluster.RedisCluster` from Python
+
+**Sources**
+- Replication: https://redis.io/docs/latest/operate/oss_and_stack/management/replication/
+- Sentinel: https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/
+- Cluster tutorial: https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/
+- Cluster spec: https://redis.io/docs/latest/operate/oss_and_stack/reference/cluster-spec/
+- Jepsen analysis of Redis (historical, still instructive): https://aphyr.com/posts/283-jepsen-redis
+- Bitnami Redis Cluster images and Helm charts: https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster
+
+---
+
+## Module 9: Operations, security and observability (2 h, bonus)
+
+```bash
+# Security
+ACL SETUSER app on >s3cret ~app:* +@read +@write -@dangerous
+ACL SETUSER readonly on >ro ~* +@read
+ACL LIST
+ACL WHOAMI
+CONFIG SET protected-mode yes
+# rename-command / disable via ACL: FLUSHALL, KEYS, CONFIG, DEBUG
+
+# Diagnostics
+SLOWLOG GET 10
+CONFIG SET slowlog-log-slower-than 10000   # microseconds
+LATENCY DOCTOR
+LATENCY HISTORY command
+INFO commandstats
+INFO clients
+CLIENT LIST
+CLIENT KILL ID <id>
+MEMORY STATS
+redis-cli --bigkeys
+redis-cli --memkeys
+```
+
+**Lab**
+- [ ] Create an `app` ACL user limited to `app:*` keys, then show that `FLUSHALL` and access to other keys are denied
+- [ ] Enable TLS using the `redis:8` image with generated certs (see the TLS doc below)
+- [ ] Run `redis_exporter`, Prometheus and Grafana, and chart ops/sec, hit ratio, memory and evictions
+- [ ] Create a 1M-element list, find it with `--bigkeys`, delete it with `UNLINK`, and explain why `DEL` would cause a latency spike
+- [ ] Write a runbook: "memory at 90%", "latency spike", "replica lagging"
+
+**Sources**
+- ACL: https://redis.io/docs/latest/operate/oss_and_stack/management/security/acl/
+- TLS: https://redis.io/docs/latest/operate/oss_and_stack/management/security/encryption/
+- Latency diagnosis: https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/latency/
+- Prometheus exporter: https://github.com/oliver006/redis_exporter
+
+---
+
+## Capstone and self-assessment
+
+Pick one capstone, build it over about a weekend, and write a one-page README that explains each key's **type, TTL, eviction behavior and why you chose it**.
+
+| Capstone | Redis features exercised | Reference implementations to study |
+| --- | --- | --- |
+| URL shortener with click analytics | Strings, INCR, HyperLogLog, TTL, sorted set of top links | Search GitHub `topic:url-shortener redis` |
+| Real-time game leaderboard API | Sorted sets, pub/sub or streams for live updates, hashes for profiles | [redis-developer](https://github.com/redis-developer) org samples |
+| Background job system with retries | Lists or streams, consumer groups, sorted set for delayed jobs, Lua | [rq/rq](https://github.com/rq/rq), [taskforcesh/bullmq](https://github.com/taskforcesh/bullmq) |
+| Session + rate-limit gateway | Hashes, HEXPIRE, Lua sliding window, Sentinel failover | [brandur/redis-cell](https://github.com/brandur/redis-cell) |
+| Semantic search / RAG cache (Redis 8) | Vector sets or the Query Engine, JSON, TTL | [redis/redis-vl-python](https://github.com/redis/redis-vl-python) |
+
+**Capstone grading rubric**
+
+| Criterion | Pass |
+| --- | --- |
+| Data model | Every key documented with its type, TTL and reasoning |
+| Correctness | No race conditions; atomic paths use Lua or MULTI |
+| Resilience | Survives `docker kill` with documented loss; reconnects after failover |
+| Performance | p99 reported under load, with and without Redis |
+| Tests | Integration tests run against a containerized Redis in CI |
+
+**You're done when you can do all of this without notes:**
+
+- [ ] Choose the right data structure for a new problem and justify it in one sentence
+- [ ] Explain RDB vs AOF and pick a durability setting for a stated loss tolerance
+- [ ] Pick an eviction policy and prove it works with `INFO stats`
+- [ ] Make a multi-step operation atomic with MULTI or Lua and say when each is needed
+- [ ] Diagnose a slow Redis using `SLOWLOG GET`, `INFO`, `MONITOR`, `LATENCY DOCTOR` and `MEMORY USAGE`
+- [ ] Explain what happens to your app when the primary fails, including which writes might be lost
+- [ ] Explain why Cluster needs hash tags for multi-key operations
+- [ ] Lock down an instance with ACLs and TLS
+
+**Common mistakes to avoid:** using `KEYS *` in production, storing huge values or unbounded lists, forgetting TTLs on cache keys, treating pub/sub as durable, `DEL` on huge keys, running without `maxmemory`, exposing port 6379 to the internet without auth, assuming `MULTI` rolls back, and assuming replication is synchronous.
+
+---
+
+## Appendix A: Redis 8 extras (optional week 5)
+
+| Feature | Commands | Try it |
+| --- | --- | --- |
+| JSON | `JSON.SET`, `JSON.GET`, `JSON.NUMINCRBY` | Store nested user profiles, then update one path |
+| Query Engine | `FT.CREATE`, `FT.SEARCH`, `FT.AGGREGATE` | Full-text and numeric search over hashes/JSON |
+| Vector search | `FT.CREATE ... VECTOR`, vector sets (`VADD`, `VSIM`) | Semantic cache for LLM responses |
+| Time series | `TS.CREATE`, `TS.ADD`, `TS.RANGE ... AGGREGATION` | Sensor metrics with downsampling rules |
+| Probabilistic | `BF.*`, `CF.*`, `CMS.*`, `TOPK.*`, `TDIGEST.*` | Dedupe URLs, heavy hitters, latency percentiles |
+
+## Appendix B: Redis vs Valkey vs alternatives
+
+| Project | Notes | Repo |
+| --- | --- | --- |
+| Redis | Original; RSAL/SSPL, plus AGPLv3 from Redis 8 | https://github.com/redis/redis |
+| Valkey | Linux Foundation fork of Redis 7.2.4, BSD-3 | https://github.com/valkey-io/valkey |
+| KeyDB | Multithreaded fork | https://github.com/Snapchat/KeyDB |
+| Dragonfly | Redis-compatible, multithreaded, new engine | https://github.com/dragonflydb/dragonfly |
+| Garnet | Microsoft's RESP-compatible cache store | https://github.com/microsoft/garnet |
+
+---
+
+## Master source list
+
+### Official docs
+- Redis documentation home: https://redis.io/docs/latest/
+- Command reference (filter by group): https://redis.io/docs/latest/commands/
+- Data types overview: https://redis.io/docs/latest/develop/data-types/
+- Redis 8 release notes: https://redis.io/docs/latest/operate/oss_and_stack/stack-with-enterprise/release-notes/ (or the GitHub releases page)
+- Valkey docs: https://valkey.io/docs/
+
+### GitHub repos
+- Redis server source: https://github.com/redis/redis (start with `src/server.c`, `src/t_zset.c`, `src/ae.c`)
+- redis-py: https://github.com/redis/redis-py
+- RedisInsight: https://github.com/redis/RedisInsight
+- Redis OM (Python): https://github.com/redis/redis-om-python
+- RedisVL (vector library): https://github.com/redis/redis-vl-python
+- Redis developer samples: https://github.com/redis-developer
+- Valkey: https://github.com/valkey-io/valkey
+- redis_exporter: https://github.com/oliver006/redis_exporter
+- Testcontainers Python: https://github.com/testcontainers/testcontainers-python
+- fakeredis: https://github.com/cunla/fakeredis-py
+- Awesome Redis list: https://github.com/JamzyWang/awesome-redis
+
+### Courses
+- Redis University (free): https://university.redis.io/ — RU101 (data structures), RU102PY (Redis for Python developers), RU202 (streams)
+- Redis YouTube channel: https://www.youtube.com/@Redisinc
+
+### Books and long reads
+- *Redis in Action*, Josiah Carlson (Manning). Some APIs are older, but the patterns hold up.
+- *Designing Data-Intensive Applications*, Martin Kleppmann, chapters 5 and 9 (replication, consistency)
+- antirez's blog (Redis creator): http://antirez.com/
+- "Redis Explained" deep dive (Architecture Notes): https://architecturenotes.co/p/redis
+
+### Tools
+- `redis-cli`, `redis-benchmark` (bundled)
+- `hey`: https://github.com/rakyll/hey · `wrk`: https://github.com/wg/wrk
+- RedisInsight: https://redis.io/insight/
