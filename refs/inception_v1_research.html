@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inception v1 Research Brief</title><style>
+:root{--bg:#fbfaf7;--fg:#1f1f1f;--muted:#5c5a55;--accent:#8a3b12;--line:#e2ddd4;--code:#f1ede6}
+@media (prefers-color-scheme:dark){:root{--bg:#161513;--fg:#e9e6e0;--muted:#a39e95;--accent:#e08a55;--line:#33302b;--code:#24221f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 Georgia,"Times New Roman",serif}
+main{max-width:860px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:1.9rem;line-height:1.2;margin:0 0 .5rem}
+h2{font-size:1.4rem;margin:2.2rem 0 .8rem;padding-top:.6rem;border-top:2px solid var(--line)}
+h3{font-size:1.1rem;margin:1.6rem 0 .5rem}
+a{color:var(--accent);word-break:break-word}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:.5rem .6rem;vertical-align:top;text-align:left}
+th{background:var(--code)}
+hr{border:0;border-top:1px solid var(--line);margin:2rem 0}
+ol li,ul li{margin:.3rem 0}
+</style></head>
+<body><main><h1>Inception v1 (GoogLeNet): The Paper, Its Authors Today, and Where the Ideas Are Going</h1>
+<p><em>Compiled 2026-10-24. Every factual claim is tied to a numbered source in §7.</em></p>
+<hr />
+<h2>1. The paper in one page</h2>
+<p><strong>"Going Deeper with Convolutions"</strong> — Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, Andrew Rabinovich. arXiv 1409.4842, submitted 17 Sep 2014; CVPR 2015 (oral). Affiliations: Google (most authors), UNC Chapel Hill (Liu), U. Michigan (Reed), and a fourth affiliation for Rabinovich (Magic Leap). [1][2][3]</p>
+<p><strong>Claim.</strong> A new CNN family, codenamed <em>Inception</em>, set the ILSVRC 2014 state of the art in both classification and detection. The 22-layer incarnation submitted to the competition was called <em>GoogLeNet</em>. The headline design goal was better use of a fixed compute budget: grow depth and width without growing cost. Design rationale was stated as the Hebbian principle plus multi-scale processing intuition, and the paper frames itself as a culmination of Network-in-Network (Lin et al.) guided by Arora et al.'s theory on sparse structure in deep representations. [1][3]</p>
+<p><strong>Numbers that mattered.</strong> 6.67% top-5 error on ILSVRC 2014 classification; roughly 12x fewer parameters than AlexNet (the 2012 winner) while being more accurate. [3][10]</p>
+<h3>1.1 The four ideas</h3>
+<table>
+<thead>
+<tr>
+<th>Idea</th>
+<th>What it is</th>
+<th>Why it mattered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inception module</strong></td>
+<td>Run 1x1, 3x3, 5x5 convolutions and a 3x3 max-pool <em>in parallel</em> on the same input, then concatenate along channels.</td>
+<td>Lets one layer pick up features at several scales rather than committing to one kernel size per layer. [4][5]</td>
+</tr>
+<tr>
+<td><strong>1x1 "bottleneck" reductions</strong></td>
+<td>Put 1x1 convs <em>before</em> the 3x3/5x5 branches (and after the pool branch) to shrink channel depth.</td>
+<td>The naive module is prohibitively expensive (a 5x5 conv on a 28x28x192 input is on the order of 10^8 multiply-adds); the 1x1 reductions are what made depth+width affordable. [5]</td>
+</tr>
+<tr>
+<td><strong>Auxiliary classifiers</strong></td>
+<td>Two small classifier heads attached to the outputs of Inception modules 4a and 4d; their losses are added with weight 0.3 during training and the heads are discarded at inference.</td>
+<td>Intended to strengthen gradient signal in lower layers, encourage discriminative mid-level features, and regularize. [2]</td>
+</tr>
+<tr>
+<td><strong>Global average pooling, no big FC stack</strong></td>
+<td>Average-pool the final feature map instead of flattening into large fully-connected layers.</td>
+<td>Large share of the parameter savings vs. AlexNet/VGG. [4]</td>
+</tr>
+</tbody>
+</table>
+<p>All convolutions, including those inside modules, used ReLU. Nine Inception modules are stacked in GoogLeNet. [2][6]</p>
+<h3>1.2 What the paper got right in hindsight</h3>
+<ul>
+<li><strong>Compute-per-accuracy as the design target.</strong> This became the organizing principle of nearly every efficient-vision line after it (MobileNet, EfficientNet, ConvNeXt, InceptionNeXt).</li>
+<li><strong>Channel-dimension reduction via 1x1 conv</strong> is now ubiquitous (ResNet bottlenecks, depthwise-separable blocks, low-rank adapters are its conceptual descendants).</li>
+<li><strong>Multi-branch / multi-scale parallelism</strong> survives inside both CNNs (ResNeXt, Res2Net, InceptionNeXt) and transformers (MViT, CoaT, TransCeption). See §4.</li>
+</ul>
+<p>What aged less well: the hand-tuned, irregular per-module filter counts (the v4 paper explicitly calls this "unnecessary baggage" and makes blocks uniform [9]), and the auxiliary-classifier story — the v3 paper reports they act mostly as regularizers late in training rather than as gradient boosters. [7]</p>
+<hr />
+<h2>2. The Inception lineage (what the same group did next)</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Paper</th>
+<th>Key change</th>
+<th>Reported ImageNet (single-crop)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>v1 / GoogLeNet</strong></td>
+<td>Szegedy et al., CVPR 2015 [1]</td>
+<td>Module + 1x1 reductions + aux heads</td>
+<td>~29% top-1 / 9.2% top-5 (as re-reported in v3 table) [7]</td>
+</tr>
+<tr>
+<td><strong>v2 (BN-Inception)</strong></td>
+<td>Ioffe &amp; Szegedy, ICML 2015 — <em>Batch Normalization</em> [11]</td>
+<td>Normalize each layer's inputs per mini-batch; allows much higher learning rates; 14x fewer training steps to match accuracy; ensemble reached 4.9% top-5</td>
+<td>25.2% top-1 / 7.8% top-5 [7]</td>
+</tr>
+<tr>
+<td><strong>v3</strong></td>
+<td>Szegedy, Vanhoucke, Ioffe, Shlens, Wojna, CVPR 2016 — <em>Rethinking the Inception Architecture</em> [7][8]</td>
+<td>Factorize 5x5 into two 3x3; factorize nxn into 1xn + nx1 (asymmetric); factorized 7x7 stem; RMSProp; <strong>label smoothing</strong> (introduced here); BN in the auxiliary head</td>
+<td>21.2% top-1 / 5.6% top-5; 17.2% / 3.58% with 4-model ensemble + 144 crops [7]</td>
+</tr>
+<tr>
+<td><strong>v4 and Inception-ResNet v1/v2</strong></td>
+<td>Szegedy, Ioffe, Vanhoucke, Alemi, AAAI 2017 [9]</td>
+<td>Uniform, simplified block design; residual connections added to Inception (filter-concat replaced by summation); activation scaling to stabilize very wide residual blocks</td>
+<td>Ensemble of 3 Inception-ResNet + 1 Inception-v4: 3.08% top-5 (test) [9]</td>
+</tr>
+<tr>
+<td><strong>Xception</strong></td>
+<td>Chollet, 2017 [12]</td>
+<td>Pushes the Inception hypothesis to its limit: fully decouple cross-channel (1x1) from spatial (depthwise) correlations</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Two findings from the v4 paper are worth remembering because they are still debated: residual connections clearly <em>accelerate</em> training of Inception nets, but the authors say their evidence does not support the claim that residuals are <em>necessary</em> to train very deep nets — pure Inception-v4 matched Inception-ResNet-v2. [9]</p>
+<p>The Batch Normalization paper received the <strong>ICML 2025 Test of Time Award</strong>; it has &gt;60k citations. [13][14]</p>
+<hr />
+<h2>3. The authors now (Oct 2026) and what they are saying</h2>
+<h3>3.1 Christian Szegedy (first author) — the one whose "current thoughts" matter most</h3>
+<p><strong>Timeline.</strong> PhD, U. Bonn (2005; combinatorial Laplacian applied to chip placement) → ~5 yrs at Cadence → Google (ads, then Hartmut Neven's vision group; staff research scientist) → founding team of <strong>xAI</strong> (2023 – Feb 2025) → Chief Scientist, <strong>Morph Labs</strong> (mid-2025) → co-founded <strong>Math Inc.</strong> (announced 11 Sep 2025) → listed as <strong>co-founder &amp; CEO of AletheAI</strong> (with physicist Michael R. Douglas as co-founder/chief scientist) by May–Sep 2026. [15][16][17][18][19]</p>
+<p><strong>What he works on now: autoformalization.</strong> He founded Google's N2Formal group in 2016 and has described autoformalization — translating human-written mathematics into statements a proof assistant (Lean) can check — as the single theme of his research since. Math Inc.'s agent <strong>Gauss</strong> formalized Tao &amp; Kontorovich's <em>strong Prime Number Theorem</em> in Lean in ~3 weeks (~25k lines, ~1,100 theorems/definitions) after the human project had been partially stalled for ~18 months; a Feb 2026 run reportedly produced ~200k lines for 8D/24D sphere packing in roughly the same wall-clock time. Stated goal: grow the formalized-math corpus by 2–3 orders of magnitude within a year, as a training ground for "verified superintelligence." [15][16][17][19][20][21]</p>
+<p><strong>His current positions, from a May 2026 interview and a May 2026 Bonn lecture [15][22][23]:</strong>
+- Lean/autoformalization is the missing <em>machine-checkable layer</em> under AI reasoning; proofs are guaranteed correct without a human reading them. He extends this to verified software and chip design, and calls "vibe-coded" apps dangerous for exactly this reason.
+- He has a standing bet with François Chollet that AI reaches <strong>superhuman-mathematician level by 2026</strong>, a date he revised down from a 2019 "within a decade" prediction.
+- He <strong>no longer buys the original Batch Norm explanation</strong> (internal covariate shift); he discusses loss-landscape accounts instead and asks whether normalization is even necessary.
+- He says he is <strong>confident transformers will not be the dominant architecture in five years</strong>, and tries to separate what is "actually fundamental" in modern architectures from what is incidental.
+- Next step beyond a single agent: <em>specialized agents trading conjectures, proofs and predictions in a shared system</em> (Bonn, May 2026).
+- On the field's epistemics: he compares deep learning practice to building cathedrals before the statics were understood — the structures stand, the explanation is unfinished.
+- He has said he distrusts humanity more than he distrusts AI.</p>
+<p><strong>Why this matters for an Inception reader.</strong> Szegedy's through-line is the same in 2014 and 2026: distrust of answers that look good but can't be checked. <em>Intriguing Properties of Neural Networks</em> (2013, adversarial examples) showed classifiers can be fooled; Inception built a better classifier; BN made it trainable; autoformalization is his attempt to make the <em>reasoning</em> checkable. [15]</p>
+<h3>3.2 The other eight</h3>
+<table>
+<thead>
+<tr>
+<th>Author</th>
+<th>Role on GoogLeNet era</th>
+<th>Now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Wei Liu</strong></td>
+<td>UNC PhD (Berg lab); first author of <strong>SSD</strong> (ECCV 2016), co-authored with Anguelov, Erhan, Szegedy, Reed; ILSVRC 2015 organizer; Google PhD Fellow 2016</td>
+<td>Post-PhD affiliation listed as <strong>Nuro Inc.</strong>, Mountain View (dblp). [24][25][26]</td>
+</tr>
+<tr>
+<td><strong>Yangqing Jia</strong></td>
+<td>Creator of <strong>Caffe</strong> (Berkeley PhD, Darrell lab); Google Brain</td>
+<td>VP Alibaba (2019–23) → founded <strong>Lepton AI</strong> (2023) → acquired by NVIDIA Apr 2025 (~$700M reported; became DGX Cloud Lepton), VP of system software → <strong>left NVIDIA ~June 2026</strong> (SemiAnalysis cites a reneged open-source pledge) → advisor at Hyperbolic (Jul 2026) → launched <strong>Intent Lab</strong> and its agent "Fleet" on 29 Jul 2026, pitched as an autonomous team turning intent into production software; claims a 6.3x-faster inference engine generated from a one-line spec. [27][28][29][30][31]</td>
+</tr>
+<tr>
+<td><strong>Pierre Sermanet</strong></td>
+<td>Ex-NYU (OverFeat); Google Brain</td>
+<td><strong>Google DeepMind robotics</strong> — self-supervised learning (Time-Contrastive Networks), language-conditioned play; steady stream of Google robotics patents granted through Mar 2025. [32][33]</td>
+</tr>
+<tr>
+<td><strong>Scott Reed</strong></td>
+<td>U. Michigan PhD (Honglak Lee); Google intern on GoogLeNet</td>
+<td>DeepMind 2016–Mar 2024 (first author of <strong>Gato</strong>, 2022) → Principal Research Scientist, <strong>NVIDIA</strong> (co-developed <strong>GR00T N1</strong> humanoid foundation model; FLARE, 2025) → now listed as <strong>founder of a stealth startup</strong>. [34][35]</td>
+</tr>
+<tr>
+<td><strong>Dragomir Anguelov</strong></td>
+<td>Led Google vision team (Inception, SSD)</td>
+<td><strong>Waymo</strong> since 2018; VP of Research / head of AI foundations. Public talks (Mar 2025, Nov 2025) on the <strong>Waymo Foundation Model</strong>, EMMA (end-to-end multimodal driving), MotionLM, and simulation-based validation at scale. [36][37][38]</td>
+</tr>
+<tr>
+<td><strong>Dumitru Erhan</strong></td>
+<td>Google Brain (MultiBox detector precursor to SSD)</td>
+<td><strong>Research Director, Google DeepMind; co-lead of Veo</strong> (generative video). [39]</td>
+</tr>
+<tr>
+<td><strong>Vincent Vanhoucke</strong></td>
+<td>Google Brain; v3/v4 co-author</td>
+<td>Was head of robotics research at Google DeepMind; now <strong>Distinguished Engineer at Waymo</strong>; co-creator of CoRL; co-author on Gemini Robotics (2025). [40][41][42]</td>
+</tr>
+<tr>
+<td><strong>Andrew Rabinovich</strong></td>
+<td>Google R&amp;D leadership (UCSD PhD)</td>
+<td>Magic Leap head of AI (2015) → co-founded <strong>Headroom</strong> (2020) → <strong>Head of AI/ML at Upwork</strong> (built "Uma"); last confirmed Dec 2024. [43]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pattern.</strong> Of nine authors, five went to embodied/physical AI (Anguelov, Vanhoucke → Waymo; Sermanet → DeepMind robotics; Reed → NVIDIA robotics → startup; Liu → Nuro), two to infrastructure (Jia; Szegedy's RL/Lean infra), one to generative video (Erhan), one to applied AI products (Rabinovich). Nobody is still working on image-classification backbones. The 2014 team's "current thoughts" are about <em>agents, world models, and verification</em>, not about convolutions.</p>
+<hr />
+<h2>4. Where the Inception ideas are alive in 2024–2026 research</h2>
+<p><strong>4.1 Multi-branch as a cheap token mixer.</strong> <em>InceptionNeXt</em> (Yu, Zhou, Yan, Wang; CVPR 2024, v3 Apr 2025) is the most direct modern heir: it splits ConvNeXt's expensive 7x7 depthwise conv into four parallel channel groups — a small 3x3 square kernel, two orthogonal band kernels (1x11, 11x1), and identity — explicitly citing Inception's factorization. Result: ResNet-50 throughput with ConvNeXt-T accuracy (1.6x training throughput, +0.2 top-1). The motivating insight is Inception's own: FLOPs are the wrong cost model on GPUs; memory access cost dominates depthwise ops. [44][45]</p>
+<p><strong>4.2 Inception as a structural re-parameterization trick.</strong> <em>Diverse Branch Block</em> (Ding et al., CVPR 2021) trains an Inception-like multi-branch unit and folds it into a single conv at inference; finds that <em>diverse</em> branches (1x1 + 3x3) beat duplicate strong branches. [46]</p>
+<p><strong>4.3 Inception inside transformers.</strong> <em>Multiscale Vision Transformers</em> (Fan et al., 2021) ports the multiscale-hierarchy prior into ViTs [47]; <em>CoaT</em> uses serial/parallel multi-scale branches [48]; <em>TransCeption</em> (2025, Fraunhofer MEVIS) puts an inception-like multi-branch module in a pure-transformer U-Net for medical segmentation [49]; <em>Inceptive Transformers</em> (2025) stack an Inception-style 1-D multi-scale conv module on top of RoBERTa/BioBERT hidden states and report gains across domains and languages — Inception applied to NLP. [50]</p>
+<p><strong>4.4 Residual-feature-reuse variants.</strong> GoogLe2Net (2023) adds transverse passages inside Inception blocks for fine-grained multi-scale reuse, in the Res2Net tradition. [51]</p>
+<p><strong>4.5 The counter-trend.</strong> The 2026 "transformers ate vision" framing: ViTs give up convolution's spatial prior and recover it through large-scale pretraining, then win on infrastructure leverage (optimized attention kernels, LLM tooling). Inception-style priors are now mostly deployed where compute or data is constrained (edge, medical, time series) rather than at the frontier. [52]</p>
+<hr />
+<h2>5. Research agenda — where I'd lead work from here</h2>
+<p>Ranked; the first is the clear best bet if you only pick one.</p>
+<ol>
+<li>
+<p><strong>Inception-style decomposition of token mixers beyond ConvNeXt.</strong> InceptionNeXt showed the 4-branch split works for depthwise conv and even in isotropic (ViT-style) layouts. The open question is whether the same split (square + two band kernels + identity, channel-partitioned) improves throughput/accuracy for state-space (Mamba-style) and hybrid attention-conv mixers at the same memory-access budget. Measure wall-clock on A100/H100, not FLOPs — that is the paper's original thesis restated. [44][45]</p>
+</li>
+<li>
+<p><strong>Auxiliary classifiers → early-exit / self-distillation heads, re-evaluated.</strong> GoogLeNet's aux heads were weighted 0.3 and discarded; v3 reclassified them as regularizers. Modern early-exit and multi-token-prediction heads in LLMs are the same mechanism. A clean study on <em>when</em> intermediate supervision helps (depth, width, data regime) with 2026 training recipes is missing. [2][7]</p>
+</li>
+<li>
+<p><strong>Band-kernel multi-scale modules for 1-D sequence data.</strong> Inceptive Transformers (text) and the InceptionTime family (time series) suggest multi-scale 1-D convs on top of a pretrained encoder are a cheap, reliable gain. Worth testing on long financial-document encoders and multivariate time series before reaching for bigger models. [50]</p>
+</li>
+<li>
+<p><strong>Normalization re-examined.</strong> Szegedy himself now rejects the covariate-shift explanation for BN and questions whether normalization is necessary at all. Normalization-free training (good init + residual scaling, which the v4 paper already used for very wide blocks) is a live research direction with his explicit endorsement. [9][15][22]</p>
+</li>
+<li>
+<p><strong>Verification as the next "Inception."</strong> Szegedy's claim is that machine-checkable reasoning (Lean) is to AI reasoning what BN was to training: an enabling layer. For anyone extending his line of work, the leverage is in autoformalization infrastructure (Trinity-style parallel Lean environments, thousands of concurrent agents) and in corpus growth, not in yet another architecture. [15][17][19][21]</p>
+</li>
+</ol>
+<hr />
+<h2>6. Key open questions to track (next 12 months)</h2>
+<ul>
+<li>Does the Szegedy–Chollet "superhuman mathematician by 2026" bet resolve? (Pushmeet Kohli and others at DeepMind were already reporting research-level math progress by mid-2026.) [15][16]</li>
+<li>Does Math Inc./AletheAI publish a technical report on Gauss? As of Sep 2025 none existed; the Chinese-language coverage repeatedly notes this. [20][21]</li>
+<li>Does any frontier vision backbone re-adopt multi-branch convs at scale, or does the ViT monoculture hold? [52]</li>
+<li>Jia's Intent Lab: is "intent → production software" with an autonomous team substantively different from agentic coding IDEs? First product is "Fleet." [30][31]</li>
+</ul>
+<hr />
+<h2>7. Sources</h2>
+<p><strong>Primary papers</strong>
+1. Szegedy et al., <em>Going Deeper with Convolutions</em>, arXiv 1409.4842 — <a href="https://arxiv.org/abs/1409.4842">https://arxiv.org/abs/1409.4842</a>
+2. Same, PDF (auxiliary-classifier details, Table 1) — <a href="https://arxiv.org/pdf/1409.4842">https://arxiv.org/pdf/1409.4842</a>
+3. Same, UNC-hosted PDF with affiliations — <a href="https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf">https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf</a>
+4. GeeksforGeeks, <em>Understanding GoogLeNet Model</em> — <a href="https://www.geeksforgeeks.org/?p=406483">https://www.geeksforgeeks.org/?p=406483</a>
+5. Level Up Coding, <em>GoogLeNet explained</em> — <a href="https://levelup.gitconnected.com/googlenet-explained-from-theory-to-implementation-in-pytorch-tensorflow-b0f127b5567b">https://levelup.gitconnected.com/googlenet-explained-from-theory-to-implementation-in-pytorch-tensorflow-b0f127b5567b</a>
+6. Naukri Code360, <em>GoogLeNet Model</em> — <a href="https://www.naukri.com/code360/library/googlenet-model">https://www.naukri.com/code360/library/googlenet-model</a>
+7. Szegedy et al., <em>Rethinking the Inception Architecture for Computer Vision</em>, arXiv 1512.00567 (PDF, Tables 3–5) — <a href="https://arxiv.org/pdf/1512.00567">https://arxiv.org/pdf/1512.00567</a>
+8. Wikipedia, <em>Inception (deep learning architecture)</em> — <a href="https://en.wikipedia.org/wiki/Inception_(deep_learning_architecture)">https://en.wikipedia.org/wiki/Inception_(deep_learning_architecture)</a>
+9. Szegedy, Ioffe, Vanhoucke, Alemi, <em>Inception-v4, Inception-ResNet…</em>, AAAI 2017 — <a href="https://ojs.aaai.org/index.php/aaai/article/view/11231">https://ojs.aaai.org/index.php/aaai/article/view/11231</a> ; ar5iv — <a href="https://ar5iv.arxiv.org/html/1602.07261">https://ar5iv.arxiv.org/html/1602.07261</a>
+10. Liner review of <em>Going Deeper with Convolutions</em> (6.67% top-5) — <a href="https://liner.com/review/going-deeper-with-convolutions">https://liner.com/review/going-deeper-with-convolutions</a>
+11. Ioffe &amp; Szegedy, <em>Batch Normalization</em>, arXiv 1502.03167 — <a href="https://arxiv.org/abs/1502.03167">https://arxiv.org/abs/1502.03167</a>
+12. Chollet, <em>Xception</em> (2017), via Wikipedia [8]
+13. ICML 2025 Test of Time Award page — <a href="https://icml.cc/virtual/2025/39855">https://icml.cc/virtual/2025/39855</a>
+14. 36Kr / QbitAI coverage of the BN award — <a href="https://www.36kr.com/p/3382736880957441">https://www.36kr.com/p/3382736880957441</a> ; <a href="https://hub.baai.ac.cn/view/47333">https://hub.baai.ac.cn/view/47333</a></p>
+<p><strong>Szegedy — current work and views</strong>
+15. YesPress profile, <em>Christian Szegedy and the Long Road to a Proof You Can Check</em> (29 Sep 2026) — <a href="https://yespress.io/christian-szegedy">https://yespress.io/christian-szegedy</a>
+16. Nextomoro profile (May 2026) — <a href="https://nextomoro.com/christian-szegedy/">https://nextomoro.com/christian-szegedy/</a>
+17. AIWiki, <em>Christian Szegedy</em> (Jun 2026) — <a href="https://aiwiki.ai/wiki/christian_szegedy">https://aiwiki.ai/wiki/christian_szegedy</a>
+18. Crunchbase — <a href="https://www.crunchbase.com/person/christian-szegedy">https://www.crunchbase.com/person/christian-szegedy</a>
+19. Bonn Oberseminar, <em>The automatic mathematician</em> (21 May 2026, speaker listed as AletheAI) — <a href="https://math-events.uni-bonn.de/event/1289/">https://math-events.uni-bonn.de/event/1289/</a>
+20. 36Kr, Math Inc. / Gauss strong-PNT announcement (12 Sep 2025) — <a href="https://36kr.com/p/3463442661185156">https://36kr.com/p/3463442661185156</a> ; QbitAI — <a href="https://www.qbitai.com/2025/09/331038.html">https://www.qbitai.com/2025/09/331038.html</a>
+21. AIWiki, <em>Math Inc and Gauss</em> — <a href="https://aiwiki.ai/wiki/math_inc_gauss">https://aiwiki.ai/wiki/math_inc_gauss</a> ; Hack VC, <em>Why We Invested in Math Inc.</em> — <a href="https://blog.hack.vc/why-we-invested-in-math-inc/">https://blog.hack.vc/why-we-invested-in-math-inc/</a>
+22. The Information Bottleneck podcast, <em>Inside xAI, and the Bet on AI Math</em> (4 May 2026) — <a href="https://www.the-information-bottleneck.com/p/inside-xai-and-the-bet-on-ai-math-04d">https://www.the-information-bottleneck.com/p/inside-xai-and-the-bet-on-ai-math-04d</a>
+23. Szegedy on X re: Tao's 2026 prediction — <a href="https://x.com/ChrSzegedy/status/1674101876256538646">https://x.com/ChrSzegedy/status/1674101876256538646</a> ; LinkedIn (NYT "A.I. Is Coming for Mathematics") — <a href="https://www.linkedin.com/posts/christian-szegedy-bb284816_ai-is-coming-for-mathematics-too-activity-7087878647012872192-d7vu">https://www.linkedin.com/posts/christian-szegedy-bb284816_ai-is-coming-for-mathematics-too-activity-7087878647012872192-d7vu</a></p>
+<p><strong>Other authors</strong>
+24. Liu et al., <em>SSD: Single Shot MultiBox Detector</em>, arXiv 1512.02325 — <a href="https://arxiv.org/pdf/1512.02325v4.pdf">https://arxiv.org/pdf/1512.02325v4.pdf</a>
+25. Wei Liu CV (UNC) — <a href="https://www.cs.unc.edu/~wliu/cv_wliu.pdf">https://www.cs.unc.edu/~wliu/cv_wliu.pdf</a> ; homepage — <a href="https://www.cs.unc.edu/~wliu">https://www.cs.unc.edu/~wliu</a>
+26. dblp disambiguation page listing Nuro affiliation — <a href="https://dblp1.uni-trier.de/pid/49/3283-11.html">https://dblp1.uni-trier.de/pid/49/3283-11.html</a>
+27. TechNode, NVIDIA acquires Lepton AI (Apr 2025) — <a href="https://technode.com/2025/04/09/nvidia-acquires-chinese-gpu-cloud-startup-lepton-ai-report/">https://technode.com/2025/04/09/nvidia-acquires-chinese-gpu-cloud-startup-lepton-ai-report/</a>
+28. AIWiki, <em>Lepton AI</em> — <a href="https://aiwiki.ai/wiki/lepton_ai">https://aiwiki.ai/wiki/lepton_ai</a>
+29. iTiger / SemiAnalysis summary, Jia departs NVIDIA — <a href="https://www.itiger.com/news/1171607066">https://www.itiger.com/news/1171607066</a> ; BestHub analysis — <a href="https://www.besthub.dev/articles/why-nvidia-s-700m-leptonai-deal-became-a-one-year-bubble-ab981eb7111e">https://www.besthub.dev/articles/why-nvidia-s-700m-leptonai-deal-became-a-one-year-bubble-ab981eb7111e</a>
+30. we0.ai, <em>Yangqing Jia launches Intent Lab / Fleet</em> — <a href="https://we0.ai/articles/yangqing-jia-launches-intent-lab-fleet">https://we0.ai/articles/yangqing-jia-launches-intent-lab-fleet</a>
+31. 36Kr (EN), Jia's second venture (29 Jul 2026) — <a href="https://eu.36kr.com/en/p/3916153959902595">https://eu.36kr.com/en/p/3916153959902595</a>
+32. Pierre Sermanet patents (Justia) — <a href="https://patents.justia.com/inventor/pierre-sermanet">https://patents.justia.com/inventor/pierre-sermanet</a>
+33. Sermanet homepage mirror / LRDE seminar notice — <a href="https://netatlas.net/domain/753406">https://netatlas.net/domain/753406</a> ; <a href="https://lists.lre.epita.fr/archives/list/annonce@lrde.epita.fr/thread/3NKZKAQ2DEBIYXONUUKXZ4HLWBBPVSEX/">https://lists.lre.epita.fr/archives/list/annonce@lrde.epita.fr/thread/3NKZKAQ2DEBIYXONUUKXZ4HLWBBPVSEX/</a>
+34. Scott Reed, alphaXiv profile (NVIDIA → stealth founder) — <a href="https://www.alphaxiv.org/@scott-reed">https://www.alphaxiv.org/@scott-reed</a>
+35. AIWiki, <em>Gato</em> — <a href="https://aiwiki.ai/wiki/gato">https://aiwiki.ai/wiki/gato</a> ; Wikipedia — <a href="https://en.wikipedia.org/wiki/Gato_(DeepMind)">https://en.wikipedia.org/wiki/Gato_(DeepMind)</a>
+36. TWIML #725, <em>Waymo's Foundation Model with Drago Anguelov</em> (31 Mar 2025) — <a href="https://twimlai.com/go/725">https://twimlai.com/go/725</a>
+37. MIT CSAIL bio, Drago Anguelov — <a href="https://cap.csail.mit.edu/members/people/drago-anguelov">https://cap.csail.mit.edu/members/people/drago-anguelov</a>
+38. Practical AI, <em>Autonomous Vehicle Research at Waymo</em> (13 Nov 2025) — <a href="https://stt.ai/podcasts/practical-ai/autonomous-vehicle-research-at-waymo">https://stt.ai/podcasts/practical-ai/autonomous-vehicle-research-at-waymo</a>
+39. AI Weekly Who's Who, Dumitru Erhan — <a href="https://aiweekly.co/es/whos-who/person/dumitruerhan-bsky-social">https://aiweekly.co/es/whos-who/person/dumitruerhan-bsky-social</a>
+40. Vanhoucke, Medium "About" — <a href="https://vanhoucke.medium.com/about">https://vanhoucke.medium.com/about</a>
+41. Google Research people page, Vincent Vanhoucke — <a href="https://research.google/people/VincentVanhoucke/">https://research.google/people/VincentVanhoucke/</a>
+42. Automate.org speaker list (Distinguished Engineer, Waymo) — <a href="https://www.automate.org/events/advanced-vision-and-ai-conference/speakers">https://www.automate.org/events/advanced-vision-and-ai-conference/speakers</a> ; dblp — <a href="https://dblp.org/pid/69/7157">https://dblp.org/pid/69/7157</a>
+43. AI Summit New York, Andrew Rabinovich (Dec 2024) — <a href="https://newyork.theaisummit.com/speakers/andrew-rabinovich">https://newyork.theaisummit.com/speakers/andrew-rabinovich</a></p>
+<p><strong>Current research directions</strong>
+44. Yu et al., <em>InceptionNeXt: When Inception Meets ConvNeXt</em>, arXiv 2303.16900 (v3, Apr 2025) — <a href="https://arxiv.org/html/2303.16900v3">https://arxiv.org/html/2303.16900v3</a>
+45. Same, CVPR 2024 open access — <a href="https://openaccess.thecvf.com/content/CVPR2024/html/Yu_InceptionNeXt_When_Inception_Meets_ConvNeXt_CVPR_2024_paper.html">https://openaccess.thecvf.com/content/CVPR2024/html/Yu_InceptionNeXt_When_Inception_Meets_ConvNeXt_CVPR_2024_paper.html</a>
+46. Ding et al., <em>Diverse Branch Block</em>, arXiv 2103.13425 — <a href="https://arxiv.org/pdf/2103.13425">https://arxiv.org/pdf/2103.13425</a>
+47. Fan et al., <em>Multiscale Vision Transformers</em>, arXiv 2104.11227 — <a href="https://arxiv.org/abs/2104.11227">https://arxiv.org/abs/2104.11227</a>
+48. <em>Co-Scale Conv-Attentional Image Transformers</em> (CoaT) — <a href="https://astro.paperswithcode.com/paper/co-scale-conv-attentional-image-transformers">https://astro.paperswithcode.com/paper/co-scale-conv-attentional-image-transformers</a>
+49. <em>TransCeption</em> (2025), Fraunhofer Publica — <a href="https://publica.fraunhofer.de/handle/publica/499685">https://publica.fraunhofer.de/handle/publica/499685</a>
+50. <em>Inceptive Transformers</em>, arXiv 2505.20496 — <a href="https://arxiv.org/html/2505.20496v2">https://arxiv.org/html/2505.20496v2</a>
+51. <em>GoogLe2Net: Going Transverse with Convolutions</em>, arXiv 2301.00424 — <a href="https://arxiv.org/pdf/2301.00424">https://arxiv.org/pdf/2301.00424</a>
+52. AI Engineer Europe 2026, <em>How Transformers Finally Ate Vision</em> (I. Robinson) — <a href="https://www.ai.engineer/talks/VhfAVA3BG2I-transformers-finally-ate-vision">https://www.ai.engineer/talks/VhfAVA3BG2I-transformers-finally-ate-vision</a></p></main></body></html>
